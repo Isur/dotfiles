@@ -1,6 +1,0 @@
-[submodule "NvChad"]
-	path = NvChad
-	url = git@github.com:Isur/NvChad.git
-[submodule "kickstart.nvim"]
-	path = kickstart.nvim
-	url = https://github.com/Isur/kickstart.nvim
