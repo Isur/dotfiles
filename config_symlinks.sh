@@ -1,12 +1,3 @@
-echo Setting up the environment...
-
-echo Installing dependencies...
-
-brew install tmux
-brew install neovim
-
-echo Setup symlinks
-
 if [ ! -f "$HOME/.tmux.conf" ]; then
 	echo Creating simlink for tmux config!
 	ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
