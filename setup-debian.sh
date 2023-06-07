@@ -1,13 +1,5 @@
 echo Setting up the environment...
 
-# Install dependencies
-
-echo Installing dependencies...
-
-sudo apt install tmux neovim -y
-
-# Setup symlinks
-
 echo Setup symlinks
 
 if [ ! -f "$HOME/.tmux.conf" ]; then
