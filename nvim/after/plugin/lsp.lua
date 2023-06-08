@@ -7,7 +7,6 @@ local on_attach = function(_, bufnr)
     vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
   end
 
-  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
 
   nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
@@ -35,8 +34,20 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
-local servers = {
-  pylsp = {
+require("neodev").setup()
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+local mason_lspconfig = require('mason-lspconfig')
+mason_lspconfig.setup()
+
+
+local lsp = require("lspconfig")
+lsp["pylsp"].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
     pylsp = {
       plugins = {
         pycodestyle = {
@@ -44,36 +55,55 @@ local servers = {
         }
       }
     }
-  },
-  tsserver = {},
-  eslint = {},
-  cssls = {},
-
-  lua_ls = {
+  }
+})
+lsp["tsserver"].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+lsp["eslint"].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+lsp["cssls"].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
+lsp["lua_ls"].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
     Lua = {
       workspace = { checkThirdParty = false },
       telemetry = { enable = false },
     },
+  }
+})
+
+local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
+local null_ls = require("null-ls")
+null_ls.setup({
+  sources = {
+    -- Python
+    null_ls.builtins.formatting.black,
+    -- null_ls.builtins.diagnostics.mypy,
+    -- null_ls.builtins.diagnostics.ruff,
+    -- JS/TS
+    null_ls.builtins.diagnostics.eslint,
   },
-}
-
-require("neodev").setup()
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-local mason_lspconfig = require('mason-lspconfig')
-
-mason_lspconfig.setup {
-  ensure_installed = vim.tbl_keys(servers),
-}
-
-mason_lspconfig.setup_handlers {
-  function(server_name)
-    require('lspconfig')[server_name].setup {
-      capabilities = capabilities,
-      on_attach = on_attach,
-      settings = servers[server_name],
-    }
+  on_attach = function(client, bufnr)
+    if client.supports_method("textDocument/formatting") then
+      vim.api.nvim_clear_autocmds({
+        group = augroup,
+        buffer = bufnr,
+      })
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr })
+        end,
+      })
+    end
   end,
-}
+})
