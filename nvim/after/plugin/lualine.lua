@@ -1,4 +1,5 @@
 local lualine = require('lualine')
+
 lualine.setup({
   options = {
     icons_enabled = true,
@@ -8,14 +9,22 @@ lualine.setup({
   },
   sections = {
     lualine_a = {'mode'},
-    lualine_b = {'branch', 'diff'},
-    lualine_c = {'filename'},
+    lualine_b = {'branch'},
+    lualine_c = {{'filename', path = 1}},
     lualine_x = {'encoding', 'filetype'},
-    lualine_y = {'location', 'diagnostics'},
-    lualine_z = {'progress'},
+    lualine_y = {'location'},
+    lualine_z = {'diagnostics', 'progress'},
+  },
+  inactive_sections = {
+    lualine_a = {'filename'},
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
   },
   winbar = {
-    -- lualine_a= {'filename'},
+    -- lualine_a= {'branch'},
     -- lualine_b= {'filename'},
     -- lualine_c= {'filename'},
     -- lualine_x= {'filename'},
@@ -23,9 +32,9 @@ lualine.setup({
     -- lualine_z= {'progress'},
   },
   tabline = {
-    -- lualine_a= {'filename'},
-    -- lualine_b= {'filename'},
-    -- lualine_c= {'filename'},
+    -- lualine_a= { 'filename' },
+    -- lualine_b= {'tabs'},
+    -- lualine_c= {'buffers'},
     -- lualine_x= {'filename'},
     -- lualine_y= {'filename'},
     -- lualine_z= {'location'},
