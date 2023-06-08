@@ -1,5 +1,7 @@
 local dapPython = require("dap-python")
 
+vim.opt_local.colorcolumn = '100'
+
 vim.keymap.set("n", "<leader>tt", function()
   dapPython.test_method()
 end, { desc = "Test run test method"})
