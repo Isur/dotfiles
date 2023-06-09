@@ -1,12 +1,8 @@
 local treesitter = require("nvim-treesitter.configs")
 
 treesitter.setup({
-  -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'lua', 'python', 'tsx', 'typescript', 'vimdoc', 'vim', 'arduino', 'bash', 'dockerfile', 'gitignore', 'graphql', 'html', 'json', 'markdown', 'prisma', 'sql', 'javascript' },
-
-  -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
-
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
   incremental_selection = {
@@ -21,9 +17,8 @@ treesitter.setup({
   textobjects = {
     select = {
       enable = true,
-      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
+      lookahead = true,
       keymaps = {
-        -- You can use the capture groups defined in textobjects.scm
         ['aa'] = '@parameter.outer',
         ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
@@ -34,7 +29,7 @@ treesitter.setup({
     },
     move = {
       enable = true,
-      set_jumps = true, -- whether to set jumps in the jumplist
+      set_jumps = true,
       goto_next_start = {
         [']m'] = '@function.outer',
         [']]'] = '@class.outer',
@@ -61,5 +56,5 @@ treesitter.setup({
         ['<leader>A'] = '@parameter.inner',
       },
     },
-  },   
+  },
 })

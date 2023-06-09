@@ -1,4 +1,4 @@
-vim.keymap.set("n", "<leader>gg", vim.cmd.LazyGit, { desc = "Lazy Git" } )
+vim.keymap.set("n", "<leader>gg", vim.cmd.LazyGit, { desc = "Lazy Git" })
 
 local gitsigns = require('gitsigns')
 

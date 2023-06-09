@@ -12,6 +12,7 @@ neotree.setup({
     {
       event = "file_opened",
       handler = function(file_path)
+        -- uncomment if want to auto close tree
         -- neotree.close_all()
       end
     }

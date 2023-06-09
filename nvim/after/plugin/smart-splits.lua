@@ -1,10 +1,7 @@
 local smartsplits = require("smart-splits")
 
 smartsplits.setup({})
--- recommended mappings
 -- resizing splits
--- these keymaps will also accept a range,
--- for example `10<C-w>h` will `resize_left` by `(10 * config.default_amount)`
 vim.keymap.set('n', '<C-w>h', smartsplits.resize_left)
 vim.keymap.set('n', '<C-w>j', smartsplits.resize_down)
 vim.keymap.set('n', '<C-w>k', smartsplits.resize_up)
