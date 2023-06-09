@@ -1,9 +1,9 @@
 -- Keymap for showing explorer
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Explorer" })
 -- Keymaps for moving lines
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "{V} Move Selected Down" })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "{V} Move Selected Up" })
 
 vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 

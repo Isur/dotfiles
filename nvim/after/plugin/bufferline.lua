@@ -1,9 +1,11 @@
 local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+local function opts(desc)
+  return { noremap = true, silent = true, desc = desc }
+end
 
 -- Move to previous/next
-map('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', opts)
-map('n', '<Tab>', '<Cmd>BufferNext<CR>', opts)
+map('n', '<S-Tab>', '<Cmd>BufferPrevious<CR>', opts("Buffer previous"))
+map('n', '<Tab>', '<Cmd>BufferNext<CR>', opts("Buffer next"))
 -- Re-order to previous/next
 -- map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
 -- map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)
@@ -21,8 +23,8 @@ map('n', '<Tab>', '<Cmd>BufferNext<CR>', opts)
 -- Pin/unpin buffer
 -- map('n', '<A-p>', '<Cmd>BufferPin<CR>', opts)
 -- Close buffer
-map('n', '<Leader>x', '<Cmd>BufferClose<CR>', opts)
-map('n', '<Leader>X', '<Cmd>BufferCloseAllButCurrent<CR>', opts)
+map('n', '<Leader>x', '<Cmd>BufferClose<CR>', opts("Buffer close"))
+map('n', '<Leader>X', '<Cmd>BufferCloseAllButCurrent<CR>', opts("Buffer close all but current"))
 -- Wipeout buffer
 --                 :BufferWipeout
 -- Close commands

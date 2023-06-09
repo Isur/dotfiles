@@ -1,5 +1,5 @@
-vim.keymap.set("n", "<leader>fe", vim.cmd.Neotree, { desc = "[F]ile [E]xplorer" })
-vim.keymap.set("n", "<leader>fq", vim.cmd.NeoTreeClose, { desc = "[F]ile Explorer [Q]uit" })
+vim.keymap.set("n", "<leader>fe", vim.cmd.Neotree, { desc = "File Explorer" })
+vim.keymap.set("n", "<leader>fq", vim.cmd.NeoTreeClose, { desc = "File Explorer Quit" })
 
 local neotree = require("neo-tree")
 
