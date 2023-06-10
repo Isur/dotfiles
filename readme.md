@@ -19,3 +19,7 @@ Installed:
 
 `./mac-install-dependencies.sh` - will use `brew` to install required dependencies.
 
+## Preview
+
+![Preview](./preview.png)
+
