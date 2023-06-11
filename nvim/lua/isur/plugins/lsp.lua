@@ -31,5 +31,6 @@ return {
 			{ 'j-hui/fidget.nvim', opts = {} },
 			'folke/neodev.nvim',
 		},
-	}
+	},
+	"rmagatti/goto-preview"
 }

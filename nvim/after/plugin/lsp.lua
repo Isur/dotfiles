@@ -48,7 +48,8 @@ lsp["pylsp"].setup({
     pylsp = {
       plugins = {
         pycodestyle = {
-          maxLineLength = 100
+          maxLineLength = 100,
+          ignore = { "E712" },
         }
       }
     }
@@ -104,3 +105,26 @@ null_ls.setup({
     end
   end,
 })
+
+local goto = require("goto-preview")
+goto.setup({})
+
+vim.keymap.set({ 'n' }, '<leader>kk', function()
+  goto.goto_preview_definition()
+end, { silent = true, noremap = true, desc = 'Show preview definition window' })
+
+vim.keymap.set({ 'n' }, '<leader>kq', function()
+  goto.close_all_win()
+end, { silent = true, noremap = true, desc = 'Close all preview windows' })
+
+vim.keymap.set({ 'n' }, '<leader>kt', function()
+  goto.goto_preview_type_definition()
+end, { silent = true, noremap = true, desc = 'Show preview type window' })
+
+vim.keymap.set({ 'n' }, '<leader>kr', function()
+  goto.goto_preview_references()
+end, { silent = true, noremap = true, desc = 'Show preview references window' })
+
+vim.keymap.set({ 'n' }, '<leader>ki', function()
+  goto.goto_preview_implementation()
+end, { silent = true, noremap = true, desc = 'Show preview implementation window' })
