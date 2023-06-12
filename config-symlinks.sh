@@ -1,6 +1,6 @@
 if [ ! -f "$HOME/.tmux.conf" ]; then
 	echo Creating simlink for tmux config!
-	ln -s ~/dotfiles/.tmux.conf ~/.tmux.conf
+	ln -s ~/dotfiles/tmux.conf ~/.tmux.conf
 else
 	echo Tmux config already exists!
 fi
