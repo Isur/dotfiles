@@ -11,3 +11,10 @@ if [ ! -d "$HOME/.config/nvim" ]; then
 else
 	echo Config for nvim already exists!
 fi
+
+if [ ! -f "$HOME/.config/btop/themes/catppuccin.theme" ]; then
+	echo Creating simlink for btop theme!
+	ln -s ~/dotfiles/themes/btop/catppuccin.theme ~/.config/btop/themes/catppuccin.theme
+else
+	echo Theme for btop already exists!
+fi

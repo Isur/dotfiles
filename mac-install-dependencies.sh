@@ -18,4 +18,8 @@ echo
 echo "Installing lazygit..."
 echo
 brew install lazygit
+echo
+echo "Installing btop..."
+echo
+brew install btop
 

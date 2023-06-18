@@ -4,6 +4,7 @@
 Configs in this repo:
 - tmux
 - neovim
+- btop
 
 ## Requirements
 
@@ -12,6 +13,7 @@ Installed:
 - neovim
 - ripgrep
 - lazygit
+- btop
 
 ## Helpers
 
