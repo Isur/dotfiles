@@ -1,4 +1,5 @@
 vim.keymap.set("n", "<leader>gg", vim.cmd.LazyGit, { desc = "Lazy Git" })
+vim.keymap.set("n", "<leader>gh", ':Git log --oneline -p --follow -- % <CR>', { desc = "Git file history" })
 
 local gitsigns = require('gitsigns')
 
