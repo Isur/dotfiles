@@ -17,6 +17,9 @@ return {
 						"eslint-lsp",
 						"lua-language-server",
 						"python-lsp-server",
+						"tailwindcss",
+						"eslint_d",
+						"prettierd",
 					},
 				},
 				config = function(_, opts)

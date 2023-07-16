@@ -77,6 +77,10 @@ lsp["lua_ls"].setup({
     },
   }
 })
+lsp["tailwindcss"].setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local null_ls = require("null-ls")
@@ -87,7 +91,8 @@ null_ls.setup({
     -- null_ls.builtins.diagnostics.mypy,
     -- null_ls.builtins.diagnostics.ruff,
     -- JS/TS
-    null_ls.builtins.diagnostics.eslint,
+    null_ls.builtins.diagnostics.eslint_d,
+    null_ls.builtins.formatting.prettierd,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
