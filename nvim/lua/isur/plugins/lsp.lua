@@ -1,4 +1,9 @@
 return {
+	{
+		'j-hui/fidget.nvim',
+		tag = "legacy",
+		opts = {}
+	},
 	"jose-elias-alvarez/null-ls.nvim",
 	{
 		"neovim/nvim-lspconfig",
@@ -31,7 +36,6 @@ return {
 				end
 			},
 			'williamboman/mason-lspconfig.nvim',
-			{ 'j-hui/fidget.nvim', opts = {} },
 			'folke/neodev.nvim',
 		},
 	},
