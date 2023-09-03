@@ -18,3 +18,10 @@ if [ ! -f "$HOME/.config/btop/themes/catppuccin.theme" ]; then
 else
 	echo Theme for btop already exists!
 fi
+
+if [ ! -d "$HOME/.config/kitty" ]; then
+	echo Creating simlink for kitty config!
+	ln -s ~/dotfiles/kitty ~/.config/kitty
+else
+	echo Config for kitty already exists!
+fi
