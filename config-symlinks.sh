@@ -19,6 +19,13 @@ else
 	echo Theme for btop already exists!
 fi
 
+if [ ! -f "$HOME/.ideavimrc" ]; then
+	echo Creating simlink for ideavim config!
+	ln -s ~/dotfiles/ideavimrc ~/.ideavimrc
+else
+	echo ideavim config already exists!
+fi
+
 if [ ! -d "$HOME/.config/kitty" ]; then
 	echo Creating simlink for kitty config!
 	ln -s ~/dotfiles/kitty ~/.config/kitty
