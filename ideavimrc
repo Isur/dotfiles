@@ -8,7 +8,7 @@ map <leader>e <Action>(ShowErrorDescription)
 map <leader>a <Action>(ShowIntentionActions)
 map <leader>t <Action>(ActivateTerminalToolWindow)
 map <leader>us <Action>(FindUsages)
-" map <leader>k <Action>(QuickJavaDoc)
+map <leader>k <Action>(QuickTypeDefinition)
 
 " Methods
 map [[ <Action>(MethodUp)
