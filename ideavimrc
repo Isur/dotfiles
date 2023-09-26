@@ -10,6 +10,11 @@ map <leader>t <Action>(ActivateTerminalToolWindow)
 map <leader>us <Action>(FindUsages)
 map <leader>k <Action>(QuickTypeDefinition)
 
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+
 " Methods
 map [[ <Action>(MethodUp)
 map ]] <Action>(MethodDown)
@@ -41,7 +46,7 @@ nnoremap <leader>fe :NERDTreeFocus<CR>
 set ideajoin
 set relativenumber
 set number
-set clipboard=unnamed
+set clipboard=unnamedplus
 set scrolloff=8
 set tabstop=4
 set shiftwidth=4
