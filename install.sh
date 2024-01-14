@@ -47,6 +47,7 @@ check_system () {
 setup_debian() {
 	sudo apt update -y && sudo apt upgrade -y
 	mkdir -p $HOME/apps
+	mkdir -p $HOME/.config
 
 	install_with_apt () {
 		echo "Installing $1!"
@@ -59,7 +60,7 @@ setup_debian() {
 		install_with_apt ripgrep
 		install_with_apt fd-find
 		install_with_snap btop
-
+		mkdir -p $HOME/.config/btop/themes
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 	}
 
