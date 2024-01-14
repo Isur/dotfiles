@@ -48,7 +48,7 @@ check_system () {
 
 setup_debian() {
 	sudo apt update -y
-	sudo apt install build-essential curl libfuse2 -y
+	sudo apt install build-essential curl libfuse2 snapd -y
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
 
@@ -135,6 +135,22 @@ setup_arch () {
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
 
+	install_yay () {
+		echo "Installing yay!"
+		git clone https://aur.archlinux.org/yay.git
+		cd yay
+		makepkg -si
+		cd ..
+		rm -rf yay
+	}
+
+	if ! command -v yay &> /dev/null
+	then
+		install_yay
+	else
+		echo "yay is installed!"
+	fi
+
 	install_with_yay () {
 		echo "Installing $1!"
 		yay -S $1 --noconfirm --sudoloop
@@ -172,9 +188,13 @@ setup_arch () {
 
 	install_zsh () {
 		install_with_yay zsh
-		echo "Installing oh-my-zsh!"
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		mv $HOME/.zshrc $HOME/.zshrc.old
+
+		create_symlink "zsh config" "zshrc-local" ".zshrc"
 	}
 
 	install_question "utils" install_utils
@@ -231,8 +251,13 @@ setup_darwin() {
 		echo "Installing zsh!"
 		brew install zsh
 		echo "Installing oh-my-zsh!"
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		mv $HOME/.zshrc $HOME/.zshrc.old
+
+		create_symlink "zsh config" "zshrc-local" ".zshrc"
 	}
 
 
