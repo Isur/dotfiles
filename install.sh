@@ -49,7 +49,7 @@ check_system () {
 
 setup_debian() {
 	sudo apt update -y
-	sudo apt install build-essential curl git libfuse2 -y
+	sudo apt install build-essential curl libfuse2 -y
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
 
@@ -57,6 +57,11 @@ setup_debian() {
 	install_with_apt () {
 		echo "Installing $1!"
 		sudo apt install $1 -y
+	}
+
+	install_with_snap () {
+		echo "Installing $1!"
+		sudo snap install $1
 	}
 
 	install_utils () {
@@ -126,6 +131,9 @@ setup_debian() {
 }
 
 setup_arch () {
+	mkdir -p $HOME/apps
+	mkdir -p $HOME/.config
+
 	install_with_yay () {
 		echo "Installing $1!"
 		yay -S $1 --noconfirm --sudoloop
