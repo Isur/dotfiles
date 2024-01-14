@@ -35,15 +35,6 @@ check_system () {
 	fi
 }
 
-yay_install () {
-	echo "Installing yay!"
-	git clone https://aur.archlinux.org/yay.git
-	cd yay
-	makepkg -si
-	cd ..
-	rm -rf yay
-}
-
 install_with_yay () {
 	# usage: install_with_yay "package_name"
 	echo "Installing $1!"
@@ -51,9 +42,6 @@ install_with_yay () {
 }
 
 setup_linux () {
-	echo "Setting up Linux!"
-	yay_install
-		
 	install_utils () {
 		echo "Installing utils!"
 		echo "Installing fzf!"
@@ -98,6 +86,13 @@ setup_linux () {
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
 	}
+
+	install_question "utils" install_utils
+	install_question "tmux" install_tmux
+	install_question "nvim" install_neovim
+	install_question "kitty" install_kitty
+	install_question "zsh" install_zsh
+	install_question "ideavim config" install_ideavim_config
 }
 
 setup_darwin() {
