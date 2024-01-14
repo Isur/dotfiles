@@ -33,7 +33,6 @@ check_system () {
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		echo "Linux detected!"
 		system="Linux"
-		# check if it's arch based
 		if [ -f /etc/arch-release ]; then
 			echo "Arch based distro detected!"
 			setup_arch
@@ -101,6 +100,8 @@ setup_debian() {
 		echo "Installing oh-my-zsh!"
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 		mv $HOME/.zshrc $HOME/.zshrc.old
 
 		if [ "$server" == "yes" ]; then
