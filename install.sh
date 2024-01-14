@@ -1,5 +1,8 @@
 #!/bin/bash
 
+system=""
+server="no"
+
 install_question () {
 	echo "Do you want to install $1? (y/n)"
 	read answer
@@ -45,7 +48,6 @@ check_system () {
 }
 
 setup_debian() {
-	sudo apt update -y && sudo apt upgrade -y
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
 
@@ -89,16 +91,35 @@ setup_debian() {
 	install_zsh () {
 		install_with_apt zsh
 		echo "Installing oh-my-zsh!"
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+		mv $HOME/.zshrc $HOME/.zshrc.old
+
+		if [ "$server" == "yes" ]; then
+			create_symlink "zsh config" "zshrc-server" ".zshrc"
+		else
+			create_symlink "zsh config" "zshrc-local" ".zshrc"
+		fi
 	}
 
-	install_question "utils" install_utils
-	install_question "tmux" install_tmux
-	install_question "nvim" install_neovim
-	install_question "kitty" install_kitty
-	install_question "zsh" install_zsh
-	install_question "ideavim config" install_ideavim_config
+	echo "Are you installing this on server? (y/n)"
+	read serverQuestion
+	if [ "$serverQuestion" != "${serverQuestion#[Yy]}" ] ;then
+		server="yes"
+		sudo apt update
+		install_utils
+		install_neovim
+		install_zsh
+	else
+		server="no"
+		sudo apt update -y && sudo apt upgrade -y
+		install_question "utils" install_utils
+		install_question "tmux" install_tmux
+		install_question "nvim" install_neovim
+		install_question "kitty" install_kitty
+		install_question "zsh" install_zsh
+		install_question "ideavim config" install_ideavim_config
+	fi
 }
 
 setup_arch () {
