@@ -48,8 +48,11 @@ check_system () {
 }
 
 setup_debian() {
+	sudo apt update -y
+	sudo apt install build-essential curl git libfuse2 -y
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
+
 
 	install_with_apt () {
 		echo "Installing $1!"
@@ -106,13 +109,13 @@ setup_debian() {
 	read serverQuestion
 	if [ "$serverQuestion" != "${serverQuestion#[Yy]}" ] ;then
 		server="yes"
-		sudo apt update
 		install_utils
+		install_tmux
 		install_neovim
 		install_zsh
 	else
 		server="no"
-		sudo apt update -y && sudo apt upgrade -y
+		sudo apt upgrade -y
 		install_question "utils" install_utils
 		install_question "tmux" install_tmux
 		install_question "nvim" install_neovim
