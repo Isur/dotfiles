@@ -1,7 +1,6 @@
 #!/bin/bash
 
 install_question () {
-	# usage: install_question "name" "function"
 	echo "Do you want to install $1? (y/n)"
 	read answer
 	if [ "$answer" != "${answer#[Yy]}" ] ;then
@@ -12,10 +11,12 @@ install_question () {
 }
 
 create_symlink () {
-	# usage: create_symlink "name" "path/to/file" "path/to/symlink"
-	if [ ! -f "$HOME/$3" ]; then
+	from="$HOME/dotfiles/$2"
+	to="$HOME/$3"
+
+	if [ ! -e $to ]; then
 		echo Creating simlink for $1!
-		ln -s ~/dotfiles/$2 ~/$3
+		ln -s $from $to
 	else
 		echo $1 already exists!
 	fi
@@ -25,32 +26,91 @@ check_system () {
 	if [ "$(uname)" == "Darwin" ]; then
 		echo "MacOS detected!"
 		system="Darwin"
-		setip_darwin
+		setup_darwin
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 		echo "Linux detected!"
 		system="Linux"
+		# check if it's arch based
+		if [ -f /etc/arch-release ]; then
+			echo "Arch based distro detected!"
+			setup_arch
+		elif [ -f /etc/debian_version ]; then
+			echo "Debian based distro detected!"
+			setup_debian
+		fi
 	elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
 		echo "Windows detected!"
 		system="Windows"
 	fi
 }
 
-install_with_yay () {
-	# usage: install_with_yay "package_name"
-	echo "Installing $1!"
-	yay -S $1 --noconfirm --sudoloop
-}
+setup_debian() {
+	sudo apt update -y && sudo apt upgrade -y
+	mkdir -p $HOME/apps
 
-setup_linux () {
+	install_with_apt () {
+		echo "Installing $1!"
+		sudo apt install $1 -y
+	}
+
 	install_utils () {
 		echo "Installing utils!"
-		echo "Installing fzf!"
+		install_with_apt fzf
+		install_with_apt ripgrep
+		install_with_apt fd-find
+		install_with_snap btop
+
+		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
+	}
+
+	install_ideavim_config () {
+		echo "Installing ideavim config!"
+		create_symlink "ideavim config" "ideavimrc" ".ideavimrc"
+	}
+
+	install_tmux () {
+		install_with_apt tmux
+		create_symlink "tmux config" "tmux.conf" ".tmux.conf"
+	}
+
+	install_neovim () {
+		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+		chmod u+x nvim.appimage
+		sudo mv nvim.appimage $HOME/apps/nvim
+		create_symlink "nvim config" "nvim" ".config/nvim"
+	}
+
+	install_kitty () {
+		install_with_apt kitty
+		create_symlink "kitty config" "kitty" ".config/kitty"
+	}
+
+	install_zsh () {
+		install_with_apt zsh
+		echo "Installing oh-my-zsh!"
+		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+	}
+
+	install_question "utils" install_utils
+	install_question "tmux" install_tmux
+	install_question "nvim" install_neovim
+	install_question "kitty" install_kitty
+	install_question "zsh" install_zsh
+	install_question "ideavim config" install_ideavim_config
+}
+
+setup_arch () {
+	install_with_yay () {
+		echo "Installing $1!"
+		yay -S $1 --noconfirm --sudoloop
+	}
+
+	install_utils () {
+		echo "Installing utils!"
 		install_with_yay fzf
-		echo "Installing ripgrep!"
 		install_with_yay ripgrep
-		echo "Installing fd!"
 		install_with_yay fd
-		echo "Installing btop!"
 		install_with_yay btop
 
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
@@ -62,25 +122,21 @@ setup_linux () {
 	}
 
 	install_tmux () {
-		echo "Installing tmux!"
 		install_with_yay tmux
 		create_symlink "tmux config" "tmux.conf" ".tmux.conf"
 	}
 
 	install_neovim () {
-		echo "Installing neovim!"
 		install_with_yay neovim
 		create_symlink "nvim config" "nvim" ".config/nvim"
 	}
 
 	install_kitty () {
-		echo "Installing kitty!"
 		install_with_yay kitty
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
 
 	install_zsh () {
-		echo "Installing zsh!"
 		install_with_yay zsh
 		echo "Installing oh-my-zsh!"
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
