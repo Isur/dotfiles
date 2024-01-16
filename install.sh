@@ -63,6 +63,17 @@ setup_debian() {
 		sudo snap install $1
 	}
 
+	config_git () {
+		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+		tar xf lazygit.tar.gz lazygit
+		sudo install lazygit /usr/local/bin
+		install_with_apt git-delta
+
+		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
+		create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
+	}
+
 	install_utils () {
 		echo "Installing utils!"
 		install_with_apt fzf
@@ -70,14 +81,6 @@ setup_debian() {
 		install_with_apt fd-find
 		install_with_snap btop
 		mkdir -p $HOME/.config/btop/themes
-		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-		tar xf lazygit.tar.gz lazygit
-		sudo install lazygit /usr/local/bin
-		install_with_apt git-delta
-
-		create_symlink "gitconfig" "gitconfig" ".gitconfig"
-		create_symlink "lazygit" "lazygit/config.yml" ".config/lazygit/config.yml"
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 
 	}
@@ -137,6 +140,7 @@ setup_debian() {
 		install_question "kitty" install_kitty
 		install_question "zsh" install_zsh
 		install_question "ideavim config" install_ideavim_config
+		install_question "git config" config_git
 	fi
 }
 
@@ -165,17 +169,20 @@ setup_arch () {
 		yay -S $1 --noconfirm --sudoloop
 	}
 
+	config_git () {
+		install_with_yay git-delta
+		install_with_yay lazygit
+
+		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
+		create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
+	}
+
 	install_utils () {
 		echo "Installing utils!"
 		install_with_yay fzf
 		install_with_yay ripgrep
 		install_with_yay fd
 		install_with_yay btop
-		install_with_yay git-delta
-		install_with_yay lazygit
-
-		create_symlink "gitconfig" "gitconfig" ".gitconfig"
-		create_symlink "lazygit" "lazygit/config.yml" ".config/lazygit/config.yml"
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 	}
 
@@ -216,6 +223,7 @@ setup_arch () {
 	install_question "kitty" install_kitty
 	install_question "zsh" install_zsh
 	install_question "ideavim config" install_ideavim_config
+	install_question "config git" config_git
 }
 
 setup_darwin() {
@@ -231,6 +239,16 @@ setup_darwin() {
 		brew update
 	fi
 
+	config_git () {
+		echo "Installing delta"
+		brew install git-delta
+		echo "Installing lazygit"
+		brew install lazygit
+
+		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
+		create_symlink "lazygit" "git-configs/lazygit.yml" "Library/Application Support/lazygit/config.yml"
+	}
+
 	install_utils () {
 		echo "Installing utils!"
 		echo "Installing fzf!"
@@ -243,15 +261,8 @@ setup_darwin() {
 		brew install btop
 		echo "Installing gnu-sed"
 		brew install gnu-sed
-		echo "Installing delta"
-		brew install git-delta
-		echo "Installing lazygit"
-		brew install lazygit
 
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
-		create_symlink "gitconfig" "gitconfig" ".gitconfig"
-		create_symlink "lazygit" "lazygit/config.yml" "Library/Application Support/lazygit/config.yml"
-
 	}
 	
 	install_ideavim_config () {
@@ -297,5 +308,6 @@ setup_darwin() {
 	install_question "kitty" install_kitty
 	install_question "zsh" install_zsh
 	install_question "ideavim config" install_ideavim_config
+	install_question "config git" config_git
 }
 check_system
