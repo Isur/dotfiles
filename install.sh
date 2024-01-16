@@ -17,9 +17,9 @@ create_symlink () {
 	from="$HOME/dotfiles/$2"
 	to="$HOME/$3"
 
-	if [ ! -e $to ]; then
+	if [ ! -e "$to" ]; then
 		echo Creating simlink for $1!
-		ln -s $from $to
+		ln -s "$from" "$to"
 	else
 		echo $1 already exists!
 	fi
@@ -70,7 +70,16 @@ setup_debian() {
 		install_with_apt fd-find
 		install_with_snap btop
 		mkdir -p $HOME/.config/btop/themes
+		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+		tar xf lazygit.tar.gz lazygit
+		sudo install lazygit /usr/local/bin
+		install_with_apt git-delta
+
+		create_symlink "gitconfig" "gitconfig" ".gitconfig"
+		create_symlink "lazygit" "lazygit/config.yml" ".config/lazygit/config.yml"
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
+
 	}
 
 	install_ideavim_config () {
@@ -162,7 +171,11 @@ setup_arch () {
 		install_with_yay ripgrep
 		install_with_yay fd
 		install_with_yay btop
+		install_with_yay git-delta
+		install_with_yay lazygit
 
+		create_symlink "gitconfig" "gitconfig" ".gitconfig"
+		create_symlink "lazygit" "lazygit/config.yml" ".config/lazygit/config.yml"
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 	}
 
@@ -207,8 +220,16 @@ setup_arch () {
 
 setup_darwin() {
 	echo "Setting up MacOS!"
-	echo "Installing homebrew!"
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+	which -s brew
+	if [[ $? != 0 ]] ; then
+		# Install Homebrew
+		echo "Installing homebrew!"
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	else
+		echo "Update brew"
+		brew update
+	fi
 
 	install_utils () {
 		echo "Installing utils!"
@@ -220,8 +241,17 @@ setup_darwin() {
 		brew install fd
 		echo "Installing btop!"
 		brew install btop
+		echo "Installing gnu-sed"
+		brew install gnu-sed
+		echo "Installing delta"
+		brew install git-delta
+		echo "Installing lazygit"
+		brew install lazygit
 
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
+		create_symlink "gitconfig" "gitconfig" ".gitconfig"
+		create_symlink "lazygit" "lazygit/config.yml" "Library/Application Support/lazygit/config.yml"
+
 	}
 	
 	install_ideavim_config () {
