@@ -27,8 +27,8 @@ return {
 				end,
 			},
 			mapping = cmp.mapping.preset.insert({
-				["<S-TAB>"] = cmp.mapping.select_prev_item(),
-				["<TAB>"] = cmp.mapping.select_next_item(),
+				["<C-k>"] = cmp.mapping.select_prev_item(),
+				["<C-j>"] = cmp.mapping.select_next_item(),
 				["<C-d>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
 				["<C-Space>"] = cmp.mapping.complete(),

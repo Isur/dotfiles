@@ -21,7 +21,16 @@ create_symlink () {
 		echo Creating simlink for $1!
 		ln -s "$from" "$to"
 	else
-		echo $1 already exists!
+		old="$to".old
+		if [ -e "$old" ]; then
+			echo "Old $1 config already exists!"
+			return 0
+		else
+			echo "Moving old $1 config to $old!"
+			mv "$to" "$old"
+			echo Creating simlink for $1!
+			ln -s "$from" "$to"
+		fi
 	fi
 }
 
@@ -67,7 +76,9 @@ setup_debian() {
 		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
 		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
 		tar xf lazygit.tar.gz lazygit
-		sudo install lazygit /usr/local/bin
+		sudo install lazygit $HOME/apps
+		rm lazygit.tar.gz
+		rm -rf lazygit
 		install_with_apt git-delta
 
 		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
@@ -231,7 +242,6 @@ setup_darwin() {
 
 	which -s brew
 	if [[ $? != 0 ]] ; then
-		# Install Homebrew
 		echo "Installing homebrew!"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	else
