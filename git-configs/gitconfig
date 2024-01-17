@@ -15,7 +15,7 @@
 [delta]
     navigate = true    # use n and N to move between diff sections
     light = false
-    side-by-side = true
+    # side-by-side = true
 
 [merge]
     conflictstyle = diff3

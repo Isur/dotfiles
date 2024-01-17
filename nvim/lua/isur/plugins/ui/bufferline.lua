@@ -19,8 +19,8 @@ return {
 		bufferline.setup()
 
 		-- Move to previous/next
-		map("n", "<leader>bp", "<Cmd>BufferPrevious<CR>", opts("Buffer previous"))
-		map("n", "<leader>bn", "<Cmd>BufferNext<CR>", opts("Buffer next"))
+		map("n", "<S-TAB>", "<Cmd>BufferPrevious<CR>", opts("Buffer previous"))
+		map("n", "<TAB>", "<Cmd>BufferNext<CR>", opts("Buffer next"))
 		-- Re-order to previous/next
 		-- map('n', '<A-<>', '<Cmd>BufferMovePrevious<CR>', opts)
 		-- map('n', '<A->>', '<Cmd>BufferMoveNext<CR>', opts)

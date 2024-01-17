@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+# Check if there is one argument passed
+if [[ $# -eq 1 ]]; then
+	name=$1
+else
+	echo "Usage: $0 <name>"
+	exit 1
+fi
+
+project_path="$HOME/Developer/PoC/$name"
+
+if [[ -d $project_path ]]; then
+	echo "Project $name already exists"
+	exit 1
+fi
+
+mkdir -p $project_path
+
+tmux_running=$(pgrep tmux)
+
+if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
+    tmux new-session -s $name -c $project_path
+    exit 0
+fi
+
+if ! tmux has-session -t=$name 2> /dev/null; then
+    tmux new-session -ds $name -c $project_path
+fi
+
+tmux switch-client -t $name
