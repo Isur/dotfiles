@@ -52,6 +52,20 @@ check_system () {
 	fi
 }
 
+install_node () {
+	if ! command -v nvm &> /dev/null
+	then
+		echo "Installing nvm!"
+		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+		source ~/.zshrc
+	else
+		echo "nvm is installed!"
+	fi
+
+	nvm install --lts
+	npm install -g pnpm
+}
+
 setup_debian() {
 	sudo apt update -y
 	sudo apt install build-essential curl libfuse2 snapd -y
@@ -148,6 +162,7 @@ setup_debian() {
 		install_question "zsh" install_zsh
 		install_question "ideavim config" install_ideavim_config
 		install_question "git config" config_git
+		install_question "node" install_node
 	fi
 }
 
@@ -223,6 +238,7 @@ setup_arch () {
 		create_symlink "zsh config" "zshrc-local" ".zshrc"
 	}
 
+
 	install_question "utils" install_utils
 	install_question "tmux" install_tmux
 	install_question "nvim" install_neovim
@@ -230,6 +246,7 @@ setup_arch () {
 	install_question "zsh" install_zsh
 	install_question "ideavim config" install_ideavim_config
 	install_question "config git" config_git
+	install_question "node" install_node
 }
 
 setup_darwin() {
@@ -313,5 +330,6 @@ setup_darwin() {
 	install_question "zsh" install_zsh
 	install_question "ideavim config" install_ideavim_config
 	install_question "config git" config_git
+	install_question "node" install_node
 }
 check_system
