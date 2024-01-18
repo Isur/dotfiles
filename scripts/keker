@@ -1,11 +1,33 @@
 #!/usr/bin/env bash
 
-# Check if there is one argument passed
-if [[ $# -eq 1 ]]; then
-	name=$1
-else
-	echo "Usage: $0 <name>"
-	exit 1
+ts=false
+name=""
+
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-t|--ts)
+			ts=true 
+			shift;;
+		-n|--name)
+			shift
+			if [[ $# -gt 0 ]]; then
+				name=$1
+			else
+				echo "Flag -n requires argument"
+				exit 1
+			fi
+			shift;;
+		-h|--help)
+			echo "Usage: $0 [-t|--ts] [-n|--name <name>]"
+			exit 0;;
+		*)
+			echo "Usage: $0 [-t|--ts] [-n|--name <name>]"
+			exit 1;;
+	esac
+done
+
+if [[ $name == "" ]]; then
+	read -p "Project name: " name
 fi
 
 project_path="$HOME/Developer/PoC/$name"
@@ -15,17 +37,25 @@ if [[ -d $project_path ]]; then
 	exit 1
 fi
 
-mkdir -p $project_path
+if [[ $ts == false ]]; then
+	mkdir -p $project_path
+else
+	git clone git@github.com:Isur/ts-start.git $project_path
+	rm -rf $project_path/.git
+fi
+
+git init $project_path
+(cd $project_path && git add . && git commit -m "Initial commit" && pnpm install)
 
 tmux_running=$(pgrep tmux)
 
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-    tmux new-session -s $name -c $project_path
-    exit 0
+	tmux new-session -s $name -c $project_path
+	exit 0
 fi
 
 if ! tmux has-session -t=$name 2> /dev/null; then
-    tmux new-session -ds $name -c $project_path
+	tmux new-session -ds $name -c $project_path
 fi
 
 tmux switch-client -t $name
