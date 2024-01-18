@@ -49,9 +49,6 @@ check_system () {
 			echo "Debian based distro detected!"
 			setup_debian
 		fi
-	elif [ "$(expr substr $(uname -s) 1 10)" == "MINGW32_NT" ]; then
-		echo "Windows detected!"
-		system="Windows"
 	fi
 }
 
