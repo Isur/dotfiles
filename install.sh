@@ -68,7 +68,8 @@ install_node () {
 
 setup_debian() {
 	sudo apt update -y
-	sudo apt install build-essential curl libfuse2 snapd -y
+	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y
+	sudo pip install --upgrade pip
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
 
@@ -90,7 +91,11 @@ setup_debian() {
 		sudo install lazygit $HOME/apps
 		rm lazygit.tar.gz
 		rm -rf lazygit
-		install_with_apt git-delta
+
+		DELTA_VERSION=0.16.5
+		curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb
+		sudo dpkg -i delta.deb
+		rm delta.deb
 
 		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
 		create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
@@ -286,7 +291,7 @@ setup_darwin() {
 
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 	}
-	
+
 	install_ideavim_config () {
 		echo "Installing ideavim config!"
 		create_symlink "ideavim config" "ideavimrc" ".ideavimrc"
