@@ -92,6 +92,8 @@ setup_debian() {
 		rm lazygit.tar.gz
 		rm -rf lazygit
 
+		mkdir $HOME/.config/lazygit
+
 		DELTA_VERSION=0.16.5
 		curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb
 		sudo dpkg -i delta.deb
