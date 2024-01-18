@@ -21,7 +21,6 @@ return {
 					"docker-compose-language-service",
 					"css-lsp",
 					"html-lsp",
-					"eslint-lsp",
 					"lua-language-server",
 					"emmet-language-server",
 					-- Linters
