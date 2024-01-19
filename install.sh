@@ -268,6 +268,8 @@ setup_arch () {
 		nice_echo "yay is installed!"
 	fi
 
+	yay --noconfirm --sudoloop
+
 	install_with_yay () {
 		nice_echo "Installing $1!"
 		yay -S $1 --noconfirm --sudoloop
