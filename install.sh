@@ -78,7 +78,7 @@ install_node () {
 	if ! command -v nvm &> /dev/null
 	then
 		echo "Installing nvm!"
-		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash > /dev/null
 		source ~/.zshrc
 	else
 		echo "nvm is installed!"
@@ -89,9 +89,9 @@ install_node () {
 }
 
 setup_debian() {
-	sudo apt update -y
-	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y
-	sudo pip install --upgrade pip
+	sudo apt update -y > /dev/null
+		sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y > /dev/null
+	sudo pip install --upgrade pip > /dev/null
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
 
@@ -111,10 +111,10 @@ setup_debian() {
 		if ! command -v lazygit &> /dev/null
 		then
 			echo "Installing lazygit!"
-			LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-			tar xf lazygit.tar.gz lazygit
-			sudo install lazygit $HOME/apps
+			LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*' > /dev/null)
+			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" > /dev/null
+			tar xf lazygit.tar.gz lazygit > /dev/null
+			sudo install lazygit $HOME/apps > /dev/null
 			rm lazygit.tar.gz
 			rm -rf lazygit
 
@@ -130,8 +130,8 @@ setup_debian() {
 			echo "Installing delta!"
 
 			DELTA_VERSION=0.16.5
-			curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb
-			sudo dpkg -i delta.deb
+			curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb > /dev/null
+			sudo dpkg -i delta.deb > /dev/null
 			rm delta.deb
 
 			create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
@@ -155,7 +155,7 @@ setup_debian() {
 
 	install_tmux () {
 		install_with_apt tmux
-		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null
 		create_symlink "tmux config" "tmux.conf" ".tmux.conf"
 	}
 
@@ -163,7 +163,7 @@ setup_debian() {
 		if ! command -v nvim &> /dev/null
 		then
 			echo "Installing neovim!"
-			curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+			curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage > /dev/null
 			chmod u+x nvim.appimage
 			sudo mv nvim.appimage $HOME/apps/nvim
 			create_symlink "nvim config" "nvim" ".config/nvim"
@@ -175,7 +175,7 @@ setup_debian() {
 	install_kitty () {
 		install_with_apt kitty
 		mkdir -p ~/.local/share/fonts
-		(cd ~/.local/share/fonts && curl -fLo "JetBrainsMono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/complete/JetBrainsMono%20Nerd%20Font%20Complete.otf)
+		(cd ~/.local/share/fonts && curl -fLo "JetBrainsMono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/complete/JetBrainsMono%20Nerd%20Font%20Complete.otf > /dev/null)
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
 
@@ -184,10 +184,10 @@ setup_debian() {
 		then
 			install_with_apt zsh
 			echo "Installing oh-my-zsh!"
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null
+			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search > /dev/null
+			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions > /dev/null
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting > /dev/null
 
 			if [ "$server" == "yes" ]; then
 				create_symlink "zsh config" "zshrc-server" ".zshrc"
