@@ -186,8 +186,9 @@ setup_debian() {
 		nice_echo "Installing fonts"
 		mkdir -p ~/.local/share/fonts
 		fonturl=https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
-		wget fonturl fonts.zip
+		wget fonturl -O fonts.zip
 		unzip fonts.zip -d ~/.local/share/fonts
+		rm fonts.zip
 		fc-cache -fv
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
