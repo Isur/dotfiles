@@ -84,8 +84,8 @@ install_node () {
 		echo "nvm is installed!"
 	fi
 
-	nvm install --lts
-	npm install -g pnpm
+	nvm install --lts > /dev/null
+	npm install -g pnpm > /dev/null
 }
 
 setup_debian() {
@@ -98,12 +98,12 @@ setup_debian() {
 
 	install_with_apt () {
 		echo "Installing $1!"
-		sudo apt install $1 -y
+		sudo apt install $1 -y > /dev/null
 	}
 
 	install_with_snap () {
 		echo "Installing $1!"
-		sudo snap install $1
+		sudo snap install $1 > /dev/null
 	}
 
 	config_git () {
@@ -147,6 +147,7 @@ setup_debian() {
 		install_with_apt fd-find
 		install_with_snap btop
 		mkdir -p $HOME/.config/btop/themes
+		mkdir -p $HOME/.local/bin
 		ln -s $(which fdfind) $HOME/.local/bin/fd
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 
