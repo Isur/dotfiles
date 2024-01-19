@@ -30,7 +30,7 @@ install_question () {
 		if [ "$answer" != "${answer#[Yy]}" ] ;then
 			$2
 		else
-			nice_echo Skipping $1 installation!
+			nice_echo "Skipping $1 installation!"
 		fi
 	fi
 }
@@ -40,7 +40,7 @@ create_symlink () {
 	to="$HOME/$3"
 
 	if [ ! -e "$to" ]; then
-		nice_echo Creating simlink for $1!
+		nice_echo "Creating simlink for $1!"
 		ln -s "$from" "$to"
 	else
 		old="$to".old
@@ -50,7 +50,7 @@ create_symlink () {
 		else
 			nice_echo "Moving old $1 config to $old!"
 			mv "$to" "$old"
-			nice_echo Creating simlink for $1!
+			nice_echo "Creating simlink for $1!"
 			ln -s "$from" "$to"
 		fi
 	fi
