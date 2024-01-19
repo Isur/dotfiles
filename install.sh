@@ -25,12 +25,12 @@ install_question () {
 	if [ "$all" == "yes" ]; then
 		$2
 	else
-		echo "Do you want to install $1? (y/n)"
+		nice_echo "Do you want to install $1? (y/n)"
 		read answer
 		if [ "$answer" != "${answer#[Yy]}" ] ;then
 			$2
 		else
-			echo Skipping $1 installation!
+			nice_echo Skipping $1 installation!
 		fi
 	fi
 }
@@ -40,35 +40,43 @@ create_symlink () {
 	to="$HOME/$3"
 
 	if [ ! -e "$to" ]; then
-		echo Creating simlink for $1!
+		nice_echo Creating simlink for $1!
 		ln -s "$from" "$to"
 	else
 		old="$to".old
 		if [ -e "$old" ]; then
-			echo "Old $1 config already exists!"
+			nice_echo "Old $1 config already exists!"
 			return 0
 		else
-			echo "Moving old $1 config to $old!"
+			nice_echo "Moving old $1 config to $old!"
 			mv "$to" "$old"
-			echo Creating simlink for $1!
+			nice_echo Creating simlink for $1!
 			ln -s "$from" "$to"
 		fi
 	fi
 }
 
+nice_echo () {
+	echo "------------------------------------------------------------"
+	echo ""
+	echo "$1"
+	echo ""
+	echo "------------------------------------------------------------"
+}
+
 check_system () {
 	if [ "$(uname)" == "Darwin" ]; then
-		echo "MacOS detected!"
+		nice_echo "MacOS detected!"
 		system="Darwin"
 		setup_darwin
 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-		echo "Linux detected!"
+		nice_echo "Linux detected!"
 		system="Linux"
 		if [ -f /etc/arch-release ]; then
-			echo "Arch based distro detected!"
+			nice_echo "Arch based distro detected!"
 			setup_arch
 		elif [ -f /etc/debian_version ]; then
-			echo "Debian based distro detected!"
+			nice_echo "Debian based distro detected!"
 			setup_debian
 		fi
 	fi
@@ -77,71 +85,71 @@ check_system () {
 install_node () {
 	if ! command -v nvm &> /dev/null
 	then
-		echo "Installing nvm!"
-		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash > /dev/null
+		nice_echo "Installing nvm!"
+		curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 		source ~/.zshrc
 	else
-		echo "nvm is installed!"
+		nice_echo "nvm is installed!"
 	fi
 
-	nvm install --lts > /dev/null
-	npm install -g pnpm > /dev/null
+	nvm install --lts
+	npm install -g pnpm
 }
 
 setup_debian() {
-	sudo apt update -y > /dev/null
+	sudo apt update -y
 		sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y > /dev/null
-	sudo pip install --upgrade pip > /dev/null
+	sudo pip install --upgrade pip
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
 
 
 	install_with_apt () {
-		echo "Installing $1!"
-		sudo apt install $1 -y > /dev/null
+		nice_echo "Installing $1!"
+		sudo apt install $1 -y
 	}
 
 	install_with_snap () {
-		echo "Installing $1!"
-		sudo snap install $1 > /dev/null
+		nice_echo "Installing $1!"
+		sudo snap install $1
 	}
 
 	config_git () {
 		# check if lazygit is installed
 		if ! command -v lazygit &> /dev/null
 		then
-			echo "Installing lazygit!"
-			LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*' > /dev/null)
-			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz" > /dev/null
-			tar xf lazygit.tar.gz lazygit > /dev/null
-			sudo install lazygit $HOME/apps > /dev/null
+			nice_echo "Installing lazygit!"
+			LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+			tar xf lazygit.tar.gz lazygit
+			sudo install lazygit $HOME/apps
 			rm lazygit.tar.gz
 			rm -rf lazygit
 
 			mkdir $HOME/.config/lazygit
 			create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
 		else
-			echo "lazygit is installed!"
+			nice_echo "lazygit is installed!"
 		fi
 
 		# check if delta is installed
 		if ! command -v delta &> /dev/null
 		then
-			echo "Installing delta!"
+			nice_echo "Installing delta!"
 
 			DELTA_VERSION=0.16.5
-			curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb > /dev/null
-			sudo dpkg -i delta.deb > /dev/null
+			curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb
+			sudo dpkg -i delta.deb
 			rm delta.deb
 
 			create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
 		else 
-			echo "delta is installed!"
+			nice_echo "delta is installed!"
 		fi
 	}
 
 	install_utils () {
-		echo "Installing utils!"
+		nice_echo "Installing utils!"
 		install_with_apt fzf
 		install_with_apt ripgrep
 		install_with_apt fd-find
@@ -155,27 +163,27 @@ setup_debian() {
 
 	install_tmux () {
 		install_with_apt tmux
-		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm > /dev/null
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 		create_symlink "tmux config" "tmux.conf" ".tmux.conf"
 	}
 
 	install_neovim () {
 		if ! command -v nvim &> /dev/null
 		then
-			echo "Installing neovim!"
-			curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage > /dev/null
+			nice_echo "Installing neovim!"
+			curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 			chmod u+x nvim.appimage
 			sudo mv nvim.appimage $HOME/apps/nvim
 			create_symlink "nvim config" "nvim" ".config/nvim"
 		else
-			echo "neovim is installed!"
+			nice_echo "neovim is installed!"
 		fi
 	}
 
 	install_kitty () {
 		install_with_apt kitty
 		mkdir -p ~/.local/share/fonts
-		(cd ~/.local/share/fonts && curl -fLo "JetBrainsMono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/complete/JetBrainsMono%20Nerd%20Font%20Complete.otf > /dev/null)
+		(cd ~/.local/share/fonts && curl -fLo "JetBrainsMono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/complete/JetBrainsMono%20Nerd%20Font%20Complete.otf)
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
 
@@ -183,11 +191,11 @@ setup_debian() {
 		if ! command -v zsh &> /dev/null
 		then
 			install_with_apt zsh
-			echo "Installing oh-my-zsh!"
-			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended > /dev/null
-			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search > /dev/null
-			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions > /dev/null
-			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting > /dev/null
+			nice_echo "Installing oh-my-zsh!"
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 			if [ "$server" == "yes" ]; then
 				create_symlink "zsh config" "zshrc-server" ".zshrc"
@@ -195,7 +203,7 @@ setup_debian() {
 				create_symlink "zsh config" "zshrc-local" ".zshrc"
 			fi
 		else
-			echo "zsh is installed!"
+			nice_echo "zsh is installed!"
 		fi
 	}
 
@@ -219,7 +227,7 @@ setup_arch () {
 	mkdir -p $HOME/.config
 
 	install_yay () {
-		echo "Installing yay!"
+		nice_echo "Installing yay!"
 		git clone https://aur.archlinux.org/yay.git
 		cd yay
 		makepkg -si
@@ -231,11 +239,11 @@ setup_arch () {
 	then
 		install_yay
 	else
-		echo "yay is installed!"
+		nice_echo "yay is installed!"
 	fi
 
 	install_with_yay () {
-		echo "Installing $1!"
+		nice_echo "Installing $1!"
 		yay -S $1 --noconfirm --sudoloop
 	}
 
@@ -249,7 +257,7 @@ setup_arch () {
 	}
 
 	install_utils () {
-		echo "Installing utils!"
+		nice_echo "Installing utils!"
 		install_with_yay fzf
 		install_with_yay ripgrep
 		install_with_yay fd
@@ -285,7 +293,7 @@ setup_arch () {
 
 			create_symlink "zsh config" "zshrc-local" ".zshrc"
 		else
-			echo "zsh is installed!"
+			nice_echo "zsh is installed!"
 		fi
 	}
 
@@ -300,21 +308,21 @@ setup_arch () {
 }
 
 setup_darwin() {
-	echo "Setting up MacOS!"
+	nice_echo "Setting up MacOS!"
 
 	which -s brew
 	if [[ $? != 0 ]] ; then
-		echo "Installing homebrew!"
+		nice_echo "Installing homebrew!"
 		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 	else
-		echo "Update brew"
+		nice_echo "Update brew"
 		brew update
 	fi
 
 	config_git () {
-		echo "Installing delta"
+		nice_echo "Installing delta"
 		brew install git-delta
-		echo "Installing lazygit"
+		nice_echo "Installing lazygit"
 		brew install lazygit
 
 		mkdir $HOME/.config/lazygit
@@ -324,38 +332,38 @@ setup_darwin() {
 	}
 
 	install_utils () {
-		echo "Installing utils!"
-		echo "Installing fzf!"
+		nice_echo "Installing utils!"
+		nice_echo "Installing fzf!"
 		brew install fzf
-		echo "Installing ripgrep!"
+		nice_echo "Installing ripgrep!"
 		brew install ripgrep
-		echo "Installing fd!"
+		nice_echo "Installing fd!"
 		brew install fd
-		echo "Installing btop!"
+		nice_echo "Installing btop!"
 		brew install btop
-		echo "Installing gnu-sed"
+		nice_echo "Installing gnu-sed"
 		brew install gnu-sed
 
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 	}
 
 	install_tmux () {
-		echo "Installing tmux!"
+		nice_echo "Installing tmux!"
 		brew install tmux
 		create_symlink "tmux config" "tmux.conf" ".tmux.conf"
 	}
 
 	install_neovim () {
-		echo "Installing neovim!"
+		nice_echo "Installing neovim!"
 		brew install neovim
 		create_symlink "nvim config" "nvim" ".config/nvim"
 	}
 
 	install_kitty () {
-		echo "Installing fonts"
+		nice_echo "Installing fonts"
 		brew tap homebrew/cask-fonts
 		brew install font-jetbrains-mono-nerd-font
-		echo "Installing kitty!"
+		nice_echo "Installing kitty!"
 		brew install kitty
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
@@ -363,9 +371,9 @@ setup_darwin() {
 	install_zsh () {
 		if ! command -v zsh &> /dev/null
 		then
-			echo "Installing zsh!"
+			nice_echo "Installing zsh!"
 			brew install zsh
-			echo "Installing oh-my-zsh!"
+			nice_echo "Installing oh-my-zsh!"
 			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
 			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
@@ -373,7 +381,7 @@ setup_darwin() {
 
 			create_symlink "zsh config" "zshrc-local" ".zshrc"
 		else
-			echo "zsh is installed!"
+			nice_echo "zsh is installed!"
 		fi
 	}
 
