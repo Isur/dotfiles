@@ -214,6 +214,22 @@ setup_debian() {
 		fi
 	}
 
+	install_docker () {
+		sudo apt-get update
+		sudo apt-get install ca-certificates curl gnupg -y
+		sudo install -m 0755 -d /etc/apt/keyrings
+		curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+		sudo chmod a+r /etc/apt/keyrings/docker.gpg
+		echo \
+		  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+		  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+		  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+		sudo apt-get update
+		sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
+
+		sudo usermod -aG docker $USER
+	}
+
 	if [ "$server" == "yes" ]; then
 		install_utils
 		install_neovim
@@ -226,6 +242,7 @@ setup_debian() {
 		install_question "zsh" install_zsh
 		install_question "git config" config_git
 		install_question "node" install_node
+		install_question "docker" install_docker
 	fi
 }
 
@@ -305,6 +322,12 @@ setup_arch () {
 		fi
 	}
 
+	install_docker() {
+		install_with_yay docker
+		install_with_yay docker-compose
+		sudo usermod -aG docker $USER
+	}
+
 
 	install_question "utils" install_utils
 	install_question "tmux" install_tmux
@@ -313,6 +336,7 @@ setup_arch () {
 	install_question "zsh" install_zsh
 	install_question "config git" config_git
 	install_question "node" install_node
+	install_question "docker" install_docker
 }
 
 setup_darwin() {
@@ -394,6 +418,12 @@ setup_darwin() {
 		fi
 	}
 
+	install_docker () {
+		nice_echo "Installing docker!"
+		brew install --cask docker
+		sudo usermod -aG docker $USER
+	}
+
 	install_question "utils" install_utils
 	install_question "tmux" install_tmux
 	install_question "nvim" install_neovim
@@ -401,5 +431,6 @@ setup_darwin() {
 	install_question "zsh" install_zsh
 	install_question "config git" config_git
 	install_question "node" install_node
+	install_question "docker" install_docker
 }
 check_system
