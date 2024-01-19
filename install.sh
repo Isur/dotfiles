@@ -102,7 +102,7 @@ setup_debian() {
 	sudo pip install --upgrade pip
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
-
+	mkdir -p $HOME/Developer
 
 	install_with_apt () {
 		nice_echo "Installing $1!"
