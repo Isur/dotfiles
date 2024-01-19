@@ -147,6 +147,7 @@ setup_debian() {
 		install_with_apt fd-find
 		install_with_snap btop
 		mkdir -p $HOME/.config/btop/themes
+		ln -s ($which fdfind) $HOME/.local/bin/fd
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 
 	}
