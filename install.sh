@@ -227,6 +227,7 @@ setup_debian() {
 		sudo apt-get update
 		sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
+		sudo getent group docker || sudo groupadd docker
 		sudo usermod -aG docker $USER
 	}
 
@@ -329,6 +330,8 @@ setup_arch () {
 	install_docker() {
 		install_with_yay docker
 		install_with_yay docker-compose
+		install_with_yay docker-buildx
+		sudo getent group docker || sudo groupadd docker
 		sudo usermod -aG docker $USER
 	}
 
