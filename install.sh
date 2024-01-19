@@ -201,6 +201,7 @@ setup_debian() {
 				create_symlink "zsh config" "zshrc-server" ".zshrc"
 			else
 				create_symlink "zsh config" "zshrc-local" ".zshrc"
+				chsh -s $(which zsh)
 			fi
 		else
 			nice_echo "zsh is installed!"
