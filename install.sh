@@ -293,6 +293,7 @@ setup_arch () {
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 			create_symlink "zsh config" "zshrc-local" ".zshrc"
+			chsh -s $(which zsh)
 		else
 			nice_echo "zsh is installed!"
 		fi
@@ -381,6 +382,7 @@ setup_darwin() {
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 			create_symlink "zsh config" "zshrc-local" ".zshrc"
+			chsh -s $(which zsh)
 		else
 			nice_echo "zsh is installed!"
 		fi
