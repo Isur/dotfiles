@@ -249,9 +249,11 @@ setup_debian() {
 setup_arch () {
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
+	mkdir -p $HOME/Developer
 
 	install_yay () {
 		nice_echo "Installing yay!"
+		rm -rf yay
 		git clone https://aur.archlinux.org/yay.git
 		cd yay
 		makepkg -si
