@@ -171,6 +171,7 @@ setup_debian() {
 		if ! command -v nvim &> /dev/null
 		then
 			nice_echo "Installing neovim!"
+			install_with_apt xclip wl-clipboard -y
 			curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 			chmod u+x nvim.appimage
 			sudo mv nvim.appimage $HOME/apps/nvim
@@ -182,8 +183,12 @@ setup_debian() {
 
 	install_kitty () {
 		install_with_apt kitty
+		nice_echo "Installing fonts"
 		mkdir -p ~/.local/share/fonts
-		(cd ~/.local/share/fonts && curl -fLo "JetBrainsMono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/complete/JetBrainsMono%20Nerd%20Font%20Complete.otf)
+		fonturl=https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+		wget fonturl fonts.zip
+		unzip fonts.zip -d ~/.local/share/fonts
+		fc-cache -fv
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
 
