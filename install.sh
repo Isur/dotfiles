@@ -255,6 +255,7 @@ setup_arch () {
 
 	install_yay () {
 		nice_echo "Installing yay!"
+		sudo pacman -S --needed git base-devel
 		rm -rf yay
 		git clone https://aur.archlinux.org/yay.git
 		cd yay
