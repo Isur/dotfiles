@@ -98,7 +98,7 @@ install_node () {
 
 setup_debian() {
 	sudo apt update -y
-		sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y > /dev/null
+	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y
 	sudo pip install --upgrade pip
 	mkdir -p $HOME/apps
 	mkdir -p $HOME/.config
