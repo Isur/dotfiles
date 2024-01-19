@@ -172,6 +172,8 @@ setup_debian() {
 
 	install_kitty () {
 		install_with_apt kitty
+		mkdir -p ~/.local/share/fonts
+		(cd ~/.local/share/fonts && curl -fLo "JetBrainsMono Nerd Font Complete.otf" https://github.com/ryanoasis/nerd-fonts/raw/HEAD/patched-fonts/JetBrainsMono/complete/JetBrainsMono%20Nerd%20Font%20Complete.otf)
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
 
@@ -266,6 +268,7 @@ setup_arch () {
 
 	install_kitty () {
 		install_with_yay kitty
+		install_with_yay ttf-jetbrains-mono-nerd
 		create_symlink "kitty config" "kitty" ".config/kitty"
 	}
 
@@ -347,6 +350,9 @@ setup_darwin() {
 	}
 
 	install_kitty () {
+		echo "Installing fonts"
+		brew tap homebrew/cask-fonts
+		brew install font-jetbrains-mono-nerd-font
 		echo "Installing kitty!"
 		brew install kitty
 		create_symlink "kitty config" "kitty" ".config/kitty"
@@ -368,7 +374,6 @@ setup_darwin() {
 			echo "zsh is installed!"
 		fi
 	}
-
 
 	install_question "utils" install_utils
 	install_question "tmux" install_tmux
