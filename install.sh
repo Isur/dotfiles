@@ -229,6 +229,7 @@ setup_debian() {
 
 		sudo getent group docker || sudo groupadd docker
 		sudo usermod -aG docker $USER
+		sudo systemctl enable docker
 	}
 
 	if [ "$server" == "yes" ]; then
@@ -333,6 +334,7 @@ setup_arch () {
 		install_with_yay docker-buildx
 		sudo getent group docker || sudo groupadd docker
 		sudo usermod -aG docker $USER
+		sudo systemctl enable docker
 	}
 
 
