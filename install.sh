@@ -2,14 +2,36 @@
 
 system=""
 server="no"
+all="no"
+
+while [[ $# -gt 0 ]]; do
+	case "$1" in
+		-s|--server)
+			server="yes"
+			shift;;
+		-a|--all)
+			all="yes"
+			shift;;
+		-h|--help)
+			echo "Usage: $0 [-s|--server] [-a|--all]"
+			exit 0;;
+		*)
+			echo "Usage: $0 [-s|--server] [-a|--all]"
+			exit 1;;
+	esac
+done
 
 install_question () {
-	echo "Do you want to install $1? (y/n)"
-	read answer
-	if [ "$answer" != "${answer#[Yy]}" ] ;then
+	if [ "$all" == "yes" ]; then
 		$2
 	else
-		echo Skipping $1 installation!
+		echo "Do you want to install $1? (y/n)"
+		read answer
+		if [ "$answer" != "${answer#[Yy]}" ] ;then
+			$2
+		else
+			echo Skipping $1 installation!
+		fi
 	fi
 }
 
@@ -85,22 +107,37 @@ setup_debian() {
 	}
 
 	config_git () {
-		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-		tar xf lazygit.tar.gz lazygit
-		sudo install lazygit $HOME/apps
-		rm lazygit.tar.gz
-		rm -rf lazygit
+		# check if lazygit is installed
+		if ! command -v lazygit &> /dev/null
+		then
+			echo "Installing lazygit!"
+			LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+			curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+			tar xf lazygit.tar.gz lazygit
+			sudo install lazygit $HOME/apps
+			rm lazygit.tar.gz
+			rm -rf lazygit
 
-		mkdir $HOME/.config/lazygit
+			mkdir $HOME/.config/lazygit
+			create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
+		else
+			echo "lazygit is installed!"
+		fi
 
-		DELTA_VERSION=0.16.5
-		curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb
-		sudo dpkg -i delta.deb
-		rm delta.deb
+		# check if delta is installed
+		if ! command -v delta &> /dev/null
+		then
+			echo "Installing delta!"
 
-		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
-		create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
+			DELTA_VERSION=0.16.5
+			curl -L https://github.com/dandavison/delta/releases/download/${DELTA_VERSION}/git-delta_${DELTA_VERSION}_amd64.deb -o delta.deb
+			sudo dpkg -i delta.deb
+			rm delta.deb
+
+			create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
+		else 
+			echo "delta is installed!"
+		fi
 	}
 
 	install_utils () {
@@ -114,21 +151,23 @@ setup_debian() {
 
 	}
 
-	install_ideavim_config () {
-		echo "Installing ideavim config!"
-		create_symlink "ideavim config" "ideavimrc" ".ideavimrc"
-	}
-
 	install_tmux () {
 		install_with_apt tmux
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 		create_symlink "tmux config" "tmux.conf" ".tmux.conf"
 	}
 
 	install_neovim () {
-		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-		chmod u+x nvim.appimage
-		sudo mv nvim.appimage $HOME/apps/nvim
-		create_symlink "nvim config" "nvim" ".config/nvim"
+		if ! command -v nvim &> /dev/null
+		then
+			echo "Installing neovim!"
+			curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+			chmod u+x nvim.appimage
+			sudo mv nvim.appimage $HOME/apps/nvim
+			create_symlink "nvim config" "nvim" ".config/nvim"
+		else
+			echo "neovim is installed!"
+		fi
 	}
 
 	install_kitty () {
@@ -137,37 +176,35 @@ setup_debian() {
 	}
 
 	install_zsh () {
-		install_with_apt zsh
-		echo "Installing oh-my-zsh!"
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		if ! command -v zsh &> /dev/null
+		then
+			install_with_apt zsh
+			echo "Installing oh-my-zsh!"
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-		if [ "$server" == "yes" ]; then
-			create_symlink "zsh config" "zshrc-server" ".zshrc"
+			if [ "$server" == "yes" ]; then
+				create_symlink "zsh config" "zshrc-server" ".zshrc"
+			else
+				create_symlink "zsh config" "zshrc-local" ".zshrc"
+			fi
 		else
-			create_symlink "zsh config" "zshrc-local" ".zshrc"
+			echo "zsh is installed!"
 		fi
 	}
 
-	echo "Are you installing this on server? (y/n)"
-	read serverQuestion
-	if [ "$serverQuestion" != "${serverQuestion#[Yy]}" ] ;then
-		server="yes"
+	if [ "$server" == "yes" ]; then
 		install_utils
-		install_tmux
 		install_neovim
 		install_zsh
 	else
-		server="no"
-		sudo apt upgrade -y
 		install_question "utils" install_utils
 		install_question "tmux" install_tmux
 		install_question "nvim" install_neovim
 		install_question "kitty" install_kitty
 		install_question "zsh" install_zsh
-		install_question "ideavim config" install_ideavim_config
 		install_question "git config" config_git
 		install_question "node" install_node
 	fi
@@ -202,6 +239,7 @@ setup_arch () {
 		install_with_yay git-delta
 		install_with_yay lazygit
 
+		mkdir $HOME/.config/lazygit
 		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
 		create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
 	}
@@ -215,13 +253,9 @@ setup_arch () {
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 	}
 
-	install_ideavim_config () {
-		echo "Installing ideavim config!"
-		create_symlink "ideavim config" "ideavimrc" ".ideavimrc"
-	}
-
 	install_tmux () {
 		install_with_yay tmux
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 		create_symlink "tmux config" "tmux.conf" ".tmux.conf"
 	}
 
@@ -236,13 +270,18 @@ setup_arch () {
 	}
 
 	install_zsh () {
-		install_with_yay zsh
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		if ! command -v zsh &> /dev/null
+		then
+			install_with_yay zsh
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-		create_symlink "zsh config" "zshrc-local" ".zshrc"
+			create_symlink "zsh config" "zshrc-local" ".zshrc"
+		else
+			echo "zsh is installed!"
+		fi
 	}
 
 
@@ -251,7 +290,6 @@ setup_arch () {
 	install_question "nvim" install_neovim
 	install_question "kitty" install_kitty
 	install_question "zsh" install_zsh
-	install_question "ideavim config" install_ideavim_config
 	install_question "config git" config_git
 	install_question "node" install_node
 }
@@ -274,6 +312,8 @@ setup_darwin() {
 		echo "Installing lazygit"
 		brew install lazygit
 
+		mkdir $HOME/.config/lazygit
+
 		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
 		create_symlink "lazygit" "git-configs/lazygit.yml" "Library/Application Support/lazygit/config.yml"
 	}
@@ -292,11 +332,6 @@ setup_darwin() {
 		brew install gnu-sed
 
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
-	}
-
-	install_ideavim_config () {
-		echo "Installing ideavim config!"
-		create_symlink "ideavim config" "ideavimrc" ".ideavimrc"
 	}
 
 	install_tmux () {
@@ -318,15 +353,20 @@ setup_darwin() {
 	}
 
 	install_zsh () {
-		echo "Installing zsh!"
-		brew install zsh
-		echo "Installing oh-my-zsh!"
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		if ! command -v zsh &> /dev/null
+		then
+			echo "Installing zsh!"
+			brew install zsh
+			echo "Installing oh-my-zsh!"
+			sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+			git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+			git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
-		create_symlink "zsh config" "zshrc-local" ".zshrc"
+			create_symlink "zsh config" "zshrc-local" ".zshrc"
+		else
+			echo "zsh is installed!"
+		fi
 	}
 
 
@@ -335,7 +375,6 @@ setup_darwin() {
 	install_question "nvim" install_neovim
 	install_question "kitty" install_kitty
 	install_question "zsh" install_zsh
-	install_question "ideavim config" install_ideavim_config
 	install_question "config git" config_git
 	install_question "node" install_node
 }
