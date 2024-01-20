@@ -2,6 +2,7 @@
 
 ts=false
 name=""
+git_disabled=false
 
 while [[ $# -gt 0 ]]; do
 	case "$1" in
@@ -17,19 +18,35 @@ while [[ $# -gt 0 ]]; do
 				exit 1
 			fi
 			shift;;
+		-g|--no-git)
+			git_disabled=true
+			shift;;
 		-h|--help)
-			echo "Usage: $0 [-t|--ts] [-n|--name <name>]"
+			echo "Usage: $0 [-t|--ts] [-n|--name <name>] [-g|--no-git]"
 			exit 0;;
 		*)
-			echo "Usage: $0 [-t|--ts] [-n|--name <name>]"
+			echo "Usage: $0 [-t|--ts] [-n|--name <name>] [-g|--no-git]"
 			exit 1;;
 	esac
 done
 
 pp=$(fd . ~/Developer ~/Developer/Clients --type d -d 1 | fzf)
 
+if [[ $pp == "" ]]; then
+	echo "No path selected"
+	exit 1
+fi
+
+echo "Selected path: $pp"
+
+
 if [[ $name == "" ]]; then
 	read -p "Project name: " name
+fi
+
+if [[ $name == "" ]]; then
+	echo "No project name provided"
+	exit 1
 fi
 
 project_path="$pp/$name"
@@ -46,8 +63,10 @@ else
 	rm -rf $project_path/.git
 fi
 
-git init $project_path
-(cd $project_path && git add . && git commit -m "Initial commit" && pnpm install)
+if [[ $git_disabled == false ]]; then
+	git init $project_path
+	(cd $project_path && git add . && git commit -m "Initial commit" && pnpm install)
+fi
 
 tmux_running=$(pgrep tmux)
 

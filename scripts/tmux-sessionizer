@@ -3,7 +3,7 @@
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(fd . ~/Developer --type d -d 3 -E node_modules -E src | fzf)
+    selected=$(fd . ~/ ~/Developer ~/Developer/PoC ~/Developer/Personal ~/Developer/Clients ~/Developer/Clients/* --type d -d 1 | fzf)
 fi
 
 if [[ -z $selected ]]; then

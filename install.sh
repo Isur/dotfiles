@@ -450,7 +450,6 @@ setup_darwin() {
 	install_docker () {
 		nice_echo "Installing docker!"
 		brew install --cask docker
-		sudo usermod -aG docker $USER
 	}
 
 	install_question "utils" install_utils
