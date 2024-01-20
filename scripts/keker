@@ -26,11 +26,13 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
+pp=$(fd . ~/Developer ~/Developer/Clients --type d -d 1 | fzf)
+
 if [[ $name == "" ]]; then
 	read -p "Project name: " name
 fi
 
-project_path="$HOME/Developer/PoC/$name"
+project_path="$pp/$name"
 
 if [[ -d $project_path ]]; then
 	echo "Project $name already exists"
