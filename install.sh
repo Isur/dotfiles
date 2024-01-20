@@ -21,6 +21,18 @@ while [[ $# -gt 0 ]]; do
 	esac
 done
 
+unpack_ssh() {
+	if [ ! -f .vault_pass ]; then
+		nice_echo "Vault password file not found! Create .vault_pass file with vault password!"
+		exit 1
+	fi
+	nice_echo "Unpacking ssh keys!"
+	mkdir -p $HOME/.ssh
+	cp -r ./ssh/* $HOME/.ssh
+	chmod 600 $HOME/.ssh/*
+	ansible-vault decrypt $HOME/.ssh/* --vault-password-file .vault_pass
+}
+
 install_question () {
 	if [ "$all" == "yes" ]; then
 		$2
@@ -120,7 +132,7 @@ change_shell () {
 
 setup_debian() {
 	sudo apt update -y
-	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y
+	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv ansible -y
 	sudo pip install --upgrade pip
 	create_directory_structure
 
@@ -265,6 +277,7 @@ setup_debian() {
 		install_question "git config" config_git
 		install_question "node" install_node
 		install_question "docker" install_docker
+		install_question "ssh setup" unpack_ssh
 	fi
 }
 
@@ -295,6 +308,9 @@ setup_arch () {
 		nice_echo "Installing $1!"
 		yay -S $1 --noconfirm --sudoloop
 	}
+
+	nice_echo "Installing ansible!"
+	install_with_yay ansible
 
 	config_git () {
 		install_with_yay git-delta
@@ -365,6 +381,7 @@ setup_arch () {
 	install_question "config git" config_git
 	install_question "node" install_node
 	install_question "docker" install_docker
+	install_question "ssh setup" unpack_ssh
 }
 
 setup_darwin() {
@@ -379,6 +396,9 @@ setup_darwin() {
 		nice_echo "Update brew"
 		brew update
 	fi
+
+	nice_echo "Installing ansible!"
+	brew install ansible
 
 	config_git () {
 		nice_echo "Installing delta"
@@ -460,5 +480,6 @@ setup_darwin() {
 	install_question "config git" config_git
 	install_question "node" install_node
 	install_question "docker" install_docker
+	install_question "ssh setup" unpack_ssh
 }
 check_system
