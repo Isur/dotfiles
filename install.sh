@@ -109,6 +109,15 @@ install_node () {
 	npm install -g pnpm
 }
 
+change_shell () {
+	if [ "$server" == "yes" ]; then
+		nice_echo "Skipping shell change!"
+	else
+		nice_echo "Changing shell!"
+		sudo chsh -s $(which zsh) $(whoami)
+	fi
+}
+
 setup_debian() {
 	sudo apt update -y
 	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y
@@ -217,7 +226,7 @@ setup_debian() {
 				create_symlink "zsh config" "zshrc-server" ".zshrc"
 			else
 				create_symlink "zsh config" "zshrc-local" ".zshrc"
-				chsh -s $(which zsh)
+				change_shell
 			fi
 		else
 			nice_echo "zsh is installed!"
@@ -332,7 +341,7 @@ setup_arch () {
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 			create_symlink "zsh config" "zshrc-local" ".zshrc"
-			chsh -s $(which zsh)
+			change_shell
 		else
 			nice_echo "zsh is installed!"
 		fi
@@ -432,7 +441,7 @@ setup_darwin() {
 			git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 			create_symlink "zsh config" "zshrc-local" ".zshrc"
-			chsh -s $(which zsh)
+			change_shell
 		else
 			nice_echo "zsh is installed!"
 		fi
