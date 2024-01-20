@@ -56,6 +56,19 @@ create_symlink () {
 	fi
 }
 
+create_directory_structure () {
+	mkdir -p $HOME/apps
+	mkdir -p $HOME/.config
+	mkdir -p $HOME/.local/bin
+	mkdir -p $HOME/Developer
+	mkdir -p $HOME/Developer/Clients
+	mkdir -p $HOME/Developer/Personal
+	mkdir -p $HOME/Developer/PoC
+	mkdir -p $HOME/Developer/Global
+
+	cp ./docker-compose.yml $HOME/Developer/Global/docker-compose.yml
+}
+
 nice_echo () {
 	echo "------------------------------------------------------------"
 	echo ""
@@ -100,9 +113,7 @@ setup_debian() {
 	sudo apt update -y
 	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv -y
 	sudo pip install --upgrade pip
-	mkdir -p $HOME/apps
-	mkdir -p $HOME/.config
-	mkdir -p $HOME/Developer
+	create_directory_structure
 
 	install_with_apt () {
 		nice_echo "Installing $1!"
@@ -126,7 +137,7 @@ setup_debian() {
 			rm lazygit.tar.gz
 			rm -rf lazygit
 
-			mkdir $HOME/.config/lazygit
+			mkdir -p $HOME/.config/lazygit
 			create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
 		else
 			nice_echo "lazygit is installed!"
@@ -155,7 +166,6 @@ setup_debian() {
 		install_with_apt fd-find
 		install_with_snap btop
 		mkdir -p $HOME/.config/btop/themes
-		mkdir -p $HOME/.local/bin
 		ln -s $(which fdfind) $HOME/.local/bin/fd
 		create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 
@@ -236,6 +246,7 @@ setup_debian() {
 		install_utils
 		install_neovim
 		install_zsh
+		install_question "docker" install_docker
 	else
 		install_question "utils" install_utils
 		install_question "tmux" install_tmux
@@ -249,9 +260,7 @@ setup_debian() {
 }
 
 setup_arch () {
-	mkdir -p $HOME/apps
-	mkdir -p $HOME/.config
-	mkdir -p $HOME/Developer
+	create_directory_structure
 
 	install_yay () {
 		nice_echo "Installing yay!"
@@ -282,7 +291,7 @@ setup_arch () {
 		install_with_yay git-delta
 		install_with_yay lazygit
 
-		mkdir $HOME/.config/lazygit
+		mkdir -p $HOME/.config/lazygit
 		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
 		create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
 	}
@@ -351,6 +360,7 @@ setup_arch () {
 
 setup_darwin() {
 	nice_echo "Setting up MacOS!"
+	create_directory_structure
 
 	which -s brew
 	if [[ $? != 0 ]] ; then
@@ -367,7 +377,7 @@ setup_darwin() {
 		nice_echo "Installing lazygit"
 		brew install lazygit
 
-		mkdir $HOME/.config/lazygit
+		mkdir -p $HOME/.config/lazygit
 
 		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
 		create_symlink "lazygit" "git-configs/lazygit.yml" "Library/Application Support/lazygit/config.yml"
