@@ -10,6 +10,7 @@ bindkey -s ^f "tmux-sessionizer\n"
 export PATH="$HOME/dotfiles/scripts:$PATH"
 export PATH="$HOME/apps:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export EDITOR="nvim"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
