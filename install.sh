@@ -267,6 +267,10 @@ setup_debian() {
 		install_with_snap dbeaver-ce
 	}
 
+	install_insomnia () {
+		install_with_snap insomnia
+	}
+
 	if [ "$server" == "yes" ]; then
 		install_utils
 		install_neovim
@@ -283,6 +287,7 @@ setup_debian() {
 		install_question "docker" install_docker
 		install_question "ssh setup" unpack_ssh
 		install_question "dbeaver" install_dbeaver
+		install_question "insomnia" install_insomnia
 	fi
 }
 
@@ -381,6 +386,10 @@ setup_arch () {
 		install_with_yay dbeaver
 	}
 
+	install_insomnia () {
+		install_with_yay insomnia-bin
+	}
+
 
 	install_question "utils" install_utils
 	install_question "tmux" install_tmux
@@ -392,6 +401,7 @@ setup_arch () {
 	install_question "docker" install_docker
 	install_question "ssh setup" unpack_ssh
 	install_question "dbeaver" install_dbeaver
+	install_question "insomnia" install_insomnia
 }
 
 setup_darwin() {
@@ -487,6 +497,11 @@ setup_darwin() {
 		brew install --cask dbeaver-community
 	}
 
+	install_insomnia () {
+		nice_echo "Installing insomnia!"
+		brew install --cask insomnia
+	}
+
 	install_question "utils" install_utils
 	install_question "tmux" install_tmux
 	install_question "nvim" install_neovim
@@ -497,5 +512,6 @@ setup_darwin() {
 	install_question "docker" install_docker
 	install_question "ssh setup" unpack_ssh
 	install_question "dbeaver" install_dbeaver
+	install_question "insomnia" install_insomnia
 }
 check_system
