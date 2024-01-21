@@ -28,11 +28,13 @@ Configs in this repo:
 - lazygit
 - ideavim
 - vscode
+- ssh
 
 ## Requirements
 
 - `sudo` privileges.
 - `git` installed.
+- `.vault_pass` file with password (required for ssh setup)
 
 ## Installing
 
@@ -49,6 +51,11 @@ Install script will install:
 - `kitty`
 - `zsh`
 - `gnu-sed`
+- `ansible`
+- ssh configs
+- Directory structure
+- `node`, `npm`, `pnpm`
+- `docker`
 
 Package manager used for installing depends on system:
 
