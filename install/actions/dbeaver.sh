@@ -7,7 +7,7 @@ debian_dbeaver () {
 }
 
 macos_dbeaver () {
-	install_with_brew --cask dbeaver-community
+	install_with_brew_cask dbeaver-community
 }
 
 install_dbeaver () {

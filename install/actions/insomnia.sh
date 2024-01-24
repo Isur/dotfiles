@@ -7,7 +7,7 @@ debian_insomnia () {
 }
 
 macos_insomnia () {
-	install_with_brew --cask insomnia
+	install_with_brew_cask insomnia
 }
 
 install_insomnia () {
