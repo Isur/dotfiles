@@ -46,7 +46,7 @@ create_symlink () {
 }
 
 ask_action () {
-	if [ "$all" = true ]; then
+	if [ "$all" == "yes" ]; then
 		$2
 	else
 		nice_echo "Do you want to:" "$1?" "[y/N]"

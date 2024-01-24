@@ -12,7 +12,6 @@ debian_kitty () {
 	unzip fonts.zip -d ~/.local/share/fonts
 	rm fonts.zip
 	fc-cache -fv
-	create_symlink "kitty config" "kitty" ".config/kitty"
 }
 
 macos_kitty () {
@@ -21,7 +20,6 @@ macos_kitty () {
 	brew install font-jetbrains-mono-nerd-font
 	nice_echo "Installing kitty!"
 	brew install kitty
-	create_symlink "kitty config" "kitty" ".config/kitty"
 }
 
 install_kitty () {
