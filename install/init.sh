@@ -1,3 +1,5 @@
+#!/bin/bash
+
 source ./args.sh
 source ./common.sh
 
@@ -26,7 +28,7 @@ source ./actions/zsh.sh
 
 ask_action "Create directory structure" create_directory_structure
 
-ask_action "Install terminal tools" terminal_tools
+ask_action "Install terminal tools" install_terminal_tools
 ask_action "Install zsh" install_zsh
 ask_action "Install tmux" install_tmux
 ask_action "Install neovim" install_neovim
