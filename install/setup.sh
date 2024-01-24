@@ -1,4 +1,14 @@
 arch_setup () {
+	install_yay () {
+		nice_echo "Installing yay!"
+		sudo pacman -S --needed git base-devel
+		rm -rf yay
+		git clone https://aur.archlinux.org/yay.git
+		cd yay
+		makepkg -si
+		cd ..
+		rm -rf yay
+	}
 	if ! command -v yay &> /dev/null
 	then
 		install_yay
