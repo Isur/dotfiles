@@ -15,6 +15,7 @@ system_setup
 source ./actions/dbeaver.sh
 source ./actions/directories.sh
 source ./actions/docker.sh
+source ./actions/fonts.sh
 source ./actions/git.sh
 source ./actions/insomnia.sh
 source ./actions/kitty.sh
@@ -36,6 +37,7 @@ ask_action "Install node" install_node
 ask_action "Setup ssh" setup_ssh
 
 ask_action "Install kitty" install_kitty
+ask_action "Install fonts" install_fonts
 ask_action "Install LazyGit with Delta" setup_git
 ask_action "Install dbeaver" install_dbeaver
 ask_action "Install docker" install_docker
