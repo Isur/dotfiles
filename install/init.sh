@@ -8,7 +8,6 @@ nice_echo "Dotfiles installer"
 
 nice_echo "System: $system" "Server: $server" "All: $all"
 
-source ./installers.sh
 source ./setup.sh
 
 system_setup
