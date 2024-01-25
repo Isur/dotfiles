@@ -47,7 +47,7 @@ setup_git () {
 		arch_git
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_git
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_git
 	fi	
 }

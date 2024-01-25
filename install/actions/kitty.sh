@@ -16,7 +16,7 @@ install_kitty () {
 		arch_kitty
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_kitty
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_kitty
 	fi	
 	create_symlink "kitty config" "kitty" ".config/kitty"

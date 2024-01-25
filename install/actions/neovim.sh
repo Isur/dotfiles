@@ -28,7 +28,7 @@ install_neovim () {
 		arch_neovim
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_neovim
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_neovim
 	fi	
 }

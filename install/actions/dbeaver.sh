@@ -17,7 +17,7 @@ install_dbeaver () {
 		arch_dbeaver
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_dbeaver
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_dbeaver
 	fi	
 }

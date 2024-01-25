@@ -22,7 +22,7 @@ install_fonts () {
 		arch_fonts
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_fonts
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_fonts
 	fi	
 }

@@ -26,7 +26,7 @@ install_zsh () {
 			arch_zsh
 		elif [[ "$system" == "Debian Based" ]]; then
 			debian_zsh
-		elif [[ "$system" == "MacOS" ]]; then
+		elif [[ "$system" == "Darwin" ]]; then
 			macos_zsh
 		fi	
 		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended

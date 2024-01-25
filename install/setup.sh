@@ -46,7 +46,7 @@ system_setup() {
 		arch_setup
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_setup
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_setup
 	fi	
 }

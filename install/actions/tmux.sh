@@ -17,7 +17,7 @@ install_tmux () {
 		arch_tmux
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_tmux
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_tmux
 	fi	
 

@@ -20,7 +20,7 @@ install_terminal_tools() {
 		arch_terminal_tools
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_terminal_tools
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_terminal_tools
 	fi	
 

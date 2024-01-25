@@ -16,7 +16,7 @@ install_insomnia () {
 		arch_insomnia
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_insomnia
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_insomnia
 	fi	
 }

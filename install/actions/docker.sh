@@ -36,7 +36,7 @@ install_docker () {
 		arch_docker
 	elif [[ "$system" == "Debian Based" ]]; then
 		debian_docker
-	elif [[ "$system" == "MacOS" ]]; then
+	elif [[ "$system" == "Darwin" ]]; then
 		macos_docker
 	fi	
 }
