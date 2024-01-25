@@ -1,9 +1,9 @@
 arch_zsh () {
-	install_with_yay zsh
+	yay -S zsh --noconfirm
 }
 
 debian_zsh () {
-	install_with_apt zsh
+	sudo apt install zsh -y
 }
 
 macos_zsh () {

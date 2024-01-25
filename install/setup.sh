@@ -17,7 +17,7 @@ arch_setup () {
 	fi
 
 	yay --noconfirm --sudoloop
-	yay -S --noconfirm --sudoloop ansible
+	yay -S --noconfirm ansible
 }
 
 debian_setup () {

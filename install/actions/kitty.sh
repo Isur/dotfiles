@@ -1,29 +1,17 @@
 arch_kitty () {
-	install_with_yay kitty
-	install_with_yay ttf-jetbrains-mono-nerd
+	yay -S kitty --noconfirm
 }
 
 debian_kitty () {
-	install_with_apt kitty
-	nice_echo "Installing fonts"
-	mkdir -p ~/.local/share/fonts
-	fonturl=https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
-	wget $fonturl -O fonts.zip
-	unzip fonts.zip -d ~/.local/share/fonts
-	rm fonts.zip
-	fc-cache -fv
+	sudo apt install kitty -y
 }
 
 macos_kitty () {
-	nice_echo "Installing fonts"
-	brew tap homebrew/cask-fonts
-	brew install font-jetbrains-mono-nerd-font
-	nice_echo "Installing kitty!"
 	brew install kitty
 }
 
 install_kitty () {
-	nice_echo "Installing kitty and fonts"
+	nice_echo "Kitty"
 	if [[ "$system" == "Arch Based" ]]; then
 		arch_kitty
 	elif [[ "$system" == "Debian Based" ]]; then

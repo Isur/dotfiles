@@ -1,13 +1,13 @@
 arch_tmux () {
-	install_with_yay tmux
+	yay -S tmux --noconfirm
 }
 
 debian_tmux () {
-	install_with_apt tmux
+	sudo apt install tmux -y
 }
 
 macos_tmux () {
-	install_with_brew tmux
+	brew install tmux
 }
 
 install_tmux () {

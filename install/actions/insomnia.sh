@@ -1,13 +1,13 @@
 arch_insomnia () {
-	install_with_yay insomnia-bin
+	yay -S insomnia-bin --noconfirm
 }
 
 debian_insomnia () {
-	install_with_snap insomnia
+	sudo snap install insomnia
 }
 
 macos_insomnia () {
-	install_with_brew_cask insomnia
+	brew install --cask insomnia
 }
 
 install_insomnia () {

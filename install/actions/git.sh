@@ -1,6 +1,5 @@
 arch_git () {
-		install_with_yay git-delta
-		install_with_yay lazygit
+		yay -S git-delta lazygit --noconfirm
 
 		mkdir -p $HOME/.config/lazygit
 		create_symlink "gitconfig" "git-configs/gitconfig" ".gitconfig"
@@ -21,7 +20,6 @@ debian_git () {
 			create_symlink "lazygit" "git-configs/lazygit.yml" ".config/lazygit/config.yml"
 		fi
 
-		# check if delta is installed
 		if ! command -v delta &> /dev/null
 		then
 			DELTA_VERSION=0.16.5
@@ -34,8 +32,7 @@ debian_git () {
 }
 
 macos_git () {
-		brew install git-delta
-		brew install lazygit
+		brew install git-delta lazygit
 
 		mkdir -p $HOME/.config/lazygit
 

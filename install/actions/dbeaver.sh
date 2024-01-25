@@ -1,13 +1,13 @@
 arch_dbeaver () {
-	install_with_yay dbeaver
+	yay -S dbeaver --noconfirm
 }
 
 debian_dbeaver () {
-	install_with_snap dbeaver-ce
+	sudo snap install dbeaver-ce
 }
 
 macos_dbeaver () {
-	install_with_brew_cask dbeaver-community
+	brew install --cask dbeaver-community
 }
 
 install_dbeaver () {

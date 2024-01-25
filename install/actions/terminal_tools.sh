@@ -1,24 +1,15 @@
 arch_terminal_tools () {
-	install_with_yay fzf
-	install_with_yay ripgrep
-	install_with_yay fd
-	install_with_yay btop
+	yay -S fzf ripgrep fd btop --noconfirm
 }
 
 debian_terminal_tools () {
-	install_with_apt fzf
-	install_with_apt ripgrep
-	install_with_apt fd-find
-	install_with_snap btop
+	sudo apt install fzf ripgrep fd-find -y
+	sudo snap install btop
 	ln -s $(which fdfind) $HOME/.local/bin/fd
 }
 
 macos_terminal_tools () {
-	install_with_brew fzf
-	install_with_brew ripgrep
-	install_with_brew fd
-	install_with_brew btop
-	install_with_brew gnu-sed
+	brew install fzf ripgrep fd btop gnu-sed
 }
 
 install_terminal_tools() {

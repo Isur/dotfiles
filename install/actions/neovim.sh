@@ -1,5 +1,5 @@
 arch_neovim () {
-	install_with_yay neovim
+	yay -S neovim --noconfirm
 	create_symlink "nvim config" "nvim" ".config/nvim"
 }
 
@@ -7,8 +7,7 @@ debian_neovim () {
 	if ! command -v nvim &> /dev/null
 	then
 		nice_echo "Installing neovim!"
-		install_with_apt xclip
-		install_with_apt wl-clipboard
+		sudo apt install xclip wl-clipboard -y
 		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 		chmod u+x nvim.appimage
 		sudo mv nvim.appimage $HOME/apps/nvim
