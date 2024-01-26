@@ -21,7 +21,7 @@ if [ "$system" == "Darwin" ]; then
 	brew cleanup
 elif [ "$system" == "Arch Based" ]; then
 	echo "Updating yay"
-	sudo yay
+	yay --noconfirm
 elif [ "$system" == "Debian Based" ]; then
 	echo "Updating Apt"
 	sudo apt update
