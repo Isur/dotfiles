@@ -25,6 +25,7 @@ source ./actions/ssh.sh
 source ./actions/terminal_tools.sh
 source ./actions/tmux.sh
 source ./actions/zsh.sh
+source ./actions/python.sh
 source ./actions/repos.sh
 
 if [ "$server" = "yes" ]; then
@@ -40,6 +41,7 @@ else
 	ask_action "Install tmux" install_tmux
 	ask_action "Install neovim" install_neovim
 	ask_action "Install node" install_node
+	ask_action "Install pyenv" install_pyenv
 
 	ask_action "Setup ssh" setup_ssh
 

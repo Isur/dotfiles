@@ -33,6 +33,7 @@ install_zsh () {
 		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
 		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+		mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
 
 		create_symlink "zsh config" "zshrc-local" ".zshrc"
 		change_shell

@@ -18,11 +18,12 @@ arch_setup () {
 
 	yay --noconfirm --sudoloop
 	yay -S --noconfirm ansible
+	yay -S --noconfirm python-psycopg2
 }
 
 debian_setup () {
 	sudo apt update -y
-	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv ansible -y
+	sudo apt install build-essential curl libfuse2 snapd python3-pip python3-venv ansible libpq-dev python3-dev -y
 	sudo pip install --upgrade pip
 }
 
@@ -37,6 +38,7 @@ macos_setup () {
 	fi
 
 	brew install ansible
+	brew install postgresql
 }
 
 system_setup() {
