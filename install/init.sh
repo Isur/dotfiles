@@ -25,6 +25,7 @@ source ./actions/ssh.sh
 source ./actions/terminal_tools.sh
 source ./actions/tmux.sh
 source ./actions/zsh.sh
+source ./actions/repos.sh
 
 if [ "$server" = "yes" ]; then
 	ask_action "Install terminal tools" install_terminal_tools
@@ -48,6 +49,9 @@ else
 	ask_action "Install dbeaver" install_dbeaver
 	ask_action "Install docker" install_docker
 	ask_action "Install insomnia" install_insomnia
+
+	ask_action "Setup work repos" work_repos
+	ask_action "Setup private repos" private_repos
 fi
 
 
