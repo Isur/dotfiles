@@ -34,28 +34,42 @@ Configs in this repo:
 
 - `sudo` privileges.
 - `git` installed.
-- `.vault_pass` file with password (required for ssh setup)
+- `.vault_pass` file with password (required for ssh and other secrets) in `$HOME/dotfiles/.vault_pass`
+
+## Scripts
+
+With those configs and dotfiles comes custom scripts:
+
+- `keker` - automatically create directory for new project - template might be used for this
+- `updater` - update packages with `yay`/`brew`/`apt` and `Oh My ZSH`
+- `tmux-sessionizer` - create tmux session in selected directory
 
 ## Installing
 
-Install script will install:
+Install script will install and configure:
 
-- `tmux`
-- `neovim`
-- `ripgrep`
+- Directory structure
+- repositories for work and private
+- fonts
+- ssh configs
+- `dbeaver`
+- `docker`
 - `lazygit`
 - `git-delta`
-- `btop`
-- `fzf`
-- `fd`
+- `insomnia`
 - `kitty`
-- `zsh`
-- `gnu-sed`
-- `ansible`
-- ssh configs
-- Directory structure
+- `neovim`
 - `node`, `npm`, `pnpm`
-- `docker`
+- `ripgrep`
+- `fd`
+- `fzf`
+- `btop`
+- `tmux`
+- `gnu-sed`
+- `zsh`
+- `ansible`
+
+Some stuff might be required to configure manually - like dbeaver connections, fonts for some apps, login etc.
 
 Package manager used for installing depends on system:
 
