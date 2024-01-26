@@ -10,5 +10,5 @@ create_directory_structure () {
 	mkdir -p $HOME/Developer/PoC
 	mkdir -p $HOME/Developer/Global
 
-	cp $HOME/dotfiles/docker-compose.yml $HOME/Developer/Global/docker-compose.yml
+	cp $HOME/dotfiles/configs/docker-compose.yml $HOME/Developer/Global/docker-compose.yml
 }

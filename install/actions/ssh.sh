@@ -5,7 +5,7 @@ setup_ssh () {
 	fi
 	nice_echo "Unpacking ssh keys!"
 	mkdir -p $HOME/.ssh
-	cp -r $HOME/dotfiles/ssh/* $HOME/.ssh
+	cp -r $HOME/dotfiles/configs/ssh/* $HOME/.ssh
 	chmod 600 $HOME/.ssh/*
 	ansible-vault decrypt $HOME/.ssh/* --vault-password-file $HOME/dotfiles/.vault_pass
 }

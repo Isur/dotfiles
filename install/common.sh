@@ -9,7 +9,7 @@ nice_echo () {
 
 create_symlink () {
 	what="$1"
-	from="$HOME/dotfiles/$2"
+	from="$HOME/dotfiles/configs/$2"
 	to="$HOME/$3"
 
 	echo "Trying to create symlink: $what:" 
