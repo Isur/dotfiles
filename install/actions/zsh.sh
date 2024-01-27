@@ -35,7 +35,11 @@ install_zsh () {
 		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 		mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
 
-		create_symlink "zsh config" "zshrc-local" ".zshrc"
+		if [[ $server == "yes" ]]; then
+			create_symlink "zsh config" "zshrc-server" ".zshrc"
+		else
+			create_symlink "zsh config" "zshrc-local" ".zshrc"
+		fi
 		change_shell
 	else
 		nice_echo "zsh is installed!"

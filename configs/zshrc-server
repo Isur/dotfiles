@@ -7,4 +7,7 @@ plugins=(zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
 export PATH="$HOME/apps:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+
+export EDITOR="nvim"
 

@@ -10,7 +10,6 @@ nice_echo "System: $system" "Server: $server" "All: $all"
 
 source ./setup.sh
 
-system_setup
 
 source ./actions/dbeaver.sh
 source ./actions/directories.sh
@@ -29,11 +28,16 @@ source ./actions/python.sh
 source ./actions/repos.sh
 
 if [ "$server" = "yes" ]; then
+	mkdir -p $HOME/.local/bin
+	sudo apt update -y
+	sudo apt install build-essential curl libfuse2 snapd -y
+
 	ask_action "Install terminal tools" install_terminal_tools
 	ask_action "Install zsh" install_zsh
 	ask_action "Install neovim" install_neovim
 	ask_action "Install docker" install_docker
 else
+	system_setup
 	ask_action "Create directory structure" create_directory_structure
 
 	ask_action "Install terminal tools" install_terminal_tools
