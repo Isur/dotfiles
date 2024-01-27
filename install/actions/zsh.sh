@@ -20,28 +20,25 @@ change_shell () {
 }
 
 install_zsh () {
-	if ! command -v zsh &> /dev/null
-	then
-		if [[ "$system" == "Arch Based" ]]; then
-			arch_zsh
-		elif [[ "$system" == "Debian Based" ]]; then
-			debian_zsh
-		elif [[ "$system" == "Darwin" ]]; then
-			macos_zsh
-		fi	
-		sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-		git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
-		git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-		git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-		mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
-
-		if [[ $server == "yes" ]]; then
-			create_symlink "zsh config" "zshrc-server" ".zshrc"
-		else
-			create_symlink "zsh config" "zshrc-local" ".zshrc"
-		fi
-		change_shell
-	else
-		nice_echo "zsh is installed!"
+	if [[ "$system" == "Arch Based" ]]; then
+		arch_zsh
+	elif [[ "$system" == "Debian Based" ]]; then
+		debian_zsh
+	elif [[ "$system" == "Darwin" ]]; then
+		macos_zsh
 	fi
+	rm -rf $HOME/.oh-my-zsh/
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+	git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
+	git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+	mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
+
+	if [[ $server == "yes" ]]; then
+		create_symlink "zsh config" "zshrc-server" ".zshrc"
+	else
+		create_symlink "zsh config" "zshrc-local" ".zshrc"
+	fi
+
+	change_shell
 }
