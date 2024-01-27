@@ -27,4 +27,6 @@ setup_ssh () {
 			ansible-vault decrypt $HOME/.ssh/$f --vault-password-file $HOME/dotfiles/.vault_pass
 		fi
 	done
+
+	(cd $HOME/dotfiles; git remote remove origin; git remote add origin git@github.com:Isur/dotfiles; git fetch --all; git branch --set-upstream-to=origin/master master)
 }
