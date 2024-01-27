@@ -20,5 +20,5 @@ install_alacritty () {
 	elif [[ "$system" == "Darwin" ]]; then
 		macos_alacritty
 	fi	
-	create_symlink "alacritty config" "alacritty.toml" ".config/.alacritty.toml"
+	create_symlink "alacritty config" "alacritty.toml" ".alacritty.toml"
 }
