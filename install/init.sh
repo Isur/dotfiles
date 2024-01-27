@@ -18,6 +18,7 @@ source ./actions/fonts.sh
 source ./actions/git.sh
 source ./actions/insomnia.sh
 source ./actions/kitty.sh
+source ./actions/alacritty.sh
 source ./actions/neovim.sh
 source ./actions/node.sh
 source ./actions/ssh.sh
@@ -50,6 +51,7 @@ else
 	ask_action "Setup ssh" setup_ssh
 
 	ask_action "Install kitty" install_kitty
+	ask_action "Install alacritty" install_alacritty
 	ask_action "Install fonts" install_fonts
 	ask_action "Install LazyGit with Delta" setup_git
 	ask_action "Install dbeaver" install_dbeaver
