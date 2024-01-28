@@ -28,5 +28,8 @@ setup_ssh () {
 		fi
 	done
 
+	eval `ssh-agent -s`
+	ssh-add
+
 	(cd $HOME/dotfiles; git remote remove origin; git remote add origin git@github.com:Isur/dotfiles; git fetch --all; git branch --set-upstream-to=origin/master master)
 }

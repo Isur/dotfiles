@@ -16,7 +16,6 @@ arch_setup () {
 		nice_echo "yay is installed!"
 	fi
 
-	yay --noconfirm --sudoloop
 	yay -S --noconfirm ansible
 	yay -S --noconfirm python-psycopg2
 }
