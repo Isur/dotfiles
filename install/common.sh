@@ -24,6 +24,17 @@ create_symlink () {
 		return 0
 	fi
 
+	if [ "$all" == "yes" ]; then
+		if [ -e "$to.bak" ]; then
+			rm -rf "$to.bak"
+		fi
+		mv "$to" "$to.bak"
+		echo "Backup created: $what"
+		ln -sf "$from" "$to"
+		echo "Symlink created: $what"
+		return 0
+	fi
+
 	read -p "Do you want to overwrite $what? [y/N] " -n 1 -r answer
 	echo
 	if [[ $answer =~ ^[Yy]$ ]]; then
