@@ -18,6 +18,7 @@ return {
 					"python-lsp-server",
 					"tailwindcss-language-server",
 					"dockerfile-language-server",
+					"bash-language-server",
 					"docker-compose-language-service",
 					"css-lsp",
 					"html-lsp",

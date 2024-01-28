@@ -77,6 +77,11 @@ return {
 			capabilities = capabilities,
 		})
 
+		lspconfig["bashls"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+		})
+
 		lspconfig["html"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
