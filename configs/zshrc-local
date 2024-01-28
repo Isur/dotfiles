@@ -1,16 +1,20 @@
 export ZSH="$HOME/.oh-my-zsh"
 
 # THEME
-ZSH_THEME="robbyrussell"
+ZSH_THEME="amuse"
 
 # PLUGINS
-plugins=(zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting poetry)
+plugins=(zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting poetry ssh-agent)
 
 # OH MY ZSH
 source $ZSH/oh-my-zsh.sh
 
 # CUSTOM BINDS
 bindkey -s ^f "tmux-sessionizer\n"
+
+# ALIASES
+alias dotfiles="cd $HOME/dotfiles"
+alias zsh-refresh="source $HOME/.zshrc"
 
 # PATHS
 export PATH="$HOME/dotfiles/scripts:$PATH"

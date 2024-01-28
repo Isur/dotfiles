@@ -20,6 +20,9 @@ style = "Regular"
 [window]
 decorations = "none"
 
+[env]
+TERM = "xterm-256color"
+
 # TokyoNight Alacritty Colors
 # Default colors
 [colors.primary]
