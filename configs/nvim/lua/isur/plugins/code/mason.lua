@@ -24,6 +24,7 @@ return {
 					"html-lsp",
 					"lua-language-server",
 					"emmet-language-server",
+					"eslint-lsp",
 					-- Linters
 					"eslint_d",
 					"flake8",

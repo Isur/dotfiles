@@ -30,6 +30,7 @@ return {
 					"sql",
 					"javascript",
 				},
+				autotag = { enable = true },
 				auto_install = false,
 				highlight = { enable = true },
 				indent = { enable = true, disable = { "python" } },
