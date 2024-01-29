@@ -83,4 +83,4 @@ Package manager used for installing depends on system:
 
 ## Preview
 
-![Preview](./preview.jpeg)
+![Preview](./preview.png)
