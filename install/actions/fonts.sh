@@ -14,6 +14,9 @@ debian_fonts () {
 macos_fonts () {
 	brew tap homebrew/cask-fonts
 	brew install font-jetbrains-mono-nerd-font
+	brew install font-hack-nerd-font
+	brew install font-sf-pro
+	brew install --cask sf-symbols
 }
 
 install_fonts () {

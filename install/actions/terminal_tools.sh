@@ -9,7 +9,7 @@ debian_terminal_tools () {
 }
 
 macos_terminal_tools () {
-	brew install fzf ripgrep fd btop gnu-sed
+	brew install fzf ripgrep fd btop gnu-sed jq
 }
 
 install_terminal_tools() {
