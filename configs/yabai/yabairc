@@ -33,4 +33,4 @@ yabai -m rule --add app="^Karabiner-Elements$" manage=off
 yabai -m rule --add app="^Firestone$" manage=off
 yabai -m rule --add app="^Chromium$" manage=off
 yabai -m rule --add app="^Raycast$" manage=off
-
+yabai -m rule --add app="^Docker Desktop$" manage=off

@@ -5,6 +5,13 @@ return {
 		local conform = require("conform")
 
 		conform.setup({
+			formatters = {
+				prettierd = {
+					env = {
+						PRETTIERD_LOCAL_PRETTIER_ONLY = "true",
+					},
+				},
+			},
 			formatters_by_ft = {
 				javascript = { "prettierd" },
 				typescript = { "prettierd" },
