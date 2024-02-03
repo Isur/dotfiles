@@ -74,5 +74,5 @@ bar {
 
 gaps inner 16px
 gaps outer 8px
-smart_gaps on
-default_border pixel 0
+smart_gaps off
+default_border pixel 2
