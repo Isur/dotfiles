@@ -35,15 +35,17 @@ include $HOME/.config/i3/workspaces.conf
 tiling_drag modifier titlebar
 
 bar {
-        font pango: JetBrainsMono Nerd Font 12px
-        status_command i3status
-        position top
+        font pango: JetBrainsMono Nerd Font 14px
+        status_command i3blocks
+        position bottom
 }
 
 ##### GAPS #####
-gaps inner 16px
-gaps outer 8px
-smart_gaps off
+gaps inner 12px
+gaps outer 0px
+# gaps top 32px
+smart_gaps on
 
 ##### BORDERS #####
 default_border pixel 2
+

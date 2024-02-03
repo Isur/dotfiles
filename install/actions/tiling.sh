@@ -19,9 +19,11 @@ debian_tiling () {
 	sudo apt install rofi -y
 	sudo apt install feh -y
 	sudo apt install betterlockscreen -y
+	sudo apt install i3blocks -y
+	sudo apt install fonts-font-awesome -y
 
 	create_symlink "i3" "i3" ".config/i3"
-	create_symlink "i3status" "i3status" ".config/i3status"
+	create_symlink "i3block" "i3blocks" ".config/i3blocks"
 	create_symlink "rofi" "rofi" ".config/rofi"
 	create_symlink "dunst" "dunst" ".config/dunst"
 	create_symlink "betterlockscreen" "betterlockscreen" ".config/betterlockscreen"
