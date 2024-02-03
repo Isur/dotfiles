@@ -1,5 +1,3 @@
-# Please see https://i3wm.org/docs/userguide.html for a complete reference!
-
 ##### SET MOD #####
 ##################################
 # Mod1 = Alt                     #
@@ -9,37 +7,14 @@ set $mod Control+Mod1
 set $mod2 Control+Shift+Mod1
 set $hyper Control+Mod1+Shift+Mod4
 set $alt Mod1
+set $ctrl Control
+set $shift Shift
 set $super Mod4
 
 ##### FONT #####
 font pango:monospace 10
 
-##### STARTUP #####
-
-# Start XDG autostart .desktop files using dex. See also
-# https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex --autostart --environment i3
-
-# The combination of xss-lock, nm-applet and pactl is a popular choice, so
-# they are included here as an example. Modify as you see fit.
-
-# xss-lock grabs a logind suspend inhibit lock and will use i3lock to lock the
-# screen before suspend. Use loginctl lock-session to lock your screen.
-# exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
-
-# set desktop background with custom effect
-exec --no-startup-id betterlockscreen -w
-
-# Alternative (set last used background)
-# exec --no-startup-id source ~/.fehbg
-
-exec --no-startup-id xss-lock --transfer-sleep-lock -- betterlockscreen -l dim
-# NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
-
-exec_always feh --bg-scale $HOME/dotfiles/wallpapers/space-girl.png
-exec_always --no-startup-id "killall dunst; sleep 1; /usr/bin/dunst"
+include $HOME/.config/i3/autostart.conf
 
 ##### AUDIO #####
 # Use pactl to adjust volume in PulseAudio.
@@ -50,7 +25,6 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 ##### BINDINGS #####
-
 include $HOME/.config/i3/mod-bindings.conf
 include $HOME/.config/i3/layout.conf
 include $HOME/.config/i3/workspaces.conf
@@ -60,30 +34,16 @@ include $HOME/.config/i3/workspaces.conf
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 
-
-# A more modern dmenu replacement is rofi:
-# bindcode $mod+40 exec "rofi -modi drun,run -show drun"
-# There also is i3-dmenu-desktop which only displays applications shipping a
-# .desktop file. It is a wrapper around dmenu, so you need that installed.
-# bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
-
-# reload the configuration file
-bindsym $mod2+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod2+r restart
-# exit i3 (logs you out of your X session)
-# bindsym $mod2+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
-bindsym $super+i exec betterlockscreen -l 
-
-# Start i3bar to display a workspace bar (plus the system information i3status
-# finds out, if available)
 bar {
         font pango: JetBrainsMono Nerd Font 12px
         status_command i3status
         position top
 }
 
+##### GAPS #####
 gaps inner 16px
 gaps outer 8px
 smart_gaps off
+
+##### BORDERS #####
 default_border pixel 2
