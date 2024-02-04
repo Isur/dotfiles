@@ -1,8 +1,8 @@
 arch_tiling () {
-	yay -S i3-wm rofi feh i3status dunst betterlockscreen-git --noconfirm
+	yay -S i3-wm rofi feh i3blocks dunst betterlockscreen-git font-awesome-5 lm_sensors --noconfirm
 
 	create_symlink "i3" "i3" ".config/i3"
-	create_symlink "i3status" "i3status" ".config/i3status"
+	create_symlink "i3block" "i3blocks" ".config/i3blocks"
 	create_symlink "rofi" "rofi" ".config/rofi"
 	create_symlink "dunst" "dunst" ".config/dunst"
 	create_symlink "betterlockscreen" "betterlockscreen" ".config/betterlockscreen"
@@ -16,11 +16,7 @@ debian_tiling () {
 	sudo apt install i3 -y
 	rm ./keyring.deb
 
-	sudo apt install rofi -y
-	sudo apt install feh -y
-	sudo apt install betterlockscreen -y
-	sudo apt install i3blocks -y
-	sudo apt install fonts-font-awesome -y
+	sudo apt install rofi fet betterlockscreen i3blocks fonts-font-awesome lm-sensors -y
 
 	create_symlink "i3" "i3" ".config/i3"
 	create_symlink "i3block" "i3blocks" ".config/i3blocks"

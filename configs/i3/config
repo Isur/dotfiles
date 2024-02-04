@@ -10,9 +10,20 @@ set $alt Mod1
 set $ctrl Control
 set $shift Shift
 set $super Mod4
+##### THEME #####
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+set $lightgray #bdae93
 
 ##### FONT #####
-font pango:monospace 10
+font pango:JetBrainsMono Nerd Font 10
 
 include $HOME/.config/i3/autostart.conf
 
@@ -34,18 +45,19 @@ include $HOME/.config/i3/workspaces.conf
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 
-bar {
-        font pango: JetBrainsMono Nerd Font 14px
-        status_command i3blocks
-        position bottom
-}
+##### BAR #####
+include $HOME/.config/i3/bar.conf
 
 ##### GAPS #####
 gaps inner 12px
 gaps outer 0px
-# gaps top 32px
-smart_gaps on
+smart_gaps off
 
 ##### BORDERS #####
-default_border pixel 2
+default_border pixel 3
 
+# class                 border     backgr     text
+client.focused          $lightgray $lightgray $bg
+client.focused_inactive $darkgray  $darkgray  $lightgray
+client.unfocused        $darkgray  $darkgray  $lightgray
+client.urgent           $red       $red       $white
