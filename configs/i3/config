@@ -21,6 +21,10 @@ set $aqua #689d68
 set $gray #a89984
 set $darkgray #1d2021
 set $lightgray #bdae93
+##### MODE SYSTEM #####
+set $Locker betterlockscreen -l && sleep 1
+set $mode_system System (l) lock, (e) logout, (r) reboot, (Shift+s) shutdown
+##### END SET #####
 
 ##### FONT #####
 font pango:JetBrainsMono Nerd Font 10
@@ -61,3 +65,5 @@ client.focused          $lightgray $lightgray $bg
 client.focused_inactive $darkgray  $darkgray  $lightgray
 client.unfocused        $darkgray  $darkgray  $lightgray
 client.urgent           $red       $red       $white
+
+

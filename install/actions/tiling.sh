@@ -16,7 +16,14 @@ debian_tiling () {
 	sudo apt install i3 -y
 	rm ./keyring.deb
 
-	sudo apt install rofi fet betterlockscreen i3blocks fonts-font-awesome lm-sensors -y
+	sudo apt install rofi fet i3blocks imagemagick fonts-font-awesome lm-sensors -y
+
+	# Dependencies to build i3lock-color
+	sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev
+
+	# Build and install i3lock-color
+	(cd /tmp && git clone https://github.com/Raymo111/i3lock-color.git && cd i3lock-color && ./install-i3lock-color.sh)
+	wget https://raw.githubusercontent.com/betterlockscreen/betterlockscreen/main/install.sh -O - -q | bash -s user
 
 	create_symlink "i3" "i3" ".config/i3"
 	create_symlink "i3block" "i3blocks" ".config/i3blocks"
