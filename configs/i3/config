@@ -21,6 +21,7 @@ set $aqua #689d68
 set $gray #a89984
 set $darkgray #1d2021
 set $lightgray #bdae93
+set $orange #d65d0e
 ##### MODE SYSTEM #####
 set $Locker betterlockscreen -l && sleep 1
 set $mode_system System (l) lock, (e) logout, (r) reboot, (Shift+s) shutdown

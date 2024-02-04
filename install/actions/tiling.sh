@@ -1,5 +1,5 @@
 arch_tiling () {
-	yay -S i3-wm rofi feh i3blocks dunst betterlockscreen-git font-awesome-5 lm_sensors flameshot thunar --noconfirm
+	yay -S i3-wm rofi feh i3blocks dunst betterlockscreen-git font-awesome-5 lm_sensors flameshot thunar sysstat --noconfirm
 
 	create_symlink "i3" "i3" ".config/i3"
 	create_symlink "i3block" "i3blocks" ".config/i3blocks"

@@ -83,4 +83,12 @@ Package manager used for installing depends on system:
 
 ## Preview
 
+### Mac
+Yabai and sketchbar
+
 ![Preview](./preview.png)
+
+### Linux
+i3wm
+
+![Preview](./i3wm.png)
