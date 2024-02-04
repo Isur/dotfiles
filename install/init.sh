@@ -24,7 +24,6 @@ source ./actions/neovim.sh
 source ./actions/node.sh
 source ./actions/obsidian.sh
 source ./actions/ssh.sh
-source ./actions/screenshot.sh
 source ./actions/terminal_tools.sh
 source ./actions/tiling.sh
 source ./actions/tmux.sh
@@ -47,7 +46,6 @@ else
 	ui_apps () {
 		ask_action "Install kitty" install_kitty
 		ask_action "Install alacritty" install_alacritty
-		ask_action "Install screenshot tool" install_screenshot_tool
 		ask_action "Install tiling" install_tiling
 		ask_action "Install fonts" install_fonts
 		ask_action "Install dbeaver" install_dbeaver

@@ -1,5 +1,5 @@
 arch_tiling () {
-	yay -S i3-wm rofi feh i3blocks dunst betterlockscreen-git font-awesome-5 lm_sensors --noconfirm
+	yay -S i3-wm rofi feh i3blocks dunst betterlockscreen-git font-awesome-5 lm_sensors flameshot thunar --noconfirm
 
 	create_symlink "i3" "i3" ".config/i3"
 	create_symlink "i3block" "i3blocks" ".config/i3blocks"
@@ -16,7 +16,7 @@ debian_tiling () {
 	sudo apt install i3 -y
 	rm ./keyring.deb
 
-	sudo apt install rofi feh i3blocks imagemagick fonts-font-awesome lm-sensors -y
+	sudo apt install rofi feh i3blocks imagemagick fonts-font-awesome lm-sensors flameshot thunar -y
 
 	# Dependencies to build i3lock-color
 	sudo apt install autoconf gcc make pkg-config libpam0g-dev libcairo2-dev libfontconfig1-dev libxcb-composite0-dev libev-dev libx11-xcb-dev libxcb-xkb-dev libxcb-xinerama0-dev libxcb-randr0-dev libxcb-image0-dev libxcb-util-dev libxcb-xrm-dev libxkbcommon-dev libxkbcommon-x11-dev libjpeg-dev -y
