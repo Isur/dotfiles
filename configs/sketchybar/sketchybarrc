@@ -12,7 +12,7 @@ ITEM_DIR="$CONFIG_DIR/items"
 
 sketchybar --bar height=37        \
                  blur_radius=30   \
-                 position=top     \
+                 position=bottom  \
                  sticky=off       \
                  padding_left=10  \
                  padding_right=10 \
@@ -44,7 +44,7 @@ source "$ITEM_DIR/spaces.sh"
 source "$ITEM_DIR/front_app.sh"
 
 #### Right of notch #####
-# source "$ITEM_DIR/media.sh"
+source "$ITEM_DIR/media.sh"
 
 ##### RIGHT SIDE #####
 source "$ITEM_DIR/mic.sh"
