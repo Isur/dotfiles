@@ -25,6 +25,7 @@ return {
 					"lua-language-server",
 					"emmet-language-server",
 					"eslint-lsp",
+					"arduino-language-server",
 					-- Linters
 					"eslint_d",
 					"flake8",
