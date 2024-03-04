@@ -97,6 +97,11 @@ return {
 			capabilities = capabilities,
 		})
 
+		lspconfig["clangd"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+		})
+
 		lspconfig["eslint"].setup({
 			on_attach = function(client, bufnr)
 				on_attach(client, bufnr)

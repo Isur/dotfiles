@@ -25,6 +25,8 @@ return {
 				graphql = { "prettierd" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
+				cpp = { "clang_format" },
+				ino = { "clang_format" },
 			},
 			format_on_save = {
 				lsp_fallback = true,

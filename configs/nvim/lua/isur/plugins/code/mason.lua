@@ -26,6 +26,7 @@ return {
 					"emmet-language-server",
 					"eslint-lsp",
 					"arduino-language-server",
+					"clangd",
 					-- Linters
 					"eslint_d",
 					"flake8",
@@ -34,6 +35,7 @@ return {
 					"prettierd",
 					"stylua",
 					"isort",
+					"clang-format",
 				},
 				automatic_installation = true,
 			})

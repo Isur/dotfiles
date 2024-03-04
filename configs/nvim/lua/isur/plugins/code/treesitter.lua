@@ -29,6 +29,7 @@ return {
 					"prisma",
 					"sql",
 					"javascript",
+					"cpp",
 				},
 				autotag = { enable = true },
 				auto_install = false,
