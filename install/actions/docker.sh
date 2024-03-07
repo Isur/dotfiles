@@ -1,5 +1,5 @@
 arch_docker () {
-	yay -S docker docker-compose docker-buildx --noconfirm
+	yay -S docker docker-compose docker-buildx lazydocker --noconfirm
 
 	sudo getent group docker || sudo groupadd docker
 	sudo usermod -aG docker $USER
@@ -20,6 +20,8 @@ debian_docker () {
 	sudo apt update
 	sudo apt install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin -y
 
+	curl https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh | bash
+
 	sudo getent group docker || sudo groupadd docker
 	sudo usermod -aG docker $USER
 	sudo systemctl enable docker
@@ -27,6 +29,7 @@ debian_docker () {
 
 macos_docker () {
 	brew install --cask docker
+	brew install lazydocker
 }
 
 install_docker () {
