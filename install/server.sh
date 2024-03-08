@@ -1,3 +1,5 @@
+#!/bin/bash
+
 sudo apt update
 sudo apt install fzf ripgrep fd-find curl vim zsh -y
 
@@ -17,9 +19,9 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
 ' >> $HOME/.zshrc
 
-read -p "Do you want to install docker? [y/N] " -r answer
+read -p "Do you want to install docker? [y/N] " -n 1 -r answer
 
-if [ $answer = "y" ]; then
+if [[ $answer =~ ^[Yy]$ ]]; then
 	sudo apt install ca-certificates curl gnupg -y
 	sudo install -m 0755 -d /etc/apt/keyrings
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
