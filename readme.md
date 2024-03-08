@@ -14,6 +14,7 @@ Tested on:
 - endeavouros
 - ubuntu
 - mac os
+- ubuntu server
 
 ## Includes
 
@@ -80,6 +81,23 @@ Package manager used for installing depends on system:
 ## Helpers
 
 `./install.sh` - will install everything thats needed and configure symlinks.
+
+## Server
+
+Install some tools that I use on servers:
+
+```sh
+curl https://raw.githubusercontent.com/isur/dotfiles/server/install/server.sh | sh
+```
+
+This will install:
+- zsh
+- fzf
+- ripgrep
+- fd-find
+- curl
+- vim
+- docker and lazydocker
 
 ## Preview
 
