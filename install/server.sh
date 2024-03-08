@@ -1,10 +1,9 @@
 sudo apt update
-sudo apt install fzf ripgrep fd-find curl vim -y
-sudo apt install zsh -y
+sudo apt install fzf ripgrep fd-find curl vim zsh -y
 
 rm -rf $HOME/.oh-my-zsh/
-mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
 git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
