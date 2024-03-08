@@ -3,19 +3,20 @@ sudo apt install fzf ripgrep fd-find curl vim -y
 sudo apt install zsh -y
 
 rm -rf $HOME/.oh-my-zsh/
+mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 git clone https://github.com/joshskidmore/zsh-fzf-history-search ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-fzf-history-search
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-mkdir -p ${ZSH_CUSTOM:=$HOME/.oh-my-zsh/custom}/plugins
 
-echo "
-export ZSH="$HOME/.oh-my-zsh"
+mv $HOME/.zshrc $HOME/.zshrc.bak 
+
+echo 'export ZSH="$HOME/.oh-my-zsh"
 ZSH_THEME="bira"
 plugins=(zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
-" >> $HOME/.zshrc
+' >> $HOME/.zshrc
 
 echo "Do you want to install docker? [y/N]"
 read -n 1 -r answer
