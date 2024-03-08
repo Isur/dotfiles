@@ -18,9 +18,8 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR="vim"
 ' >> $HOME/.zshrc
 
-echo "Do you want to install docker? [y/N]"
-read -n 1 -r answer
-echo
+read -p "Do you want to install docker? [y/N] " -n 1 -r answer
+
 if [[ $answer =~ ^[Yy]$ ]]; then
 	sudo apt install ca-certificates curl gnupg -y
 	sudo install -m 0755 -d /etc/apt/keyrings
