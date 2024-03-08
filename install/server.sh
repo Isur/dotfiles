@@ -19,7 +19,7 @@ export EDITOR="vim"
 
 read -p "Do you want to install docker? [y/N] " -r answer
 
-if [[ $answer =~ ^[Yy]$ ]]; then
+if [ $answer = "y" ]; then
 	sudo apt install ca-certificates curl gnupg -y
 	sudo install -m 0755 -d /etc/apt/keyrings
 	curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
