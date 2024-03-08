@@ -87,7 +87,7 @@ Package manager used for installing depends on system:
 Install some tools that I use on servers:
 
 ```sh
-curl https://raw.githubusercontent.com/isur/dotfiles/master/install/server.sh | sh
+bash -c "$(curl https://raw.githubusercontent.com/isur/dotfiles/master/install/server.sh)"
 ```
 
 This will install:
