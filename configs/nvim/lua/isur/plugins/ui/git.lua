@@ -3,10 +3,17 @@ return {
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 	{
+		"isak102/telescope-git-file-history.nvim",
+		dependencies = { "tpope/vim-fugitive" },
+		config = function()
+			vim.keymap.set("n", "<leader>gh", ":Telescope git_file_history<CR>", { desc = "Git file history" })
+		end,
+	},
+	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			vim.keymap.set("n", "<leader>gg", vim.cmd.LazyGit, { desc = "Lazy Git" })
-			vim.keymap.set("n", "<leader>gh", ":Git log --oneline -p --follow -- % <CR>", { desc = "Git file history" })
+			-- vim.keymap.set("n", "<leader>gh", ":Git log --oneline -p --follow -- % <CR>", { desc = "Git file history" })
 
 			local gitsigns = require("gitsigns")
 

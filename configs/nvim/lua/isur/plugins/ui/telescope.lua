@@ -11,8 +11,25 @@ return {
 		local actions = require("telescope.actions")
 		local builtin = require("telescope.builtin")
 		local themes = require("telescope.themes")
+		local gfh_actions = require("telescope").extensions.git_file_history.actions
 
 		telescope.setup({
+			extensions = {
+				git_file_history = {
+					mappings = {
+						i = {
+							["<C-g>"] = gfh_actions.open_in_browser,
+						},
+						n = {
+							["<C-g>"] = gfh_actions.open_in_browser,
+						},
+					},
+
+					-- The command to use for opening the browser (nil or string)
+					-- If nil, it will check if xdg-open, open, start, wslview are available, in that order.
+					browser_command = nil,
+				},
+			},
 			defaults = {
 				mappings = {
 					i = {
@@ -23,6 +40,7 @@ return {
 		})
 
 		telescope.load_extension("fzf")
+		telescope.load_extension("git_file_history")
 
 		vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "Find recently opened files" })
 		vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "Find existing buffers" })
