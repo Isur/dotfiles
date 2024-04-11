@@ -19,5 +19,8 @@ return {
 		vim.keymap.set("n", "<leader><leader>j", smartsplits.swap_buf_down)
 		vim.keymap.set("n", "<leader><leader>k", smartsplits.swap_buf_up)
 		vim.keymap.set("n", "<leader><leader>l", smartsplits.swap_buf_right)
+
+		vim.keymap.set("n", "<leader>ss", ":split<CR>")
+		vim.keymap.set("n", "<leader>vv", ":vsplit<CR>")
 	end,
 }

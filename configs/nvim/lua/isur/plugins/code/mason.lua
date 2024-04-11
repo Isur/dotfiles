@@ -30,6 +30,7 @@ return {
 					-- Linters
 					"eslint_d",
 					"flake8",
+					"ruff",
 					-- Formatters
 					"black",
 					"prettierd",
