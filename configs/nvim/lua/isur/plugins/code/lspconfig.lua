@@ -31,7 +31,6 @@ return {
 			nmap("]d", vim.diagnostic.goto_next, "Go to next diagnostic message")
 
 			nmap("K", vim.lsp.buf.hover, "Hover Documentation")
-			nmap("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
 			nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
 			nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
