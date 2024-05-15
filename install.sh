@@ -1,3 +1,3 @@
 #!/bin/bash
 
-(cd ./install && ./init.sh)
+(cd ./install && ./init.sh "$@")

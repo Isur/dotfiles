@@ -1,22 +1,22 @@
 source ./common.sh
 
 system=""
-server="no"
 all="no"
+wsl="no"
 
 while [[ $# -gt 0 ]]; do
 	case "$1" in
-		-s|--server)
-			server="yes"
+		-w|--wsl)
+			wsl="yes"
 			shift;;
 		-a|--all)
 			all="yes"
 			shift;;
 		-h|--help)
-			echo "Usage: $0 [-s|--server] [-a|--all]"
+			echo "Usage: $0 [-w|--wsl] [-a|--all]"
 			exit 0;;
 		*)
-			echo "Usage: $0 [-s|--server] [-a|--all]"
+			echo "Usage: $0 [-w|--wsl] [-a|--all]"
 			exit 1;;
 	esac
 done
@@ -36,12 +36,12 @@ if [ "$system" == "" ]; then
 	exit 1
 fi
 
-if [ "$server" == "no" ]; then
-		read -p "Install server? [y/N] " -n 1 -r answer
+if [ "$wsl" == "no" ]; then
+		read -p "Install on WSL? [y/N] " -n 1 -r answer
 		if [ "$answer" != "${answer#[Yy]}" ] ;then
-			server="yes"
+			wsl="yes"
 		else
-			server="no"
+			wsl="no"
 		fi
 		echo
 fi
