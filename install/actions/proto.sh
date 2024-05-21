@@ -3,7 +3,7 @@ arch_python () {
 }
 
 debian_python () {
-    sudo apt install git gzip unzip xz -y
+    sudo apt install git gzip unzip xz-utils -y
 }
 
 macos_python () {

@@ -22,7 +22,7 @@ arch_setup () {
 
 debian_setup () {
 	sudo apt update -y
-	sudo apt install build-essential unzip curl libfuse2 snapd python3-pip python3-venv ansible libpq-dev python3-dev gzip unzip xz -y
+	sudo apt install build-essential unzip curl libfuse2 snapd python3-pip python3-venv ansible libpq-dev python3-dev gzip unzip xz-utils -y
 	sudo pip install --upgrade pip
 }
 
