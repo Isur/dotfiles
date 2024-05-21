@@ -36,7 +36,7 @@ if [ "$system" == "" ]; then
 	exit 1
 fi
 
-if [ "$wsl" == "no" ]; then
+if [ "$wsl" == "no" ] && [ "$all" == "no" ]; then
 		read -p "Install on WSL? [y/N] " -n 1 -r answer
 		if [ "$answer" != "${answer#[Yy]}" ] ;then
 			wsl="yes"

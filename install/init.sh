@@ -30,6 +30,7 @@ source ./actions/tmux.sh
 source ./actions/zsh.sh
 source ./actions/python.sh
 source ./actions/repos.sh
+source ./actions/proto.sh
 
 if [ "$wsl" = "yes" ]; then
 	system_setup
@@ -44,6 +45,7 @@ if [ "$wsl" = "yes" ]; then
 	ask_action "Install neovim" install_neovim
 	ask_action "Install node" install_node
 	ask_action "Install pyenv" install_pyenv
+	ask_action "Install proto" install_proto
 	ask_action "Install LazyGit with Delta" setup_git
 	ask_action "Install docker" install_docker
 
@@ -71,6 +73,7 @@ else
 		ask_action "Install neovim" install_neovim
 		ask_action "Install node" install_node
 		ask_action "Install pyenv" install_pyenv
+		ask_action "Install proto" install_proto
 		ask_action "Install LazyGit with Delta" setup_git
 		ask_action "Install docker" install_docker
 	}
