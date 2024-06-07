@@ -31,7 +31,6 @@ return {
 					"javascript",
 					"cpp",
 				},
-				autotag = { enable = true },
 				auto_install = false,
 				highlight = { enable = true },
 				indent = { enable = true, disable = { "python" } },
@@ -89,6 +88,7 @@ return {
 				},
 			})
 			require("ts_context_commentstring").setup({})
+			require("nvim-ts-autotag").setup()
 		end,
 	},
 }

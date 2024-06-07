@@ -52,10 +52,10 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		lspconfig["tsserver"].setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
+		-- lspconfig["tsserver"].setup({
+		-- 	on_attach = on_attach,
+		-- 	capabilities = capabilities,
+		-- })
 
 		lspconfig["arduino_language_server"].setup({
 			on_attach = on_attach,

@@ -18,4 +18,5 @@ require("lazy").setup({
 	{ import = "isur.plugins.utils" },
 	{ import = "isur.plugins.code" },
 	{ import = "isur.plugins.ui" },
+	{ import = "isur.plugins.mini" },
 })
