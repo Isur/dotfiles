@@ -10,6 +10,30 @@ return {
 		local lspconfig = require("lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local builtins = require("telescope.builtin")
+		-- Specify how the border looks like
+		local border = {
+			{ "┌", "FloatBorder" },
+			{ "─", "FloatBorder" },
+			{ "┐", "FloatBorder" },
+			{ "│", "FloatBorder" },
+			{ "┘", "FloatBorder" },
+			{ "─", "FloatBorder" },
+			{ "└", "FloatBorder" },
+			{ "│", "FloatBorder" },
+		}
+
+		-- Add the border on hover and on signature help popup window
+		local handlers = {
+			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
+			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+		}
+
+		vim.diagnostic.config({
+			virtual_text = {
+				prefix = "■ ", -- Could be '●', '▎', 'x', '■', , 
+			},
+			float = { border = border },
+		})
 
 		local on_attach = function(_, bufnr)
 			local nmap = function(keys, func, desc)
@@ -52,54 +76,64 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		-- lspconfig["tsserver"].setup({
-		-- 	on_attach = on_attach,
-		-- 	capabilities = capabilities,
-		-- })
+		lspconfig["tsserver"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			handlers = handlers,
+		})
 
 		lspconfig["arduino_language_server"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["tailwindcss"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["cssls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["dockerls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["docker_compose_language_service"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["bashls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["html"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["pylsp"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["clangd"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["eslint"].setup({
@@ -111,16 +145,19 @@ return {
 				})
 			end,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["emmet_language_server"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 		})
 
 		lspconfig["lua_ls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
+			handlers = handlers,
 			settings = {
 				Lua = {
 					diagnostic = {

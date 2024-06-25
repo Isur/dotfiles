@@ -34,6 +34,9 @@ return {
 			defaults = {
 				path_display = { "smart" },
 				mappings = {
+					n = {
+						["<C-d>"] = actions.delete_buffer,
+					},
 					i = {
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 					},
