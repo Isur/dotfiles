@@ -27,15 +27,15 @@ return {
 				end,
 			},
 			window = {
-				completion = cmp.config.window.bordered(),
-				documentation = cmp.config.window.bordered(),
+				completion = cmp.config.window.bordered({ border = "single", side_padding = 0 }),
+				documentation = cmp.config.window.bordered({ border = "single" }),
 			},
 			mapping = cmp.mapping.preset.insert({
 				["<C-p>"] = cmp.mapping.select_prev_item(),
 				["<C-n>"] = cmp.mapping.select_next_item(),
 				["<C-d>"] = cmp.mapping.scroll_docs(-4),
 				["<C-f>"] = cmp.mapping.scroll_docs(4),
-				["<C-Space>"] = cmp.mapping.complete(),
+				["<C-s>"] = cmp.mapping.complete({ reason = cmp.ContextReason.Auto }),
 				["<C-e>"] = cmp.mapping.close(),
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
 				["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
@@ -49,7 +49,7 @@ return {
 				{ name = "path" },
 			},
 			formatting = {
-				format = lspkind.cmp_format({ with_text = true, maxwidth = 50 }),
+				format = lspkind.cmp_format({ with_text = true }),
 			},
 		})
 	end,

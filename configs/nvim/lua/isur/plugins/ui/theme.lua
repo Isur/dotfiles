@@ -1,13 +1,19 @@
 return {
-	-- "folke/tokyonight.nvim",
 	"ellisonleao/gruvbox.nvim",
 	lazy = false,
 	priority = 1000,
-	opts = {},
-
 	config = function()
-		-- vim.cmd.colorscheme("tokyonight-night")
+		local gruvbox = require("gruvbox")
+		gruvbox.setup({
+			overrides = {
+				SignColumn = { bg = "#282828" },
+			},
+		})
 		vim.o.background = "dark"
 		vim.cmd.colorscheme("gruvbox")
+
+		-- Fix background color of floating windows
+		vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
+		vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#282828" })
 	end,
 }
