@@ -7,6 +7,8 @@ return {
 		gruvbox.setup({
 			overrides = {
 				SignColumn = { bg = "#282828" },
+				TabLineFill = { bg = "#282828" },
+				TabLineSel = { fg = "#fe8019" },
 			},
 		})
 		vim.o.background = "dark"
