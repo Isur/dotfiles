@@ -9,6 +9,7 @@ return {
 				SignColumn = { bg = "#282828" },
 				TabLineFill = { bg = "#282828" },
 				TabLineSel = { fg = "#fe8019" },
+				BufferLineFill = { bg = "#282828" },
 			},
 		})
 		vim.o.background = "dark"
