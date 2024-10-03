@@ -63,6 +63,8 @@ return {
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end, "Workspace List Folders")
 
+			vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help)
+
 			vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 				vim.lsp.buf.format()
 			end, { desc = "Format current buffer with LSP" })
@@ -76,7 +78,7 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		lspconfig["tsserver"].setup({
+		lspconfig["ts_ls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
 			handlers = handlers,
@@ -132,18 +134,6 @@ return {
 
 		lspconfig["clangd"].setup({
 			on_attach = on_attach,
-			capabilities = capabilities,
-			handlers = handlers,
-		})
-
-		lspconfig["eslint"].setup({
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					command = "EslintFixAll",
-				})
-			end,
 			capabilities = capabilities,
 			handlers = handlers,
 		})

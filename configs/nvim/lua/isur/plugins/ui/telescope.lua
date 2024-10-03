@@ -32,7 +32,7 @@ return {
 				},
 			},
 			defaults = {
-				path_display = { "smart" },
+				-- path_display = { "smart" },
 				mappings = {
 					n = {
 						["<C-d>"] = actions.delete_buffer,
