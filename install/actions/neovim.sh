@@ -7,7 +7,7 @@ debian_neovim () {
 	if ! command -v nvim &> /dev/null
 	then
 		nice_echo "Installing neovim!"
-		sudo apt install xclip wl-clipboard -y
+		sudo apt install xclip wl-clipboard luarocks -y
 		curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 		chmod u+x nvim.appimage
 		sudo mv nvim.appimage $HOME/apps/nvim
