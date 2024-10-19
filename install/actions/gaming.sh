@@ -1,10 +1,14 @@
 arch_gaming () {
-	yay -S gaming lutris wine --noconfirm
+	yay -S steam lutris wine --noconfirm
 }
 
-debian_gaming () { }
+debian_gaming () {
+	echo "Not implemented installing gaming tools for debian"
+}
 
-macos_gaming () { }
+macos_gaming () {
+	echo "Gaming on mac? Huh?"
+}
 
 install_gaming() {
 	nice_echo "Installing gaming tools"
