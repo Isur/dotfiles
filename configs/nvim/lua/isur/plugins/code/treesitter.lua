@@ -30,6 +30,7 @@ return {
 					"sql",
 					"javascript",
 					"cpp",
+					"http",
 				},
 				auto_install = false,
 				highlight = { enable = true },

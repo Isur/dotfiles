@@ -22,4 +22,5 @@ install_proto () {
 	fi
 
     curl -fsSL https://moonrepo.dev/install/proto.sh | bash -s -- --no-profile --yes
+    create_symlink "proto" "prototools" ".prototools"
 }

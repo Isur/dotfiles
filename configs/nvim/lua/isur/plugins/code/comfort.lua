@@ -19,7 +19,7 @@ return {
 				typescriptreact = { "prettierd" },
 				css = { "prettierd" },
 				html = { "prettierd" },
-				json = { "prettierd" },
+				json = { "jq" },
 				yaml = { "prettierd" },
 				markdown = { "prettierd" },
 				graphql = { "prettierd" },
@@ -42,5 +42,7 @@ return {
 				timeout_ms = 1000,
 			})
 		end, { desc = "Format file or range in visualmode" })
+
+		vim.bo.formatexpr = "v:lua.require’conform’.formatexpr()"
 	end,
 }

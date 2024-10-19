@@ -7,9 +7,8 @@ return {
 	},
 
 	config = function()
-		vim.keymap.set("n", "<leader>fe", vim.cmd.Neotree, { desc = "File Explorer" })
+		vim.keymap.set("n", "<leader>fe", "<Cmd>Neotree<CR>", { desc = "File Explorer" })
 		vim.keymap.set("n", "<leader>fq", "<Cmd>Neotree close<CR>", { desc = "File Explorer Quit" })
-
 		local neotree = require("neo-tree")
 
 		vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])

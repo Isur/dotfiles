@@ -37,6 +37,7 @@ return {
 					"stylua",
 					"isort",
 					"clang-format",
+					"jq",
 				},
 				automatic_installation = true,
 			})
