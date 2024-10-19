@@ -31,6 +31,8 @@ source ./actions/zsh.sh
 source ./actions/python.sh
 source ./actions/repos.sh
 source ./actions/proto.sh
+source ./actions/spotify.sh
+source ./actions/gaming.sh
 
 if [ "$wsl" = "yes" ]; then
 	system_setup
@@ -64,6 +66,8 @@ else
 		ask_action "Install insomnia" install_insomnia
 		ask_action "Install obsidian" install_obsidian
 		ask_action "Install Discord" install_discord
+		ask_action "Install Gaming tools" install_gaming
+		ask_action "Install Spotify" install_spotify
 	}
 
 	programming() {
