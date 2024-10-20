@@ -1,5 +1,7 @@
 arch_brave () {
 	yay -S brave-bin --noconfirm
+	# ZEN BROWSER
+	yay -S zen-browser-avx2-bin
 }
 
 debian_brave () {

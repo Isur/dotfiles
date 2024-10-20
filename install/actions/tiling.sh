@@ -1,5 +1,5 @@
 arch_tiling () {
-	yay -S i3-wm playerctl rofi feh i3blocks dunst betterlockscreen-git font-awesome-5 lm_sensors flameshot thunar thunderbird thunderbird-i18n sysstat gvfs polkit polkit-kde-agent --noconfirm
+	yay -S i3-wm bazecor playerctl rofi feh i3blocks dunst betterlockscreen-git font-awesome-5 lm_sensors flameshot thunar thunderbird thunderbird-i18n sysstat gvfs polkit polkit-kde-agent --noconfirm
 
 	mkdir -p $HOME/Pictures/Screenshots
 

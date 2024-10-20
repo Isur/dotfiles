@@ -1,5 +1,9 @@
 arch_gaming () {
-	yay -S steam lutris wine --noconfirm
+	yay -S wine --noconfirm
+	yay -S steam --noconfirm
+	yay -S lutris --noconfrim
+
+	sudo pacman -S --needed nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
 }
 
 debian_gaming () {
