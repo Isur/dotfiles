@@ -1,9 +1,12 @@
 arch_gaming () {
+	# Order is important here wine - steam - lutris
 	yay -S wine --noconfirm
 	yay -S steam --noconfirm
-	yay -S lutris --noconfrim
+	yay -S lutris --noconfirm
 
-	sudo pacman -S --needed nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader
+	yay -S nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings vulkan-icd-loader lib32-vulkan-icd-loader --noconfirm
+	yay -S gamemode lib32-gamemode --noconfirm
+
 }
 
 debian_gaming () {
