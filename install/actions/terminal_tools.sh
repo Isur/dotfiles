@@ -1,5 +1,5 @@
 arch_terminal_tools () {
-	yay -S fzf ripgrep fd btop --noconfirm
+	yay -S fzf ripgrep fd btop sshs --noconfirm
 }
 
 debian_terminal_tools () {
@@ -22,7 +22,7 @@ install_terminal_tools() {
 		debian_terminal_tools
 	elif [[ "$system" == "Darwin" ]]; then
 		macos_terminal_tools
-	fi	
+	fi
 
 	create_symlink "btop theme" "themes/btop/catppuccin.theme" ".config/btop/themes/catppuccin.theme"
 }

@@ -56,6 +56,9 @@ create_symlink () {
 	fi
 }
 
+# Confirmation about asked action.
+# $1 name of action to perform
+# $2 action to perform
 ask_action () {
 	if [ "$all" == "yes" ]; then
 		$2
@@ -66,7 +69,7 @@ ask_action () {
 		if [[ $answer =~ ^[Yy]$ ]]; then
 			$2
 			nice_echo "Finished: $1"
-		else 
+		else
 			nice_echo "Skipped: $1"
 		fi
 	fi

@@ -40,6 +40,9 @@ macos_setup () {
 	brew install postgresql
 }
 
+# Setting up system for next tasks
+# Ensure that app manager and ansible are installed
+# and other dependiencies that are necessary.
 system_setup() {
 	nice_echo "System setup for:" "$system"
 
