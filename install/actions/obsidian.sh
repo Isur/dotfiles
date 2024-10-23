@@ -1,5 +1,5 @@
 arch_obsidian () {
-	yay -S obsidian-bin --noconfirm
+	yay -S obsidian --noconfirm
 }
 
 debian_obsidian () {
