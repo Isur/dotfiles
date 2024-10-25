@@ -26,5 +26,6 @@ return {
 			},
 		})
 		require("mini.trailspace").setup()
+		require("mini.notify").setup()
 	end,
 }

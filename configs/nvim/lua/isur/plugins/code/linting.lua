@@ -10,6 +10,7 @@ return {
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
 			python = { "ruff" },
+			ansible = { "ansible-lint" },
 		}
 
 		local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })

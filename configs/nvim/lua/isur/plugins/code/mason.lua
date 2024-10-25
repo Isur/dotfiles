@@ -27,10 +27,12 @@ return {
 					"eslint-lsp",
 					"arduino-language-server",
 					"clangd",
+					"ansible-language-server",
 					-- Linters
 					"eslint_d",
 					"flake8",
 					"ruff",
+					"ansible-lint",
 					-- Formatters
 					"black",
 					"prettierd",
