@@ -32,6 +32,7 @@ font pango:JetBrainsMono Nerd Font 10
 
 include $HOME/.config/i3/autostart.conf
 include $HOME/.config/i3/monitors.conf
+include $HOME/.config/i3/keyboard.conf
 
 ##### AUDIO #####
 # Use pactl to adjust volume in PulseAudio.
