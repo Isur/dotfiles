@@ -37,7 +37,10 @@ debian_tiling () {
 
 macos_tiling () {
 	brew tap FelixKratz/formulae
-
+	brew install sketchybar
+	brew install jq
+	curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.25/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+	curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.25/icon_map.sh -o ~/.config/sketchybar/plugins/icon_map_fn.sh
 	brew install --cask raycast
 	brew install --cask nikitabobko/tap/aerospace
 	brew install borders
@@ -46,6 +49,7 @@ macos_tiling () {
 	rm $HOME/.aerospace.toml
 
 	create_symlink "aerospace" "aerospace.toml" ".aerospace.toml"
+	create_symlink "sketchybar" "sketchybar" ".config/sketchybar"
 }
 
 install_tiling () {
