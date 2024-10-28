@@ -36,7 +36,16 @@ debian_tiling () {
 }
 
 macos_tiling () {
+	brew tap FelixKratz/formulae
+
 	brew install --cask raycast
+	brew install --cask nikitabobko/tap/aerospace
+	brew install borders
+
+	# remove the default empty config file create while installing aerospace
+	rm $HOME/.aerospace.toml
+
+	create_symlink "aerospace" "aerospace.toml" ".aerospace.toml"
 }
 
 install_tiling () {
