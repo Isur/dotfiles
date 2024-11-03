@@ -1,12 +1,11 @@
 # vim:ft=yaml.ansible
 ---
 - name: Upgrade System
-  become: true
   kewlfft.aur.aur:
     upgrade: true
     use: yay
+
 - name: Install required and others
-  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
@@ -15,14 +14,10 @@
     - yay
     - sysstat
     - gvfs
-    - gzip
-    - uznip
-    - xz
     - font-awesome-5
     - ttf-jetbrains-mono-nerd
 
 - name: Install ui apps
-  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay

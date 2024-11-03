@@ -1,7 +1,6 @@
 # vim:ft=yaml.ansible
 ---
 - name: Create directories
-  become: true
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/{{ item }}"
     state: directory

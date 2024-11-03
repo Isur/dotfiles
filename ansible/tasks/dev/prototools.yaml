@@ -1,0 +1,30 @@
+# vim:ft=yaml.ansible
+---
+- name: Install Prototools Dependencies
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - git
+    - gzip
+    - uznip
+    - xz
+
+- name: Proto stat
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.prototools"
+  register: proto_status
+
+- name: Install prototools
+  ansible.builtin.shell: |
+    curl -fsSL https://moonrepo.dev/install/proto.sh | bash -s -- --no-profile --yes
+  when: proto_status.stat.exists
+
+- name: Proto Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/prototools", dest: "{{ ansible_env.HOME }}/.prototools" }

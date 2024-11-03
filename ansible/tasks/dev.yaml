@@ -9,3 +9,6 @@
 - ansible.builtin.import_tasks: ./dev/dbeaver.yaml
 - ansible.builtin.import_tasks: ./dev/insomnia.yaml
 - ansible.builtin.import_tasks: ./dev/vbox.yaml
+- ansible.builtin.import_tasks: ./dev/ssh.yaml
+- ansible.builtin.import_tasks: ./dev/prototools.yaml
+- ansible.builtin.import_tasks: ./dev/repos.yaml

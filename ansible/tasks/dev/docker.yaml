@@ -1,7 +1,6 @@
 # vim:ft=yaml.ansible
 ---
 - name: Install Docker
-  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
@@ -28,3 +27,8 @@
     name: docker
     enabled: true
     state: started
+
+- name: Docker global docker-compose
+  ansible.builtin.copy:
+    src: "{{ ansible_env.HOME }}/dotfiles/configs/docker-compose.yml"
+    dest: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"

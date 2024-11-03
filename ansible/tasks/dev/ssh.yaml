@@ -1,0 +1,33 @@
+# vim:ft=yaml.ansible
+---
+- name: Find SSH keys and config files
+  ansible.builtin.find:
+    paths: "{{ ansible_env.HOME }}/dotfiles/configs/ssh"
+    file_type: file
+  register: found_files
+
+- name: SSH Config
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_env.HOME }}/.ssh/{{ item.path | basename }}"
+    decrypt: true
+  with_items: "{{ found_files.files }}"
+
+- name: Verify the origin is set correctly
+  command: git remote get-url origin
+  args:
+    chdir: "{{ ansible_env.HOME }}/dotfiles"
+  register: current_origin
+  ignore_errors: true
+
+- name: Change the existing origin to SSH
+  ansible.builtin.shell: |
+    eval `ssh-agent -s`
+    ssh-add
+    git remote remove origin
+    git remote add origin git@github.com:Isur/dotfiles
+    git fetch --all
+    git branch --set-upstream-to=origin/master master
+  args:
+    chdir: "{{ ansible_env.HOME }}/dotfiles"
+  when: current_origin.stdout != "git@github.com:Isur/dotfiles"

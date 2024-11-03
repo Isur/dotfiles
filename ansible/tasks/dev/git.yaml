@@ -1,7 +1,6 @@
 # vim:ft=yaml.ansible
 ---
 - name: Install Git
-  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
@@ -10,7 +9,6 @@
     - git
     - git-delta
     - lazygit
-
 
 - name: Git Config
   ansible.builtin.file:

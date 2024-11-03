@@ -4,6 +4,7 @@
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
   register: nvm_status
+
 - name: Install NVM and Node
   ansible.builtin.shell: |
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
