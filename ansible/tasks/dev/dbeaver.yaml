@@ -1,6 +1,6 @@
 # vim:ft=yaml.ansible
 ---
-- name: Install Dev No config stuff
+- name: Install DBeaver
   become: true
   kewlfft.aur.aur:
     name: "{{ item }}"

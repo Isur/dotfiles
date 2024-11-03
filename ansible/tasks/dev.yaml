@@ -8,3 +8,4 @@
 - ansible.builtin.import_tasks: ./dev/neovim.yaml
 - ansible.builtin.import_tasks: ./dev/dbeaver.yaml
 - ansible.builtin.import_tasks: ./dev/insomnia.yaml
+- ansible.builtin.import_tasks: ./dev/vbox.yaml
