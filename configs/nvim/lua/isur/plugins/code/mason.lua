@@ -28,11 +28,13 @@ return {
 					"arduino-language-server",
 					"clangd",
 					"ansible-language-server",
+					"marksman",
 					-- Linters
 					"eslint_d",
 					"flake8",
 					"ruff",
 					"ansible-lint",
+					"markdownlint-cli2",
 					-- Formatters
 					"black",
 					"prettierd",
@@ -40,6 +42,7 @@ return {
 					"isort",
 					"clang-format",
 					"jq",
+					"markdown-toc",
 				},
 				automatic_installation = true,
 			})
