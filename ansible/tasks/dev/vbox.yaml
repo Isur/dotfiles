@@ -8,8 +8,3 @@
     state: latest
   with_items:
     - virtualbox
-
-- name: VirtualBox load modules
-  become: true
-  ansible.builtin.shell: |
-    sudo modprobe vboxdrv
