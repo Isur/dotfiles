@@ -1,0 +1,18 @@
+# vim:ft=yaml.ansible
+---
+- name: Install neovim
+  become: true
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - neovim
+
+- name: Tmux Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }

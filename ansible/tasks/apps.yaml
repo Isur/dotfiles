@@ -1,0 +1,40 @@
+# vim:ft=yaml.ansible
+---
+- name: Upgrade System
+  become: true
+  kewlfft.aur.aur:
+    upgrade: true
+    use: yay
+- name: Install required and others
+  become: true
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - yay
+    - sysstat
+    - gvfs
+    - gzip
+    - uznip
+    - xz
+    - font-awesome-5
+    - ttf-jetbrains-mono-nerd
+
+- name: Install ui apps
+  become: true
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - mpv
+    - bazecor
+    - thunderbird
+    - thunderbird-i18n
+    - spotify-launcher
+    - obsidian
+    - discord
+    - zen-browser-avx2-bin
+    - thunar
+    - flameshot

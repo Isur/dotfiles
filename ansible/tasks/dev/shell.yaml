@@ -1,0 +1,46 @@
+# vim:ft=yaml.ansible
+---
+- name: Install Shell
+  become: true
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - zsh
+
+- name: ZSH OMZ stat
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-fzf-history-search"
+  register: zsh_status
+
+- name: Removed old OhMyZsh
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    state: absent
+  when: not zsh_status.stat.exists
+
+- name: Install OhMyZSH
+  ansible.builtin.shell: |
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  when: not zsh_status.stat.exists
+
+- name: Download OhMyZSH plugins
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: master
+    force: true
+  with_items:
+    - { repo: "https://github.com/joshskidmore/zsh-fzf-history-search", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-fzf-history-search" }
+    - { repo: "https://github.com/zsh-users/zsh-autosuggestions", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
+    - { repo: "https://github.com/zsh-users/zsh-syntax-highlighting", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"}
+  when: not zsh_status.stat.exists
+
+- name: ZSH Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }

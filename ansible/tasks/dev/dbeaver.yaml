@@ -1,0 +1,10 @@
+# vim:ft=yaml.ansible
+---
+- name: Install Dev No config stuff
+  become: true
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - dbeaver

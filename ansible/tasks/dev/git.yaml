@@ -1,0 +1,22 @@
+# vim:ft=yaml.ansible
+---
+- name: Install Git
+  become: true
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - git
+    - git-delta
+    - lazygit
+
+
+- name: Git Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }

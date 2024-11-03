@@ -1,0 +1,29 @@
+# vim:ft=yaml.ansible
+---
+- name: Install tiling stuff
+  become: true
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  with_items:
+    - i3-wm
+    - playerctl
+    - rofi
+    - feh
+    - i3blocks
+    - dunst
+    - betterlockscreen-git
+    - lm_sensors
+
+- name: Config tiling
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  with_items:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/i3", dest: "{{ ansible_env.HOME }}/.config/i3" }
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/i3blocks", dest: "{{ ansible_env.HOME }}/.config/i3blocks" }
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/dunst", dest: "{{ ansible_env.HOME }}/.config/dunst" }
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/betterlockscreen", dest: "{{ ansible_env.HOME }}/.config/betterlockscreen" }

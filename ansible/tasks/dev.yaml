@@ -1,0 +1,10 @@
+# vim:ft=yaml.ansible
+---
+- ansible.builtin.import_tasks: ./dev/shell.yaml
+- ansible.builtin.import_tasks: ./dev/docker.yaml
+- ansible.builtin.import_tasks: ./dev/terminal.yaml
+- ansible.builtin.import_tasks: ./dev/git.yaml
+- ansible.builtin.import_tasks: ./dev/tmux.yaml
+- ansible.builtin.import_tasks: ./dev/neovim.yaml
+- ansible.builtin.import_tasks: ./dev/dbeaver.yaml
+- ansible.builtin.import_tasks: ./dev/insomnia.yaml
