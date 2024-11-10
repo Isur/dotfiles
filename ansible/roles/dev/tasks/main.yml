@@ -27,7 +27,7 @@
 
 - name: Arch | Include Linux specific tasks
   ansible.builtin.include_tasks: "./{{ task }}"
-  when: ansible_os_family == 'Linux'
+  when: ansible_os_family == 'Archlinux'
   loop:
     - devapps.arch.yml
     - docker.arch.yml
