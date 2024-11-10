@@ -19,8 +19,8 @@
     - git.darwin.yml
     - neovim.darwin.yml
     - prototools.darwin.yml
-    - shell.yml
     - shell.darwin.yml
+    - shell.yml
     - terminal.darwin.yml
   loop_control:
     loop_var: task
@@ -34,8 +34,8 @@
     - git.arch.yml
     - neovim.arch.yml
     - prototools.arch.yml
-    - shell.yml
     - shell.arch.yml
+    - shell.yml
     - terminal.arch.yml
   loop_control:
     loop_var: task
