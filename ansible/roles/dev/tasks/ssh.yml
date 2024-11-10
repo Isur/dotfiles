@@ -11,14 +11,16 @@
     src: "{{ item.path }}"
     dest: "{{ ansible_env.HOME }}/.ssh/{{ item.path | basename }}"
     decrypt: true
-  with_items: "{{ found_files.files }}"
+    mode: '600'
+  loop: "{{ found_files.files }}"
 
 - name: Verify the origin is set correctly
-  command: git remote get-url origin
+  ansible.builtin.command: git remote get-url origin
   args:
     chdir: "{{ ansible_env.HOME }}/dotfiles"
   register: current_origin
   ignore_errors: true
+  changed_when: false
 
 - name: Change the existing origin to SSH
   ansible.builtin.shell: |
@@ -31,3 +33,4 @@
   args:
     chdir: "{{ ansible_env.HOME }}/dotfiles"
   when: current_origin.stdout != "git@github.com:Isur/dotfiles"
+  changed_when: true

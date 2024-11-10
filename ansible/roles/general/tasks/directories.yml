@@ -4,8 +4,8 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/{{ item }}"
     state: directory
-  with_items:
-    - apps
+    mode: '755'
+  loop:
     - .config
     - .local/bin
     - Developer
@@ -13,4 +13,3 @@
     - Developer/Personal
     - Developer/PoC
     - Developer/Global
-    - Pictures/Screenshots

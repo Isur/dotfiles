@@ -1,10 +1,8 @@
 # vim:ft=yaml.ansible
-- name: Setup my Arch
+- name: Setup my System
   hosts: home
-
-  tasks:
-    - ansible.builtin.import_tasks: ./tasks/directories.yaml
-    - ansible.builtin.import_tasks: ./tasks/apps.yaml
-    - ansible.builtin.import_tasks: ./tasks/dev.yaml
-    - ansible.builtin.import_tasks: ./tasks/tiling.yaml
-    - ansible.builtin.import_tasks: ./tasks/gaming.yaml
+  roles:
+    - general
+    - tiling
+    - gaming
+    - dev

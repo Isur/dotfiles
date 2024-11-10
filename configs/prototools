@@ -1,3 +1,5 @@
+proto = "0.42.0"
+
 [settings]
 auto-install = true
 detect-strategy = "only-prototools"

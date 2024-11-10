@@ -1,9 +1,0 @@
-# vim:ft=yaml.ansible
----
-- name: Install Insomnia
-  kewlfft.aur.aur:
-    name: "{{ item }}"
-    use: yay
-    state: latest
-  with_items:
-    - insomnia-bin

@@ -1,0 +1,23 @@
+# vim:ft=yaml.ansible
+---
+- name: Darwin | Install terminal
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - kitty
+    - fzf
+    - ripgrep
+    - fd
+    - btop
+    - sshs
+    - gnu-sed
+
+- name: Darwin | Kitty Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/kitty", dest: "{{ ansible_env.HOME }}/.config/kitty" }
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/themes/btop/catppuccin.theme", dest: "{{ ansible_env.HOME }}/.config/btop/themes/catppuccin.theme" }

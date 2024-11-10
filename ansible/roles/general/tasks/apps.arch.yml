@@ -1,28 +1,21 @@
 # vim:ft=yaml.ansible
 ---
-- name: Upgrade System
+- name: Arch | Upgrade System
   kewlfft.aur.aur:
     upgrade: true
     use: yay
 
-- name: Install required and others
+- name: Arch | Install some packages and apps
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
     state: latest
-  with_items:
+  loop:
     - yay
     - sysstat
     - gvfs
     - font-awesome-5
     - ttf-jetbrains-mono-nerd
-
-- name: Install ui apps
-  kewlfft.aur.aur:
-    name: "{{ item }}"
-    use: yay
-    state: latest
-  with_items:
     - mpv
     - bazecor
     - thunderbird

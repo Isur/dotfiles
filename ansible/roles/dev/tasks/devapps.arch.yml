@@ -1,9 +1,12 @@
 # vim:ft=yaml.ansible
 ---
-- name: Install VirtualBox
+
+- name: Arch | Install AUR dev apps with no config
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
     state: latest
-  with_items:
+  loop:
+    - dbeaver
+    - postman-bin
     - virtualbox

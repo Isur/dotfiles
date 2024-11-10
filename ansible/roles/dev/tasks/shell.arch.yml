@@ -1,9 +1,9 @@
 # vim:ft=yaml.ansible
 ---
-- name: Install DBeaver
+- name: Arch | Install Shell
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
     state: latest
-  with_items:
-    - dbeaver
+  loop:
+    - zsh

@@ -1,0 +1,14 @@
+# vim:ft=yaml.ansible
+---
+- name: Darwin | Install neovim
+  community.general.homebrew:
+    name: neovim
+    state: present
+
+- name: Darwin | Neovim Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }

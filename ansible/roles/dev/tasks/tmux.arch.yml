@@ -1,0 +1,17 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install tmux
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - tmux
+
+- name: Arch | Tmux Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/tmux.conf", dest: "{{ ansible_env.HOME }}/.tmux.conf" }

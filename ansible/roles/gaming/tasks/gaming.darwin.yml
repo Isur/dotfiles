@@ -1,0 +1,8 @@
+---
+- name: Install brew cask packages
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    accept_external_apps: true
+  loop:
+    - steam

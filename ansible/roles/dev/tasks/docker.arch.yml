@@ -1,34 +1,29 @@
 # vim:ft=yaml.ansible
 ---
-- name: Install Docker
+- name: Arch | Install Docker
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
     state: latest
-  with_items:
+  loop:
     - docker
     - docker-compose
     - docker-buildx
     - lazydocker
 
-- name: Docker Group
+- name: Arch | Docker Group
   ansible.builtin.group:
     name: docker
     state: present
 
-- name: Add user to docker group
+- name: Arch | Add user to docker group
   ansible.builtin.user:
     name: "{{ ansible_env.USER }}"
     groups: docker
     append: true
 
-- name: Enable docker
+- name: Arch | Enable docker
   ansible.builtin.systemd:
     name: docker
     enabled: true
     state: started
-
-- name: Docker global docker-compose
-  ansible.builtin.copy:
-    src: "{{ ansible_env.HOME }}/dotfiles/configs/docker-compose.yml"
-    dest: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"

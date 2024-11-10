@@ -7,9 +7,10 @@
 
 - name: Install NVM and Node
   ansible.builtin.shell: |
+    set -o pipefail
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
     source $HOME/.nvm/nvm.sh
     nvm install --lts
     npm install -g pnpm
   when: not nvm_status.stat.exists
-
+  changed_when: true

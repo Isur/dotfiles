@@ -4,6 +4,7 @@
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/Developer/Personal"
     state: directory
+    mode: '755'
 
 - name: Clone repos
   ansible.builtin.git:
@@ -12,7 +13,7 @@
     clone: true
     accept_hostkey: true
     key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
-  with_items:
+  loop:
     - { name: isur, repo: "git@github.com:Isur/isur.git" }
     - { name: turbo-template, repo: "git@github.com:Isur/turbo-template.git" }
     - { name: portfolio, repo: "git@github.com:Isur/portfolio.git" }

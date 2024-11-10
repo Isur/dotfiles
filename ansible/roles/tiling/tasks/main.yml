@@ -1,0 +1,17 @@
+# vim:ft=yaml.ansible
+---
+- name: Include Darwin specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Darwin'
+  loop:
+    - tiling.darwin.yml
+  loop_control:
+    loop_var: task
+
+- name: Include Linux specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Linux'
+  loop:
+    - tiling.arch.yml
+  loop_control:
+    loop_var: task

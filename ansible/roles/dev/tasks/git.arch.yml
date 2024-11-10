@@ -1,0 +1,26 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install Git
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - git
+    - git-delta
+    - lazygit
+
+- name: Arch | Create lazygit directory
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/lazygit"
+    state: directory
+    mode: '755'
+
+- name: Arch | Git Config
+  ansible.builtin.file:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
+    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }

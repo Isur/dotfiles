@@ -5,7 +5,7 @@
     name: "{{ item }}"
     use: yay
     state: latest
-  with_items:
+  loop:
     - i3-wm
     - playerctl
     - rofi
@@ -15,12 +15,13 @@
     - betterlockscreen-git
     - lm_sensors
 
+
 - name: Config tiling
   ansible.builtin.file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
-  with_items:
+  loop:
     - { src: "{{ ansible_env.HOME }}/dotfiles/configs/i3", dest: "{{ ansible_env.HOME }}/.config/i3" }
     - { src: "{{ ansible_env.HOME }}/dotfiles/configs/i3blocks", dest: "{{ ansible_env.HOME }}/.config/i3blocks" }
     - { src: "{{ ansible_env.HOME }}/dotfiles/configs/rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
