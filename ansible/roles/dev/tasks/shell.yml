@@ -29,6 +29,11 @@
     - { repo: "https://github.com/zsh-users/zsh-syntax-highlighting", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"}
   when: not zsh_status.stat.exists
 
+- name: ZSH Config remove old
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.zshrc"
+    state: absent
+
 - name: ZSH Config
   ansible.builtin.file:
     src: "{{ role_path }}/files/{{ item.src }}"
