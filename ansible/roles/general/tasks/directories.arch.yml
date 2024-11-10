@@ -1,6 +1,6 @@
 # vim:ft=yaml.ansible
 ---
-- name: Create Linux directories
+- name: Arch | Create Linux directories
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/{{ item }}"
     state: directory

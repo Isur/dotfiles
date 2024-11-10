@@ -1,12 +1,12 @@
 # vim:filetype=yaml.ansible
 ---
-- name: Brew tap for tiling stuff
+- name: Darwin | Brew tap for tiling stuff
   community.general.homebrew_tap:
     name: "{{ item }}"
   loop:
     - FelixKratz/formulae
 
-- name: Install tiling stuff
+- name: Darwin | Install tiling stuff
   community.general.homebrew:
     name: "{{ item }}"
     state: present
@@ -17,24 +17,24 @@
     - nikitabobko/tap/aerospace
     - borders
 
-- name: Check if sketchybar font is available
+- name: Darwin | Check if sketchybar font is available
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/Library/Fonts/sketchybar-app-font.ttf"
   register: found_files
 
-- name: Get font for sketchybar
+- name: Darwin | Get font for sketchybar
   ansible.builtin.shell: |
     set -o pipefail
     curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.25/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
   when: not found_files.stat.exists
   changed_when: true
 
-- name: Remove aerospace default config
+- name: Darwin | Remove aerospace default config
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.aerospace.toml"
     state: absent
 
-- name: Config tiling
+- name: Darwin | Config tiling
   ansible.builtin.file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"

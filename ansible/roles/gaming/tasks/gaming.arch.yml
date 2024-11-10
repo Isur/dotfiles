@@ -1,5 +1,5 @@
 ---
-- name: Install Gaming Stuff
+- name: Arch | Install Gaming Stuff
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay

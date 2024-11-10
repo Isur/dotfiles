@@ -1,6 +1,6 @@
 # vim:ft=yaml.ansible
 ---
-- name: Install tiling stuff
+- name: Arch | Install tiling stuff
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
@@ -16,7 +16,7 @@
     - lm_sensors
 
 
-- name: Config tiling
+- name: Arch | Config tiling
   ansible.builtin.file:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"

@@ -7,7 +7,7 @@
   loop_control:
     loop_var: task
 
-- name: Include Darwin specific tasks
+- name: Darwin | Include Darwin specific tasks
   ansible.builtin.include_tasks: "./{{ task }}"
   when: ansible_os_family == 'Darwin'
   loop:
@@ -15,7 +15,7 @@
   loop_control:
     loop_var: task
 
-- name: Include Linux specific tasks
+- name: Arch | Include Linux specific tasks
   ansible.builtin.include_tasks: "./{{ task }}"
   when: ansible_os_family == 'Linux'
   loop:
