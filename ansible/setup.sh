@@ -1,7 +1,18 @@
 #!/bin/bash
 
-yay -S git ansible --noconfirm
+REPO_URL="https://github.com/Isur/dotfiles.git"
+DOTFILES="$HOME/dotfiles"
+ANSIBLE_DIR="$HOME/dotfiles/ansible"
+REQUIREMENTS_FILE="$ANSIBLE_DIR/collections.yaml"
 
-git clone https://github.com/Isur/dotfiles ~/dotfiles
+# Pull the latest code
+ansible-pull -U "$REPO_URL" -d "$DOTFILES"
 
-(cd ~/dotfiles && git checkout ansible && cd ~/dotfiles/ansible && ansible-galaxy install -r collections.yaml && ansible-playbook play.yaml -i inventory.yaml -K --vault-password-file=$HOME/.vault_pass)
+# Install collections specified in requirements.yml
+if [ -f "$REQUIREMENTS_FILE" ]; then
+    ansible-galaxy collection install -r "$REQUIREMENTS_FILE" -p "$ANSIBLE_DIR/collections"
+fi
+
+# Run ansible-pull with the environment variable for collections
+export ANSIBLE_COLLECTIONS_PATHS="$ANSIBLE_DIR/collections"
+ansible-pull -U "$REPO_URL" -d "$ANSIBLE_DIR" -i play.yml --vault-password-file $HOME/.vault_pass
