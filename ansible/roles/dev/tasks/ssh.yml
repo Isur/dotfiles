@@ -1,5 +1,11 @@
 # vim:ft=yaml.ansible
 ---
+- name: Ensure that ssh directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: '700'
+
 - name: Find SSH keys and config files
   ansible.builtin.find:
     paths: "{{ role_path }}/files/ssh"
