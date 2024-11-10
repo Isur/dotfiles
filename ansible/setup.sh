@@ -1,9 +1,10 @@
 #!/bin/bash
 
+yay -S git ansible --noconfirm
+
 REPO_URL="https://github.com/Isur/dotfiles.git"
 DOTFILES="$HOME/dotfiles"
 ANSIBLE_DIR="$HOME/dotfiles/ansible"
-REQUIREMENTS_FILE="$ANSIBLE_DIR/collections.yaml"
 
 git clone $REPO_URL $DOTFILES
 
