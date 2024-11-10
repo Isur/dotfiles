@@ -41,3 +41,9 @@
     state: link
   loop:
     - { src: "zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }
+
+- name: ZSH default shell
+  become: true
+  ansible.builtin.user:
+    user: "{{ ansible_env.USER }}"
+    shell: /usr/bin/zsh

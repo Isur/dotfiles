@@ -6,7 +6,6 @@
     - ssh.yml
     - docker.yml
     - node.yml
-    - repos.yml
   loop_control:
     loop_var: task
 
@@ -22,6 +21,8 @@
     - shell.darwin.yml
     - shell.yml
     - terminal.darwin.yml
+    - tmux.darwin.yml
+    - tmux.yml
   loop_control:
     loop_var: task
 
@@ -37,5 +38,14 @@
     - shell.arch.yml
     - shell.yml
     - terminal.arch.yml
+    - tmux.arch.yml
+    - tmux.yml
+  loop_control:
+    loop_var: task
+
+- name: Common dev tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  loop:
+    - repos.yml
   loop_control:
     loop_var: task
