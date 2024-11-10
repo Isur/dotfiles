@@ -74,6 +74,11 @@ Package manager used for installing depends on system:
 
 ## Helpers
 
+```sh
+bash -c "$(curl https://raw.githubusercontent.com/Isur/dotfiles/refs/heads/ansible/ansible/setup.sh
+)"
+```
+
 `./install.sh` - will install everything thats needed and configure symlinks;
 `./install/server.sh` - will install some tools that I use on servers;
 
