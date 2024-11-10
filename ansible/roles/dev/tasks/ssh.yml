@@ -2,7 +2,7 @@
 ---
 - name: Find SSH keys and config files
   ansible.builtin.find:
-    paths: "{{ ansible_env.HOME }}/dotfiles/configs/ssh"
+    paths: "{{ role_path }}/files/ssh"
     file_type: file
   register: found_files
 

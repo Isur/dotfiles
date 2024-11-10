@@ -1,6 +1,6 @@
 # vim:ft=yaml.ansible
 ---
-- name: Common tasks
+- name: Common dev tasks
   ansible.builtin.include_tasks: "./{{ task }}"
   loop:
     - ssh.yml

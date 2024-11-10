@@ -10,8 +10,8 @@
 
 - name: Arch | Tmux Config
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/tmux.conf", dest: "{{ ansible_env.HOME }}/.tmux.conf" }
+    - { src: "tmux.conf", dest: "{{ ansible_env.HOME }}/.tmux.conf" }

@@ -1,0 +1,76 @@
+##### SET MOD #####
+##################################
+# Mod1 = Alt                     #
+# Mod4 = SystemKey (Windows Key) #
+##################################
+set $mod Control+Mod1
+set $mod2 Control+Shift+Mod1
+set $hyper Control+Mod1+Shift+Mod4
+set $alt Mod1
+set $ctrl Control
+set $shift Shift
+set $super Mod4
+##### THEME #####
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+set $lightgray #bdae93
+set $orange #d65d0e
+##### MODE SYSTEM #####
+set $Locker betterlockscreen -l && sleep 1
+set $mode_system System (l) lock, (e) logout, (r) reboot, (Shift+s) shutdown
+##### END SET #####
+
+##### FONT #####
+font pango:JetBrainsMono Nerd Font 10
+
+include $HOME/.config/i3/autostart.conf
+include $HOME/.config/i3/monitors.conf
+include $HOME/.config/i3/keyboard.conf
+
+##### AUDIO #####
+# Use pactl to adjust volume in PulseAudio.
+set $refresh_i3status exec pkill -SIGRTMIN+10 i3blocks
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% && $refresh_i3status
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% && $refresh_i3status
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_i3status
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
+# Media player controls
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioStop exec playerctl stop
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPrev exec playerctl previous
+##### BINDINGS #####
+include $HOME/.config/i3/mod-bindings.conf
+include $HOME/.config/i3/layout.conf
+include $HOME/.config/i3/workspaces.conf
+
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
+
+##### BAR #####
+include $HOME/.config/i3/bar.conf
+
+##### GAPS #####
+gaps inner 12px
+gaps outer 0px
+smart_gaps off
+
+##### BORDERS #####
+default_border pixel 3
+
+# class                 border     backgr     text
+client.focused          $lightgray $lightgray $bg
+client.focused_inactive $darkgray  $darkgray  $lightgray
+client.unfocused        $darkgray  $darkgray  $lightgray
+client.urgent           $red       $red       $white
+
+

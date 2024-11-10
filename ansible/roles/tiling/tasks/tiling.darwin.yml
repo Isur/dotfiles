@@ -6,7 +6,7 @@
   loop:
     - FelixKratz/formulae
 
-- name: Darwin | Install tiling stuff
+- name: Darwin | Brew install tiling stuff
   community.general.homebrew:
     name: "{{ item }}"
     state: present
@@ -36,9 +36,9 @@
 
 - name: Darwin | Config tiling
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/aerospace.toml", dest: "{{ ansible_env.HOME }}/.aerospace.toml" }
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/sketchybar", dest: "{{ ansible_env.HOME }}/.config/sketchybar" }
+    - { src: "aerospace.toml", dest: "{{ ansible_env.HOME }}/.aerospace.toml" }
+    - { src: "sketchybar", dest: "{{ ansible_env.HOME }}/.config/sketchybar" }

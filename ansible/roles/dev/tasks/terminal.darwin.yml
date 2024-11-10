@@ -15,9 +15,8 @@
 
 - name: Darwin | Kitty Config
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/kitty", dest: "{{ ansible_env.HOME }}/.config/kitty" }
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/themes/btop/catppuccin.theme", dest: "{{ ansible_env.HOME }}/.config/btop/themes/catppuccin.theme" }
+    - { src: "kitty", dest: "{{ ansible_env.HOME }}/.config/kitty" }

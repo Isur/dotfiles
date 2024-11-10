@@ -18,9 +18,9 @@
 
 - name: Arch | Git Config
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }
+    - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
+    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }

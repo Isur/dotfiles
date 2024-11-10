@@ -1,6 +1,6 @@
 # vim:ft=yaml.ansible
 ---
-- name: Common tasks
+- name: Common general tasks
   ansible.builtin.include_tasks: "./{{ task }}"
   loop:
     - directories.yml

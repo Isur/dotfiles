@@ -15,15 +15,14 @@
     - betterlockscreen-git
     - lm_sensors
 
-
 - name: Arch | Config tiling
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/i3", dest: "{{ ansible_env.HOME }}/.config/i3" }
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/i3blocks", dest: "{{ ansible_env.HOME }}/.config/i3blocks" }
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/dunst", dest: "{{ ansible_env.HOME }}/.config/dunst" }
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/betterlockscreen", dest: "{{ ansible_env.HOME }}/.config/betterlockscreen" }
+    - { src: "i3", dest: "{{ ansible_env.HOME }}/.config/i3" }
+    - { src: "i3blocks", dest: "{{ ansible_env.HOME }}/.config/i3blocks" }
+    - { src: "rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
+    - { src: "dunst", dest: "{{ ansible_env.HOME }}/.config/dunst" }
+    - { src: "betterlockscreen", dest: "{{ ansible_env.HOME }}/.config/betterlockscreen" }

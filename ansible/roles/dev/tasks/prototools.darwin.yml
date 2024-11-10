@@ -23,8 +23,8 @@
 
 - name: Darwin | Proto Config
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/prototools", dest: "{{ ansible_env.HOME }}/.prototools" }
+    - { src: "prototools", dest: "{{ ansible_env.HOME }}/.prototools" }

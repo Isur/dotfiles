@@ -2,6 +2,6 @@
 ---
 - name: Docker global docker-compose
   ansible.builtin.copy:
-    src: "{{ ansible_env.HOME }}/dotfiles/configs/docker-compose.yml"
+    src: "{{ role_path }}/files/docker-compose.yml"
     dest: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"
     mode: '755'

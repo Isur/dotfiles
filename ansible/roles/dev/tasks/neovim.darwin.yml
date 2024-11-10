@@ -7,8 +7,8 @@
 
 - name: Darwin | Neovim Config
   ansible.builtin.file:
-    src: "{{ item.src }}"
+    src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
-    - { src: "{{ ansible_env.HOME }}/dotfiles/configs/nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }
+    - { src: "nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }
