@@ -1,6 +1,8 @@
 #!/bin/bash
 
+yay -S git ansible --noconfirm
+
 git clone https://github.com/Isur/dotfiles ~/dotfiles
-yay -S ansible --noconfirm
-(cd ~/dotfiles && ansible-galaxy install -r collections.yaml && ansible-playbook -i inventory.yaml play.yaml -K)
+
+(cd ~/dotfiles && git checkout ansible && ansible-galaxy install -r collections.yaml && ansible-playbook play.yaml -i inventory.yaml -K --vault-password-file=$HOME/.vault_pass)
 
