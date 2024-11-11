@@ -3,7 +3,7 @@
 REPO_URL="https://github.com/Isur/dotfiles.git"
 DOTFILES=$HOME/dotfiles
 ANSIBLE_DIR=$DOTFILES/ansible
-BRANCH=ansible
+BRANCH=master
 SYSTEM=""
 
 if [ "$(uname)" == "Darwin" ]; then

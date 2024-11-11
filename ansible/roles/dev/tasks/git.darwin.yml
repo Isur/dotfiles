@@ -22,4 +22,4 @@
     state: link
   loop:
     - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
-    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }
+    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/Library/Application Support/lazygit/config.yml" }
