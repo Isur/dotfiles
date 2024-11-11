@@ -42,10 +42,3 @@
     - tmux.yml
   loop_control:
     loop_var: task
-
-- name: Common dev tasks
-  ansible.builtin.include_tasks: "./{{ task }}"
-  loop:
-    - repos.yml
-  loop_control:
-    loop_var: task
