@@ -50,8 +50,7 @@ fi
 git clone $REPO_URL ~/dotfiles
 
 (cd ~/dotfiles && git checkout $BRANCH)
-
-sudo su $USER -c '(cd ~/dotfiles/ansible && ansible-galaxy install -r collections.yml)'
-sudo su $USER -c '(cd ~/dotfiles/ansible && ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass)'
+(cd ~/dotfiles/ansible && ansible-galaxy install -r collections.yml)
+(cd ~/dotfiles/ansible && ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass)
 sudo su $USER -c '(cd ~/dotfiles/ansible && ansible-playbook repos.yml -i inventory.yml)'
 
