@@ -49,7 +49,6 @@ if [ "$SYSTEM" == "Darwin" ]; then
 	brew install postgresql
 fi
 
-rm -rf $DOTFILES
 git clone $REPO_URL $DOTFILES
 
 (cd $DOTFILES &&\
@@ -57,6 +56,6 @@ git clone $REPO_URL $DOTFILES
     cd $ANSIBLE_DIR &&\
     ansible-galaxy install -r collections.yml &&\
     ansible-playbook play.yml -i inventory.yml -K --vault-password-file $HOME/.vault_pass &&\
-    ansible-playbook repos.yml - i inventory.yml
+    ansible-playbook repos.yml -i inventory.yml
 )
 
