@@ -42,13 +42,13 @@ esac
 # PNPM END
 
 # PYENV
-# export PYENV_ROOT="$HOME/.pyenv"
-# [[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init -)"
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 # PYENV END
 
-# export POETRY_HOME="$HOME/.local/share/poetry"
-# export PATH="$POETRY_HOME/bin:$PATH"
+export POETRY_HOME="$HOME/.local/share/poetry"
+export PATH="$POETRY_HOME/bin:$PATH"
 
 # proto
 export PROTO_HOME="$HOME/.proto"

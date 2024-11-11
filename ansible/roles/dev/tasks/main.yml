@@ -6,6 +6,7 @@
     - ssh.yml
     - docker.yml
     - node.yml
+    - python.yml
   loop_control:
     loop_var: task
 
