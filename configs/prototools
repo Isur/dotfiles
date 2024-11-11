@@ -1,4 +1,0 @@
-[settings]
-auto-install = true
-detect-strategy = "only-prototools"
-telemetry = false

@@ -1,0 +1,37 @@
+# vim:ft=yaml.ansible
+---
+- name: Darwin | Brew update
+  community.general.homebrew:
+    update_homebrew: true
+
+- name: Darwin | Brew taps
+  community.general.homebrew_tap:
+    name: "{{ item }}"
+  loop:
+    - homebrew/cask-fonts
+
+- name: Darwin | Install brew packages
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - postgresql
+    - git
+    - gzip
+    - unzip
+    - xz
+
+- name: Darwin | Install brew cask packages
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    accept_external_apps: true
+  with_items:
+    - arc
+    - discord
+    - spotify
+    - bazecor
+    - obsidian
+    - font-jetbrains-mono-nerd-font
+    - font-hack-nerd-font
+    - font-sf-pro

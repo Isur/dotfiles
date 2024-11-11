@@ -1,0 +1,45 @@
+# vim:ft=yaml.ansible
+---
+- name: Common dev tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  loop:
+    - ssh.yml
+    - docker.yml
+    - node.yml
+    - python.yml
+  loop_control:
+    loop_var: task
+
+- name: Darwin | Include Darwin specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Darwin'
+  loop:
+    - devapps.darwin.yml
+    - docker.darwin.yml
+    - git.darwin.yml
+    - neovim.darwin.yml
+    - prototools.darwin.yml
+    - shell.darwin.yml
+    - shell.yml
+    - terminal.darwin.yml
+    - tmux.darwin.yml
+    - tmux.yml
+  loop_control:
+    loop_var: task
+
+- name: Arch | Include Linux specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Archlinux'
+  loop:
+    - devapps.arch.yml
+    - docker.arch.yml
+    - git.arch.yml
+    - neovim.arch.yml
+    - prototools.arch.yml
+    - shell.arch.yml
+    - shell.yml
+    - terminal.arch.yml
+    - tmux.arch.yml
+    - tmux.yml
+  loop_control:
+    loop_var: task

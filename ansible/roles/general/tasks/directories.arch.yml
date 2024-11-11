@@ -1,0 +1,10 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Create Linux directories
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - apps
+    - Pictures/Screenshots

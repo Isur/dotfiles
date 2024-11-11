@@ -1,0 +1,17 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install neovim
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - neovim
+
+- name: Arch | Neovim Config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }

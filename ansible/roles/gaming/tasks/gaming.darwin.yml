@@ -1,0 +1,8 @@
+---
+- name: Darwin | Install Gaming Stuff
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    accept_external_apps: true
+  loop:
+    - steam

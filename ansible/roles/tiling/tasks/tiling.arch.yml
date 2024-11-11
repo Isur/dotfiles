@@ -1,0 +1,28 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install tiling stuff
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - i3-wm
+    - playerctl
+    - rofi
+    - feh
+    - i3blocks
+    - dunst
+    - betterlockscreen-git
+    - lm_sensors
+
+- name: Arch | Config tiling
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "i3", dest: "{{ ansible_env.HOME }}/.config/i3" }
+    - { src: "i3blocks", dest: "{{ ansible_env.HOME }}/.config/i3blocks" }
+    - { src: "rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
+    - { src: "dunst", dest: "{{ ansible_env.HOME }}/.config/dunst" }
+    - { src: "betterlockscreen", dest: "{{ ansible_env.HOME }}/.config/betterlockscreen" }

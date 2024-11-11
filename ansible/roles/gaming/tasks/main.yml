@@ -1,0 +1,16 @@
+---
+- name: Darwin | Include Darwin specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Darwin'
+  loop:
+    - gaming.darwin.yml
+  loop_control:
+    loop_var: task
+
+- name: Arch | Include Linux specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Archlinux'
+  loop:
+    - gaming.arch.yml
+  loop_control:
+    loop_var: task

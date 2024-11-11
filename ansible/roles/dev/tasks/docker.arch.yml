@@ -1,0 +1,32 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install Docker
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - docker
+    - docker-compose
+    - docker-buildx
+    - lazydocker
+
+- name: Arch | Docker Group
+  become: true
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Arch | Add user to docker group
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    groups: docker
+    append: true
+
+- name: Arch | Enable docker
+  become: true
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started

@@ -1,0 +1,22 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install terminal
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - kitty
+    - fzf
+    - ripgrep
+    - fd
+    - btop
+    - sshs
+
+- name: Arch | Kitty Config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "kitty", dest: "{{ ansible_env.HOME }}/.config/kitty" }

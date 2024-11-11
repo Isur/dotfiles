@@ -1,0 +1,25 @@
+# vim:ft=yaml.ansible
+---
+- name: Common general tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  loop:
+    - directories.yml
+  loop_control:
+    loop_var: task
+
+- name: Darwin | Include Darwin specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Darwin'
+  loop:
+    - apps.darwin.yml
+  loop_control:
+    loop_var: task
+
+- name: Arch | Include Linux specific tasks
+  ansible.builtin.include_tasks: "./{{ task }}"
+  when: ansible_os_family == 'Archlinux'
+  loop:
+    - directories.arch.yml
+    - apps.arch.yml
+  loop_control:
+    loop_var: task

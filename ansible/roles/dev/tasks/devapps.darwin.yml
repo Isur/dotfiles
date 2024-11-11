@@ -1,0 +1,11 @@
+# vim:ft=yaml.ansible
+---
+- name: Darwin | Install brew cask packages
+  community.general.homebrew_cask:
+    name: "{{ item }}"
+    state: present
+    accept_external_apps: true
+  loop:
+    - dbeaver-community
+    - postman
+    - virtualbox
