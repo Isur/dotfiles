@@ -12,6 +12,11 @@
     ssh-add $HOME/.ssh/id_rsa
   changed_when: false
 
+- name: Add Github server to known_hosts
+  ansible.builtin.known_hosts:
+    name: github.com
+    key: "{{ lookup('pipe', 'ssh-keyscan -t rsa github.com') }}"
+
 - name: Clone repos
   ansible.builtin.git:
     repo: "{{ item.repo }}"
@@ -19,6 +24,7 @@
     clone: true
     accept_hostkey: true
     key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
+  GIT_SSH_COMMAND: 'ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa'
   loop:
     - { name: isur, repo: "git@github.com:Isur/isur.git" }
     - { name: turbo-template, repo: "git@github.com:Isur/turbo-template.git" }
