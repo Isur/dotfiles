@@ -9,6 +9,7 @@ Two playbooks:
 - `repos.yml` - just clone some personal repositories
 
 ## Supported systems
+Ansible roles are prepared to be used with Archlinux and Darwin systems.
 
 - arch based;
 - mac os (darwin);
@@ -37,24 +38,21 @@ Those scripts will be installed:
 ### Secrets
 
 Hidden with `ansible-vault`:
-- `ssh` - keys;
+- `ssh` - keys & config;
 
 ## Requirements
 
 - `sudo` privileges;
-- `.vault_pass` file with password (required for ssh and other secrets) in `$HOME/.vault_pass`;
+- `.vault_pass` file with password (required for ssh and other secrets) in `$HOME/.vault_pass` (when running helper script, required to run playbook - using directly can be used in other ways);
 
 
 ## Helpers
 
-- `./server.sh` - will install some tools that I use on servers;
-- `./setup.sh` - will install what is required for personal use and run ansible with everything;
-
 ### Personal
-Run this script to setup personal machine.
+This script will install evertyhing that is required before using ansible playbook and will run this playbook.
 
 ```sh
-bash -c "$(curl https://raw.githubusercontent.com/Isur/dotfiles/refs/heads//ansible/setup.sh)"
+bash -c "$(curl https://raw.githubusercontent.com/isur/dotfiles/master/setup.sh)"
 ```
 
 ### Server
@@ -62,7 +60,7 @@ bash -c "$(curl https://raw.githubusercontent.com/Isur/dotfiles/refs/heads//ansi
 Install some tools that I use on servers:
 
 ```sh
-bash -c "$(curl https://raw.githubusercontent.com/isur/dotfiles/master/install/server.sh)"
+bash -c "$(curl https://raw.githubusercontent.com/isur/dotfiles/master/server.sh)"
 ```
 
 ## Preview
