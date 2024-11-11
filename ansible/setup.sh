@@ -1,8 +1,6 @@
 #!/bin/bash
 
 REPO_URL="https://github.com/Isur/dotfiles.git"
-DOTFILES="$HOME/dotfiles"
-ANSIBLE_DIR="$HOME/dotfiles/ansible"
 BRANCH=ansible
 SYSTEM=""
 
@@ -49,13 +47,11 @@ if [ "$SYSTEM" == "Darwin" ]; then
 	brew install postgresql
 fi
 
-git clone $REPO_URL $DOTFILES
+git clone $REPO_URL ~/dotfiles
 
-(cd $DOTFILES &&\
-    git checkout $BRANCH &&\
-    cd $ANSIBLE_DIR &&\
-    ansible-galaxy install -r collections.yml &&\
-    ansible-playbook play.yml -i inventory.yml -K --vault-password-file $HOME/.vault_pass &&\
-    ansible-playbook repos.yml -i inventory.yml
-)
+(cd ~/dotfiles && git checkout $BRANCH)
+
+sudo su $USER -c '(cd ~/dotfiles/ansible && ansible-galaxy install -r collections.yml)'
+sudo su $USER -c '(cd ~/dotfiles/ansible && ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass)'
+sudo su $USER -c '(cd ~/dotfiles/ansible && ansible-playbook repos.yml -i inventory.yml)'
 
