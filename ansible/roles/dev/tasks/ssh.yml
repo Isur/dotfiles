@@ -28,7 +28,13 @@
   ignore_errors: true
   changed_when: false
 
-- name: Change the existing origin to SSH
+- name: Ensure the Personal directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/Developer/Personal"
+    state: directory
+    mode: '755'
+
+- name: Dotfiles and other repositories
   ansible.builtin.shell: |
     eval `ssh-agent -s`
     ssh-add
@@ -36,25 +42,10 @@
     git remote add origin git@github.com:Isur/dotfiles
     git fetch --all
     git branch --set-upstream-to=origin/master master
+    git clone git@github.com:Isur/isur.git $HOME/Personal/isur
+    git clone git@github.com:Isur/turbo-template.git $HOME/Personal/turbo-template
+    git clone git@github.com:Isur/portfolio.git $HOME/Personal/portfolio
   args:
     chdir: "{{ ansible_env.HOME }}/dotfiles"
   when: current_origin.stdout != "git@github.com:Isur/dotfiles"
   changed_when: true
-
-- name: Ensure the Personal directory exists
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/Developer/Personal"
-    state: directory
-    mode: '755'
-
-- name: Clone Personal repos
-  ansible.builtin.git:
-    repo: "{{ item.repo }}"
-    dest: "{{ ansible_env.HOME }}/Developer/Personal/{{ item.name }}"
-    clone: true
-    accept_hostkey: true
-    key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
-  loop:
-    - { name: isur, repo: "git@github.com:Isur/isur.git" }
-    - { name: turbo-template, repo: "git@github.com:Isur/turbo-template.git" }
-    - { name: portfolio, repo: "git@github.com:Isur/portfolio.git" }
