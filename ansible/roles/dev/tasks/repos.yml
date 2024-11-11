@@ -24,7 +24,8 @@
     clone: true
     accept_hostkey: true
     key_file: "{{ ansible_env.HOME }}/.ssh/id_rsa"
-  GIT_SSH_COMMAND: 'ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa'
+  environment:
+    GIT_SSH_COMMAND: 'ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa'
   loop:
     - { name: isur, repo: "git@github.com:Isur/isur.git" }
     - { name: turbo-template, repo: "git@github.com:Isur/turbo-template.git" }
