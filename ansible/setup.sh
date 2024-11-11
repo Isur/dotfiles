@@ -54,5 +54,6 @@ git clone $REPO_URL ~/dotfiles
 	git checkout $BRANCH && \
 	cd ~/dotfiles/ansible && \
 	ansible-galaxy install -r collections.yml && \
-	ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass
+	ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass && \
+	reboot
 )
