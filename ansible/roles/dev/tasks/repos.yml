@@ -9,6 +9,7 @@
 - name: Ensure SSH key is addded
   ansible.builtin.shell: |
     set -o pipefail
+    eval "$(ssh-agent -s)"
     ssh-add $HOME/.ssh/id_rsa
   changed_when: false
 
