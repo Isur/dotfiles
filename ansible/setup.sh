@@ -4,8 +4,6 @@ REPO_URL="https://github.com/Isur/dotfiles.git"
 BRANCH=ansible
 SYSTEM=""
 
-eval "$(ssh-agent -s)"
-
 if [ "$(uname)" == "Darwin" ]; then
 	SYSTEM="Darwin"
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
@@ -55,5 +53,5 @@ git clone $REPO_URL ~/dotfiles
 	cd ~/dotfiles/ansible && \
 	ansible-galaxy install -r collections.yml && \
 	ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass && \
-	reboot
+	echo DONE
 )
