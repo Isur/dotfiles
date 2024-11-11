@@ -6,6 +6,8 @@ ANSIBLE_DIR="$HOME/dotfiles/ansible"
 BRANCH=ansible
 SYSTEM=""
 
+eval "$(ssh-agent -s)"
+
 if [ "$(uname)" == "Darwin" ]; then
 	SYSTEM="Darwin"
 elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
