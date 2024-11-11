@@ -17,4 +17,3 @@
     - { name: 'isur', src: 'Isur/isur' }
     - { name: 'turbo-template', src: 'Isur/turbo-template' }
     - { name: 'portfolio', src: 'Isur/portfolio' }
-

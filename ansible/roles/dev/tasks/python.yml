@@ -4,22 +4,24 @@
   ansible.builtin.raw: which pyenv
   register: pyenv_test
   changed_when: false
+  failed_when: false
 
 - name: Check poetry installation
   ansible.builtin.raw: which poetry
   register: poetry_test
   changed_when: false
+  failed_when: false
 
 - name: Poetry
   ansible.builtin.shell: |
     set -o pipefail
     curl -sSL https://install.python-poetry.org | python3 -
   changed_when: true
-  when: poetry_test.rc == "0"
+  when: poetry_test.rc != 0
 
 - name: Pyenv
   ansible.builtin.shell: |
     set -o pipefail
     curl https://pyenv.run | bash
   changed_when: true
-  when: pyenv_test.rc == "0"
+  when: pyenv_test.rc != 0
