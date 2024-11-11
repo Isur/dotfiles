@@ -1,0 +1,5 @@
+# vim:ft=yaml.ansible
+- name: Get some repos
+  hosts: home
+  roles:
+    - repos

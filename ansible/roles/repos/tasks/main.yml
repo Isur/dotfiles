@@ -1,0 +1,20 @@
+# vim:ft=yaml.ansible
+---
+- name: Ensure the Personal directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/Developer/Personal"
+    state: directory
+    mode: '755'
+
+- name: Clone repos
+  ansible.builtin.git:
+    repo: "git@github.com:{{ item.src }}"
+    dest: "{{ ansible_env.HOME }}/Developer/Personal/{{ item.name }}"
+    clone: true
+    update: false
+    accept_hostkey: true
+  loop:
+    - { name: 'isur', src: 'Isur/isur' }
+    - { name: 'turbo-template', src: 'Isur/turbo-template' }
+    - { name: 'portfolio', src: 'Isur/portfolio' }
+

@@ -28,12 +28,6 @@
   ignore_errors: true
   changed_when: false
 
-- name: Ensure the Personal directory exists
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/Developer/Personal"
-    state: directory
-    mode: '755'
-
 - name: Dotfiles and other repositories
   ansible.builtin.shell: |
     eval `ssh-agent -s`
@@ -42,10 +36,6 @@
     git remote add origin git@github.com:Isur/dotfiles
     git fetch --all
     git branch --set-upstream-to=origin/master master
-    echo Clone some repos
-    git clone git@github.com:Isur/isur.git $HOME/Personal/isur
-    git clone git@github.com:Isur/turbo-template.git $HOME/Personal/turbo-template
-    git clone git@github.com:Isur/portfolio.git $HOME/Personal/portfolio
   args:
     chdir: "{{ ansible_env.HOME }}/dotfiles"
   when: current_origin.stdout != "git@github.com:Isur/dotfiles"
