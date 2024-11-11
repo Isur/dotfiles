@@ -49,6 +49,10 @@ fi
 
 git clone $REPO_URL ~/dotfiles
 
-(cd ~/dotfiles && git checkout $BRANCH)
-(cd ~/dotfiles/ansible && ansible-galaxy install -r collections.yml)
-(cd ~/dotfiles/ansible && ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass)
+(
+	cd ~/dotfiles && \
+	git checkout $BRANCH && \
+	cd ~/dotfiles/ansible && \
+	ansible-galaxy install -r collections.yml && \
+	ansible-playbook play.yml -i inventory.yml -K --vault-password-file ~/.vault_pass
+)
