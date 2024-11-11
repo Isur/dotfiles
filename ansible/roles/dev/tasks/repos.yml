@@ -6,6 +6,12 @@
     state: directory
     mode: '755'
 
+- name: Ensure SSH key is addded
+  ansible.builtin.shell: |
+    set -o pipefail
+    ssh-add $HOME/.ssh/id_rsa
+  changed_when: false
+
 - name: Clone repos
   ansible.builtin.git:
     repo: "{{ item.repo }}"
