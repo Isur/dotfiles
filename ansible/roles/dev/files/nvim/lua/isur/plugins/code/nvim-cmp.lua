@@ -64,7 +64,7 @@ return {
 				["<C-j>"] = cmp.mapping.select_next_item(),
 				["<C-u>"] = cmp.mapping.scroll_docs(-4),
 				["<C-d>"] = cmp.mapping.scroll_docs(4),
-				["<C-s>"] = cmp.mapping.complete({ reason = cmp.ContextReason.Auto }),
+				["<C-s>"] = cmp.mapping.complete(),
 				["<C-e>"] = cmp.mapping.close(),
 				["<C-y>"] = cmp.mapping.confirm({ select = true }),
 				["<Tab>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "s" }),
