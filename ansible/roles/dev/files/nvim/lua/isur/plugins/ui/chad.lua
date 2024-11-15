@@ -1,6 +1,5 @@
 return {
 	"nvim-lua/plenary.nvim",
-
 	{
 		"nvchad/ui",
 		config = function()
@@ -32,7 +31,6 @@ return {
 			vim.cmd.colorscheme("nvchad")
 		end,
 	},
-
 	{
 		"nvchad/base46",
 		lazy = true,

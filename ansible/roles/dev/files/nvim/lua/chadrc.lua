@@ -52,7 +52,7 @@ return {
 		telescope = { style = "bordered" }, -- borderless / bordered
 	},
 	lsp = {
-		signature = true,
+		signature = false,
 	},
 	colorify = {
 		enabled = true,
