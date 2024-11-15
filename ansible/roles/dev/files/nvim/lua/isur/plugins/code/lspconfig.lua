@@ -10,17 +10,7 @@ return {
 		local lspconfig = require("lspconfig")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local builtins = require("telescope.builtin")
-		-- Specify how the border looks like
-		local border = {
-			{ "┌", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "┐", "FloatBorder" },
-			{ "│", "FloatBorder" },
-			{ "┘", "FloatBorder" },
-			{ "─", "FloatBorder" },
-			{ "└", "FloatBorder" },
-			{ "│", "FloatBorder" },
-		}
+		local border = "rounded"
 
 		-- Add the border on hover and on signature help popup window
 		local handlers = {
