@@ -80,6 +80,15 @@ return {
 			formatting = {
 				format = lspkind.cmp_format({ with_text = true }),
 			},
+			sorting = {
+				comparators = {
+					cmp.config.compare.offset,
+					cmp.config.compare.exact,
+					cmp.config.compare.score,
+					cmp.config.compare.recently_used,
+					cmp.config.compare.kind,
+				},
+			},
 		}
 		options = vim.tbl_deep_extend("force", options, require("nvchad.cmp"))
 		cmp.setup(options)
