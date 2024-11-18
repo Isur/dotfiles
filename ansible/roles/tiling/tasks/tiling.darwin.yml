@@ -13,7 +13,6 @@
   loop:
     - sketchybar
     - jq
-    - raycast
     - nikitabobko/tap/aerospace
     - borders
 
