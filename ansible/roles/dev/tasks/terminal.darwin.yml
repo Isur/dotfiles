@@ -1,11 +1,10 @@
 # vim:ft=yaml.ansible
 ---
-- name: Darwin | Install terminal
+- name: Darwin | Install terminal apps
   community.general.homebrew:
     name: "{{ item }}"
     state: present
   loop:
-    - kitty
     - fzf
     - ripgrep
     - fd
@@ -13,10 +12,8 @@
     - sshs
     - gnu-sed
 
-- name: Darwin | Kitty Config
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-  loop:
-    - { src: "kitty", dest: "{{ ansible_env.HOME }}/.config/kitty" }
+- name: Darwin | Install iterm2
+  community.general.homebrew_cask:
+    name: iterm2
+    state: present
+    accept_external_apps: true
