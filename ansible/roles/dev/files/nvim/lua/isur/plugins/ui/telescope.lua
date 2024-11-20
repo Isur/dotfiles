@@ -12,7 +12,13 @@ return {
 		local actions = require("telescope.actions")
 		local builtin = require("telescope.builtin")
 		local themes = require("telescope.themes")
+		local utils = require("telescope.utils")
 		local gfh_actions = require("telescope").extensions.git_file_history.actions
+
+		path_display = function(opts, path)
+			local tail = utils.path_tail(path)
+			return string.format("%s - %s", tail, path), { { { 1, #tail }, "Constant" } }
+		end
 
 		telescope.setup({
 			extensions = {
@@ -33,6 +39,7 @@ return {
 			},
 			defaults = {
 				-- path_display = { "smart" },
+				path_display = path_display,
 				mappings = {
 					n = {
 						["<C-d>"] = actions.delete_buffer,
@@ -41,6 +48,8 @@ return {
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 					},
 				},
+				layout_strategy = "vertical",
+				dynamic_preview_title = true,
 			},
 		})
 
