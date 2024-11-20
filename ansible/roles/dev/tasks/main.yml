@@ -18,7 +18,6 @@
     - docker.darwin.yml
     - git.darwin.yml
     - neovim.darwin.yml
-    - prototools.darwin.yml
     - shell.darwin.yml
     - shell.yml
     - terminal.darwin.yml
@@ -35,7 +34,6 @@
     - docker.arch.yml
     - git.arch.yml
     - neovim.arch.yml
-    - prototools.arch.yml
     - shell.arch.yml
     - shell.yml
     - terminal.arch.yml

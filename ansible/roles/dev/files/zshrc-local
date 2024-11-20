@@ -49,7 +49,3 @@ eval "$(pyenv init -)"
 
 export POETRY_HOME="$HOME/.local/share/poetry"
 export PATH="$POETRY_HOME/bin:$PATH"
-
-# proto
-export PROTO_HOME="$HOME/.proto"
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$PATH"

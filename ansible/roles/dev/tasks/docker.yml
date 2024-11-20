@@ -1,7 +1,14 @@
 # vim:ft=yaml.ansible
 ---
+- name: Check if global docke-compose is already here
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"
+  register: docker_status
+  changed_when: false
+
 - name: Docker global docker-compose
   ansible.builtin.copy:
     src: "{{ role_path }}/files/docker-compose.yml"
     dest: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"
     mode: '755'
+  when: not docker_status.stat.exists
