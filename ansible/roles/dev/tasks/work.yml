@@ -1,0 +1,16 @@
+# vim:ft=yaml.ansible
+---
+- name: Ensure that apps directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.local/bin"
+    state: directory
+    mode: '755'
+
+- name: Work Scirpts
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/work/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/{{ item }}"
+    decrypt: true
+    mode: '755'
+  loop:
+    - ivy.sh
