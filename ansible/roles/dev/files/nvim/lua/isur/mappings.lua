@@ -13,3 +13,6 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 -- Remove highlights
 vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+
+-- file path
+vim.keymap.set("n", "<leader>pp", ":let @+ = expand('%')<CR>", { desc = "Copy file path" })
