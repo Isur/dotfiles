@@ -29,21 +29,12 @@ return {
 					vim.keymap.set(
 						"n",
 						"<leader>gp",
-						require("gitsigns").prev_hunk,
+						gitsigns.prev_hunk,
 						{ buffer = bufnr, desc = "Go to previous hunk" }
 					)
-					vim.keymap.set(
-						"n",
-						"<leader>gn",
-						require("gitsigns").next_hunk,
-						{ buffer = bufnr, desc = "Go to next hunk" }
-					)
-					vim.keymap.set(
-						"n",
-						"<leader>ph",
-						require("gitsigns").preview_hunk,
-						{ buffer = bufnr, desc = "Preview hunk" }
-					)
+					vim.keymap.set("n", "<leader>gn", gitsigns.next_hunk, { buffer = bufnr, desc = "Go to next hunk" })
+					vim.keymap.set("n", "<leader>ph", gitsigns.preview_hunk, { buffer = bufnr, desc = "Preview hunk" })
+					vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { buffer = bufnr, desc = "Stage hunk" })
 				end,
 			})
 		end,
