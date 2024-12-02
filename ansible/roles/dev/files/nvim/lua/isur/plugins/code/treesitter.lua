@@ -31,6 +31,7 @@ return {
 					"javascript",
 					"cpp",
 					"http",
+					"go",
 				},
 				auto_install = false,
 				highlight = { enable = true },

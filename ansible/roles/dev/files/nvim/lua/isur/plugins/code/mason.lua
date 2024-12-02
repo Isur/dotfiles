@@ -29,6 +29,7 @@ return {
 					"clangd",
 					"ansible-language-server",
 					"marksman",
+					"gopls",
 					-- Linters
 					"eslint_d",
 					"flake8",

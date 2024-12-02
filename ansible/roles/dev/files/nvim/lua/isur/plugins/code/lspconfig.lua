@@ -10,6 +10,7 @@ return {
 	config = function()
 		require("lsp_signature").setup()
 		local lspconfig = require("lspconfig")
+		local util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local builtins = require("telescope.builtin")
 		local border = "rounded"
@@ -147,6 +148,19 @@ return {
 			on_attach = on_attach,
 			capabilities = capabilities,
 			handlers = handlers,
+		})
+
+		lspconfig["gopls"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			handlers = handlers,
+			cmd = { "gopls" },
+			root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+			settings = {
+				gopls = {
+					completeUnimported = true,
+				},
+			},
 		})
 
 		lspconfig["lua_ls"].setup({

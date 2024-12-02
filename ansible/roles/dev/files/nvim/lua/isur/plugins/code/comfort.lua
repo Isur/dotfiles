@@ -43,6 +43,7 @@ return {
 				python = { "isort", "black" },
 				cpp = { "clang_format" },
 				ino = { "clang_format" },
+				go = { "gofmt" },
 				["markdown"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
 				["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
 			},
