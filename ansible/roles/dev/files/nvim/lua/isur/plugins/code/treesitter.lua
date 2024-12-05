@@ -3,12 +3,23 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter-textobjects",
+			"nvim-treesitter/nvim-treesitter-context",
 			"windwp/nvim-ts-autotag",
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 		build = ":TSUpdate",
 		config = function()
 			local treesitter = require("nvim-treesitter.configs")
+			local context = require("treesitter-context")
+			context.setup({ enable = true })
+
+			vim.keymap.set("n", "[c", function()
+				context.go_to_context(vim.v.count1)
+			end, { silent = true, desc = "Go to context" })
+
+			vim.keymap.set("n", "]c", function()
+				context.toggle()
+			end, { silent = true, desc = "Go to context" })
 
 			treesitter.setup({
 				ensure_installed = {
