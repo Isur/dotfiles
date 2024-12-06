@@ -5,14 +5,9 @@ if [[ $1 == '--win' ]]; then
     win="yes"
 fi
 
-selected_name=$(tmux list-sessions -F "#S" | fzf)
 
 if [[ $win == "no" ]]; then
-    tmux switch-client -t $selected_name
-else
-    window_name=$(tmux list-windows -t $selected_name -F "#S #I #W" | fzf)
-
-    echo $window_name
+    window_name=$(tmux list-windows -a -F "#S #W" | fzf)
 
     s=$(echo $window_name | awk '{ session = $1 }; END { print session }')
     w=$(echo $window_name | awk '{ window = $2 }; END { print window }')
@@ -20,4 +15,7 @@ else
     change=$s:$w
 
     tmux switch-client -t $change
+else
+    selected_name=$(tmux list-windows -F "#S:#W" | fzf)
+    tmux switch-client -t $selected_name
 fi
