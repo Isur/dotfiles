@@ -18,10 +18,7 @@ vim.g.base46_cache = vim.fn.stdpath("data") .. "/base46/"
 
 -- Setup Lazy
 require("lazy").setup({
-	{ import = "isur.plugins.utils" },
-	{ import = "isur.plugins.code" },
-	{ import = "isur.plugins.ui" },
-	{ import = "isur.plugins.mini" },
+	{ import = "isur.plugins" },
 })
 
 for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do

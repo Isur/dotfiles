@@ -11,7 +11,6 @@ vim.opt.scrolloff = 8
 -- Setup numbers
 vim.o.relativenumber = true
 vim.o.nu = true
-vim.o.statuscolumn = "%s %l %r "
 
 -- Setup tab to 4 spaces
 vim.o.tabstop = 4
