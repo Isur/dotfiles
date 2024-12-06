@@ -22,6 +22,9 @@ return {
 			end, { silent = true, desc = "Go to context" })
 
 			treesitter.setup({
+				ignore_install = {},
+				modules = {},
+				sync_install = false,
 				ensure_installed = {
 					"lua",
 					"python",

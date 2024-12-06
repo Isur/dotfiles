@@ -22,7 +22,7 @@ return {
 		statusline = {
 			theme = "vscode_colored",
 			order = {
-				"isRecording",
+				-- "isRecording",
 				"mode",
 				"file",
 				"git",

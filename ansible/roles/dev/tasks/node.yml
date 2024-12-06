@@ -12,5 +12,6 @@
     source $HOME/.nvm/nvm.sh
     nvm install --lts
     npm install -g pnpm
+    npm install -g neovim
   when: not nvm_status.stat.exists
   changed_when: true

@@ -47,6 +47,7 @@ return {
 			nmap("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic message")
 			nmap("]d", vim.diagnostic.goto_next, "Go to next diagnostic message")
 			nmap("dp", vim.diagnostic.open_float, "Open diagnostic message in float window")
+			nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
 
 			nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 

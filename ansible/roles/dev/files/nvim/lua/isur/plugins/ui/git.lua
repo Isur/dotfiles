@@ -13,7 +13,6 @@ return {
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			vim.keymap.set("n", "<leader>gg", vim.cmd.LazyGit, { desc = "Lazy Git" })
-			-- vim.keymap.set("n", "<leader>gh", ":Git log --oneline -p --follow -- % <CR>", { desc = "Git file history" })
 
 			local gitsigns = require("gitsigns")
 
@@ -26,15 +25,15 @@ return {
 					changedelete = { text = "~" },
 				},
 				on_attach = function(bufnr)
-					vim.keymap.set(
-						"n",
-						"<leader>gp",
-						gitsigns.prev_hunk,
-						{ buffer = bufnr, desc = "Go to previous hunk" }
-					)
-					vim.keymap.set("n", "<leader>gn", gitsigns.next_hunk, { buffer = bufnr, desc = "Go to next hunk" })
+					vim.keymap.set("n", "<leader>gp", function()
+						gitsigns.nav_hunk("prev", {})
+					end, { buffer = bufnr, desc = "Go to previous hunk" })
+					vim.keymap.set("n", "<leader>gn", function()
+						gitsigns.nav_hunk("next")
+					end, { buffer = bufnr, desc = "Go to next hunk" })
 					vim.keymap.set("n", "<leader>ph", gitsigns.preview_hunk, { buffer = bufnr, desc = "Preview hunk" })
 					vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { buffer = bufnr, desc = "Stage hunk" })
+					vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { buffer = bufnr, desc = "Reset hunk" })
 				end,
 			})
 		end,
