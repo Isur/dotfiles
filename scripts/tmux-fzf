@@ -7,12 +7,13 @@ fi
 
 
 if [[ $win == "no" ]]; then
-    window_name=$(tmux list-windows -a -F "#S #W" | fzf)
+    window_name=$(tmux list-windows -a -F "#I #S #W" | fzf)
 
-    s=$(echo $window_name | awk '{ session = $1 }; END { print session }')
-    w=$(echo $window_name | awk '{ window = $2 }; END { print window }')
+    s=$(echo $window_name | awk '{ session = $2 }; END { print session }')
+    w=$(echo $window_name | awk '{ window = $3 }; END { print window }')
+    i=$(echo $window_name | awk '{ id = $1 }; END { print id }')
 
-    change=$s:$w
+    change=$s:$i
 
     tmux switch-client -t $change
 else
