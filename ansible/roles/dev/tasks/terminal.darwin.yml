@@ -17,3 +17,23 @@
     name: iterm2
     state: present
     accept_external_apps: true
+
+- name: Darwin | Install Ghostty
+  community.general.homebrew_cask:
+    name: ghostty
+    state: present
+    accept_external_apps: true
+
+- name: Darwin | Ghostty config dir
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/ghostty/"
+    state: directory
+    mode: "0755"
+
+- name: Darwin | Ghostty Config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "ghostty", dest: "{{ ansible_env.HOME }}/.config/ghostty/config" }

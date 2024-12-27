@@ -38,8 +38,16 @@
   loop:
     - { src: "zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }
 
-- name: ZSH default shell
+- name: Arch | ZSH default shell
   become: true
   ansible.builtin.user:
     user: "{{ ansible_env.USER }}"
     shell: /usr/bin/zsh
+  when: ansible_os_family == 'Archlinux'
+
+- name: Darwin | ZSH default shell
+  become: true
+  ansible.builtin.user:
+    user: "{{ ansible_env.USER }}"
+    shell: /opt/homebrew/bin/zsh
+  when: ansible_os_family == 'Darwin'
