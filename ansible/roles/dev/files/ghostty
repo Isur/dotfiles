@@ -1,3 +1,4 @@
 font-family = "JetBrainsMono NFM Medium Italic"
 theme = GruvboxDarkHard
 font-size = 22
+window-decoration = false
