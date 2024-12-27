@@ -25,3 +25,10 @@
     curl https://pyenv.run | bash
   changed_when: true
   when: pyenv_test.rc != 0
+
+- name: UV
+  ansible.builtin.shell: |
+    set -o pipefail
+    curl -LsSf https://astral.sh/uv/install.sh | sh
+  changed_when: true
+  when: pyenv_test.rc != 0

@@ -121,7 +121,23 @@ return {
 			handlers = handlers,
 		})
 
-		lspconfig["pylsp"].setup({
+		lspconfig["pyright"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			handlers = handlers,
+			settings = {
+				pyright = {
+					disableOrganizeImports = true,
+				},
+				python = {
+					analysis = {
+						ignore = { "*" },
+					},
+				},
+			},
+		})
+
+		lspconfig["ruff"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
 			handlers = handlers,

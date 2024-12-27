@@ -71,7 +71,7 @@ return {
 					yaml = { "prettierd" },
 					graphql = { "prettierd" },
 					lua = { "stylua" },
-					python = { "isort", "black" },
+					python = { "ruff_format" },
 					cpp = { "clang_format" },
 					ino = { "clang_format" },
 					go = { "gofmt" },

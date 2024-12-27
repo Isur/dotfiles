@@ -15,7 +15,6 @@ return {
 				ensure_installed = {
 					-- LSPs
 					"typescript-language-server",
-					"python-lsp-server",
 					"tailwindcss-language-server",
 					"dockerfile-language-server",
 					"bash-language-server",
@@ -30,17 +29,15 @@ return {
 					"ansible-language-server",
 					"marksman",
 					"gopls",
+					"pyright",
 					-- Linters
 					"eslint_d",
-					"flake8",
 					"ruff",
 					"ansible-lint",
 					"markdownlint-cli2",
 					-- Formatters
-					"black",
 					"prettierd",
 					"stylua",
-					"isort",
 					"clang-format",
 					"jq",
 					"markdown-toc",
