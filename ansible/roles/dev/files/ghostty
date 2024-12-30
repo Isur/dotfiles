@@ -1,4 +1,5 @@
-font-family = "JetBrainsMono NFM Medium Italic"
+font-family = "JetBrainsMonoNL Nerd Font"
 theme = GruvboxDarkHard
 font-size = 22
 window-decoration = false
+link-url = true

@@ -23,6 +23,7 @@ alias zsh-refresh="source $HOME/.zshrc"
 export PATH="$HOME/dotfiles/scripts:$PATH"
 export PATH="$HOME/apps:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
 
 # DEFAULT EDITOR
 export EDITOR="nvim"
@@ -41,3 +42,6 @@ eval "$(pyenv init -)"
 
 export POETRY_HOME="$HOME/.local/share/poetry"
 export PATH="$POETRY_HOME/bin:$PATH"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
