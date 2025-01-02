@@ -167,6 +167,12 @@ return {
 			handlers = handlers,
 		})
 
+		lspconfig["jsonls"].setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+			handlers = handlers,
+		})
+
 		lspconfig["gopls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,

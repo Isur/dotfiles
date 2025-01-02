@@ -30,6 +30,7 @@ return {
 					"marksman",
 					"gopls",
 					"pyright",
+					"json-lsp",
 					-- Linters
 					"eslint_d",
 					"ruff",
