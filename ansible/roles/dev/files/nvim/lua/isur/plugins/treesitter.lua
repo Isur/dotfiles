@@ -11,7 +11,7 @@ return {
 		config = function()
 			local treesitter = require("nvim-treesitter.configs")
 			local context = require("treesitter-context")
-			context.setup({ enable = true })
+			context.setup({ enable = false })
 
 			vim.keymap.set("n", "[c", function()
 				context.go_to_context(vim.v.count1)
