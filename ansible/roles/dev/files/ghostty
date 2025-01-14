@@ -1,5 +1,7 @@
 font-family = "JetBrainsMonoNL Nerd Font"
 theme = flexoki-dark
 font-size = 22
-window-decoration = false
+window-decoration = true
+macos-titlebar-style = hidden
+gtk-titlebar = false
 link-url = true
