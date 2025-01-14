@@ -1,9 +1,9 @@
 return {
 	base46 = {
-		theme = "oxocarbon",
+		theme = "ayu_dark",
 		transparency = false,
 		theme_toggle = {
-			"oxocarbon",
+			"ayu_dark",
 			"ayu",
 		},
 	},

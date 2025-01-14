@@ -1,5 +1,5 @@
 font-family = "JetBrainsMonoNL Nerd Font"
-theme = carbonfox
+theme = IR_Black
 font-size = 22
-window-decoration = false
+window-decoration = true
 link-url = true
