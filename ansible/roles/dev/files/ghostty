@@ -1,5 +1,5 @@
 font-family = "JetBrainsMonoNL Nerd Font"
-theme = IR_Black
+theme = flexoki-dark
 font-size = 22
-window-decoration = true
+window-decoration = false
 link-url = true
