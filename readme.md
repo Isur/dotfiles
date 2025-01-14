@@ -34,6 +34,7 @@ Those scripts will be installed:
 - `keker` - automatically create directory for new project - template might be used for this;
 - `updater` - update dotfiles repo, packages with `yay`/`brew`/`apt` and `Oh My ZSH`;
 - `tmux-sessionizer` - create tmux session in selected directory;
+- `tmux-fzf` - search in tmux window (used in tmux floating window);
 
 ### Secrets
 
