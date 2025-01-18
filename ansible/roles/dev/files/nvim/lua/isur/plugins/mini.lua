@@ -5,6 +5,7 @@ return {
 	},
 	version = false,
 	config = function()
+		require("mini.ai").setup({})
 		require("mini.comment").setup({
 			options = {
 				custom_commentstring = function()
