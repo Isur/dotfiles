@@ -1,4 +1,9 @@
-font-family = "JetBrainsMonoNL Nerd Font"
+font-family = Maple Mono NF
+font-style = Regular
+font-style-italic = Regular Italic
+font-style-bold = Bold
+font-style-bold-italic = Bold Italic
+
 theme = flexoki-dark
 font-size = 22
 window-decoration = true
