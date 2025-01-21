@@ -1,8 +1,8 @@
 font-family = Maple Mono NF
 font-style = Regular
-font-style-italic = Regular Italic
+font-style-italic = Italic
 font-style-bold = Bold
-font-style-bold-italic = Bold Italic
+font-style-bold-italic = BoldItalic
 
 theme = flexoki-dark
 font-size = 22

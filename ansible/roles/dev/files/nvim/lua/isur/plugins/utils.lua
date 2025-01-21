@@ -43,6 +43,16 @@ return {
 			require("todo-comments").setup({})
 		end,
 	},
+	{
+		"stevearc/dressing.nvim",
+		opts = {
+			input = {
+				win_options = {
+					winhighlight = "NormalFloat:DiagnosticError",
+				},
+			},
+		},
+	},
 	-- {
 	-- 	"github/copilot.vim",
 	-- 	depenencies = { "ofseed/lualine-copilot" },

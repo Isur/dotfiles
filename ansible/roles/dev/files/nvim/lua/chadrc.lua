@@ -1,6 +1,11 @@
 return {
 	base46 = {
 		theme = "flexoki",
+		hl_override = {
+			Comment = { italic = true },
+			["@comment"] = { italic = true },
+			FloatBorder = { fg = "#555050" },
+		},
 		transparency = false,
 		theme_toggle = {
 			"flexoki",

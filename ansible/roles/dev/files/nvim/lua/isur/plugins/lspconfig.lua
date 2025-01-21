@@ -13,7 +13,7 @@ return {
 		local util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local builtins = require("telescope.builtin")
-		local border = "rounded"
+		local border = "single"
 
 		-- Add the border on hover and on signature help popup window
 		local handlers = {
