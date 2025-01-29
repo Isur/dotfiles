@@ -16,7 +16,7 @@ return {
 
 			local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
-			if vim.env.LINTER ~= "off" then
+			if vim.env.NVIM_LINT ~= "off" then
 				vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
 					group = lint_autogroup,
 					callback = function()
@@ -28,7 +28,7 @@ return {
 			local buf = vim.api.nvim_get_current_buf()
 			vim.api.nvim_buf_create_user_command(buf, "Lint", function()
 				lint.try_lint()
-			end, {})
+			end, { desc = "Trigger linting for current file" })
 			vim.keymap.set("n", "<leader>ml", function()
 				lint.try_lint()
 			end, { desc = "Trigger linting for current file" })
