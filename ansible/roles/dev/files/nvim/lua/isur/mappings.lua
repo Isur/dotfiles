@@ -15,4 +15,8 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
 -- file path
-vim.keymap.set("n", "<leader>pp", ":let @+ = expand('%')<CR>", { desc = "Copy file path" })
+vim.keymap.set("n", "<leader>fp", function()
+	local path = vim.fn.expand("%")
+	print(path)
+	vim.fn.setreg("+", path) -- Copy to system clipboard
+end, { desc = "Copy file path" })
