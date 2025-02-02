@@ -12,6 +12,9 @@ plugins=(zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting poet
 # OH MY ZSH
 source $ZSH/oh-my-zsh.sh
 
+# Kubectl
+source <(kubectl completion zsh)
+
 # CUSTOM BINDS
 bindkey -s ^f "tmux-sessionizer\n"
 

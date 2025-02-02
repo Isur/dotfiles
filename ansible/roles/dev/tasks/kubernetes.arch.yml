@@ -1,0 +1,10 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install K8S
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - kubectl
+    - minikube
