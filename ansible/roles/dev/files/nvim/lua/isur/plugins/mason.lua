@@ -23,7 +23,6 @@ return {
 					"html-lsp",
 					"lua-language-server",
 					"emmet-language-server",
-					"eslint-lsp",
 					"arduino-language-server",
 					"clangd",
 					"ansible-language-server",

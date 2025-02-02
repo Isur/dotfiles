@@ -3,12 +3,10 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
-		"ray-x/lsp_signature.nvim",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
 	},
 	config = function()
-		require("lsp_signature").setup()
 		local lspconfig = require("lspconfig")
 		local util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
@@ -18,7 +16,10 @@ return {
 		-- Add the border on hover and on signature help popup window
 		local handlers = {
 			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-			["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = border }),
+			["textDocument/signatureHelp"] = vim.lsp.with(
+				vim.lsp.handlers.signature_help,
+				{ border = border, close_events = { "CursorMoved", "BufHidden", "InsertCharPre" } }
+			),
 		}
 
 		vim.diagnostic.config({
