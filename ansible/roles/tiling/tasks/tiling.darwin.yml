@@ -11,29 +11,29 @@
     name: "{{ item }}"
     state: present
   loop:
-    - sketchybar
+    # - sketchybar
     - jq
-    - nikitabobko/tap/aerospace
-    - borders
+    # - nikitabobko/tap/aerospace
+    # - borders
 
-- name: Darwin | Check if sketchybar font is available
-  ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/Library/Fonts/sketchybar-app-font.ttf"
-  register: found_files
-
-- name: Darwin | Get font for sketchybar
-  ansible.builtin.shell: |
-    set -o pipefail
-    curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.25/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
-  when: not found_files.stat.exists
-  changed_when: true
-
-- name: Darwin | Config tiling
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-    force: true
-  loop:
-    - { src: "aerospace.toml", dest: "{{ ansible_env.HOME }}/.aerospace.toml" }
-    - { src: "sketchybar", dest: "{{ ansible_env.HOME }}/.config/sketchybar" }
+# - name: Darwin | Check if sketchybar font is available
+#   ansible.builtin.stat:
+#     path: "{{ ansible_env.HOME }}/Library/Fonts/sketchybar-app-font.ttf"
+#   register: found_files
+#
+# - name: Darwin | Get font for sketchybar
+#   ansible.builtin.shell: |
+#     set -o pipefail
+#     curl -L https://github.com/kvndrsslr/sketchybar-app-font/releases/download/v2.0.25/sketchybar-app-font.ttf -o $HOME/Library/Fonts/sketchybar-app-font.ttf
+#   when: not found_files.stat.exists
+#   changed_when: true
+#
+# - name: Darwin | Config tiling
+#   ansible.builtin.file:
+#     src: "{{ role_path }}/files/{{ item.src }}"
+#     dest: "{{ item.dest }}"
+#     state: link
+#     force: true
+#   loop:
+#     - { src: "aerospace.toml", dest: "{{ ansible_env.HOME }}/.aerospace.toml" }
+#     - { src: "sketchybar", dest: "{{ ansible_env.HOME }}/.config/sketchybar" }

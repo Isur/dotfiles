@@ -17,6 +17,7 @@
   loop:
     - devapps.darwin.yml
     - docker.darwin.yml
+    - kubernetes.darwin.yml
     - git.darwin.yml
     - neovim.darwin.yml
     - shell.darwin.yml
@@ -33,6 +34,7 @@
   loop:
     - devapps.arch.yml
     - docker.arch.yml
+    - kubernetes.arch.yml
     - git.arch.yml
     - neovim.arch.yml
     - shell.arch.yml

@@ -15,7 +15,7 @@
     name: "{{ item }}"
     state: present
   loop:
-    - postgresql
+    - postgresql@17
     - git
 
 - name: Darwin | Install brew cask packages
