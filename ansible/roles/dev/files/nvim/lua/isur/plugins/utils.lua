@@ -62,6 +62,12 @@ return {
 			{ "<leader>u", "<cmd>lua require('undotree').toggle()<cr>" },
 		},
 	},
+	{
+		"supermaven-inc/supermaven-nvim",
+		config = function()
+			require("supermaven-nvim").setup({})
+		end,
+	},
 	-- {
 	-- 	"github/copilot.vim",
 	-- 	depenencies = { "ofseed/lualine-copilot" },

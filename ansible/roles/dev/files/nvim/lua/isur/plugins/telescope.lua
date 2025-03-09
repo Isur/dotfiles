@@ -64,7 +64,12 @@ return {
 		telescope.load_extension("git_file_history")
 
 		vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "Find recently opened files" })
-		vim.keymap.set("n", "<leader><space>", builtin.buffers, { desc = "Find existing buffers" })
+		vim.keymap.set(
+			"n",
+			"<leader><space>",
+			"<cmd>Telescope buffers initial_mode=normal<cr>",
+			{ desc = "Find existing buffers" }
+		)
 		vim.keymap.set("n", "<leader>/", function()
 			builtin.current_buffer_fuzzy_find(themes.get_dropdown({
 				winblend = 10,
