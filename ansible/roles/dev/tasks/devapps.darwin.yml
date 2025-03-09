@@ -9,3 +9,11 @@
     - dbeaver-community
     - postman
     - virtualbox
+    - openvpn-connect
+
+- name: Darwin | Install brew packages
+  community.general.homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - openvpn
