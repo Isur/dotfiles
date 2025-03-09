@@ -49,10 +49,3 @@ export PATH="$POETRY_HOME/bin:$PATH"
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
-# Vi mode
-bindkey -v
-export KEYTIMEOUT=1
-# Ctrl-p previous command
-bindkey "^P" up-line-or-search
-# Ctrl-n next command
-bindkey "^N" down-line-or-search
