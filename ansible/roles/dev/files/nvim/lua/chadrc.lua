@@ -28,6 +28,7 @@ return {
 			theme = "vscode_colored",
 			order = {
 				-- "isRecording",
+				"supermaven",
 				"mode",
 				"file",
 				"git",
@@ -52,6 +53,10 @@ return {
 					return " [" .. reg .. "] "
 				end,
 				filePercentage = "%p%% ",
+				supermaven = function()
+					local sm = require("supermaven-nvim.api")
+					return sm.is_running() and " [SM] " or ""
+				end,
 			},
 		},
 		telescope = { style = "bordered" }, -- borderless / bordered
