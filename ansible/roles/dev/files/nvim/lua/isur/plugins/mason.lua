@@ -41,6 +41,9 @@ return {
 					"clang-format",
 					"jq",
 					"markdown-toc",
+					-- DAP
+					"delve",
+					"js-debug-adapter",
 				},
 				automatic_installation = true,
 			})

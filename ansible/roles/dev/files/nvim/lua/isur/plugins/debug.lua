@@ -1,6 +1,51 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
+		config = function()
+			local dap = require("dap")
+
+			dap.adapters["pwa-node"] = {
+				type = "server",
+				host = "::1",
+				port = "${port}",
+				executable = {
+					command = "js-debug-adapter",
+					args = {
+						"${port}",
+					},
+				},
+			}
+
+			for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+				dap.configurations[language] = {
+					{
+						name = "Next.js: debug server-side",
+						type = "pwa-node",
+						request = "attach",
+						port = 9230,
+						skipFiles = { "<node_internals>/**", "node_modules/**" },
+						cwd = "${workspaceFolder}",
+					},
+					{
+						type = "pwa-node",
+						request = "attach",
+						name = "Attach to Node app",
+						address = "localhost",
+						port = 9229,
+						cwd = "${workspaceFolder}",
+						restart = true,
+					},
+					{
+						type = "pwa-node",
+						request = "launch",
+						name = "Launch file",
+						program = "${file}",
+						cwd = "${workspaceFolder}",
+						runtimeExecutable = "node",
+					},
+				}
+			end
+		end,
 	},
 	{
 		"leoluz/nvim-dap-go",
