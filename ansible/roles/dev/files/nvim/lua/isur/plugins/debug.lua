@@ -1,8 +1,11 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
+		dependencies = { "leoluz/nvim-dap-go" },
 		config = function()
 			local dap = require("dap")
+			local dapgo = require("dap-go")
+			dapgo.setup()
 
 			dap.adapters["pwa-node"] = {
 				type = "server",
@@ -13,6 +16,24 @@ return {
 					args = {
 						"${port}",
 					},
+				},
+			}
+
+			dap.adapters.delve = {
+				type = "server",
+				port = "2345",
+				executable = {
+					command = "dlv",
+					args = { "dap", "-l", "127.0.0.1:2345" },
+				},
+			}
+			dap.configurations.go = {
+				{
+					type = "delve",
+					name = "Attach to running process",
+					request = "attach",
+					mode = "remote",
+					port = "2345",
 				},
 			}
 
@@ -45,13 +66,6 @@ return {
 					},
 				}
 			end
-		end,
-	},
-	{
-		"leoluz/nvim-dap-go",
-		config = function()
-			local dapgo = require("dap-go")
-			dapgo.setup()
 		end,
 	},
 	{
