@@ -1,6 +1,6 @@
 return {
 	base46 = {
-		theme = "flexoki",
+		theme = "tokyonight",
 		hl_override = {
 			Comment = { italic = true },
 			["@comment"] = { italic = true },
@@ -8,7 +8,7 @@ return {
 		},
 		transparency = false,
 		theme_toggle = {
-			"flexoki",
+			"tokyonight",
 			"ayu",
 		},
 	},
