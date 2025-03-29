@@ -11,22 +11,11 @@ return {
 		local util = require("lspconfig.util")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local builtins = require("telescope.builtin")
-		local border = "single"
-
-		-- Add the border on hover and on signature help popup window
-		local handlers = {
-			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = border }),
-			["textDocument/signatureHelp"] = vim.lsp.with(
-				vim.lsp.handlers.signature_help,
-				{ border = border, close_events = { "CursorMoved", "BufHidden", "InsertCharPre" } }
-			),
-		}
 
 		vim.diagnostic.config({
 			virtual_text = {
 				prefix = "■ ", -- Could be '●', '▎', 'x', '■', , 
 			},
-			float = { border = border },
 		})
 
 		local on_attach = function(_, bufnr)
@@ -45,8 +34,8 @@ return {
 			nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
 			nmap("<leader>ds", builtins.lsp_document_symbols, "Document Symbols")
 			nmap("<leader>ws", builtins.lsp_dynamic_workspace_symbols, "Workspace Symbols")
-			nmap("[d", vim.diagnostic.goto_prev, "Go to previous diagnostic message")
-			nmap("]d", vim.diagnostic.goto_next, "Go to next diagnostic message")
+			nmap("[d", vim.diagnostic.jump({ count = -1 }), "Go to previous diagnostic message")
+			nmap("]d", vim.diagnostic.jump({ count = 1 }), "Go to next diagnostic message")
 			nmap("dp", vim.diagnostic.open_float, "Open diagnostic message in float window")
 			nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
 
@@ -77,55 +66,46 @@ return {
 		lspconfig["ts_ls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["arduino_language_server"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["tailwindcss"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["cssls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["dockerls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["docker_compose_language_service"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["bashls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["html"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["pyright"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 			settings = {
 				pyright = {
 					disableOrganizeImports = true,
@@ -141,43 +121,36 @@ return {
 		lspconfig["ruff"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["clangd"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["emmet_language_server"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["ansiblels"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["marksman"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["jsonls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 		})
 
 		lspconfig["gopls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 			cmd = { "gopls" },
 			root_dir = util.root_pattern("go.work", "go.mod", ".git"),
 			settings = {
@@ -190,7 +163,6 @@ return {
 		lspconfig["lua_ls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
-			handlers = handlers,
 			settings = {
 				Lua = {
 					diagnostic = {

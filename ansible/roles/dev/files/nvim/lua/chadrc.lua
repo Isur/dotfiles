@@ -59,7 +59,6 @@ return {
 				end,
 			},
 		},
-		telescope = { style = "bordered" }, -- borderless / bordered
 	},
 	lsp = {
 		signature = false,
