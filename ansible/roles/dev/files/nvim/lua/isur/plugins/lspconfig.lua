@@ -2,15 +2,15 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
-		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
+		{ "saghen/blink.cmp" },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
 		local util = require("lspconfig.util")
-		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 		local builtins = require("telescope.builtin")
+		local blink = require("blink.cmp")
 
 		vim.diagnostic.config({
 			virtual_text = {
@@ -34,8 +34,8 @@ return {
 			nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
 			nmap("<leader>ds", builtins.lsp_document_symbols, "Document Symbols")
 			nmap("<leader>ws", builtins.lsp_dynamic_workspace_symbols, "Workspace Symbols")
-			nmap("[d", vim.diagnostic.jump({ count = -1 }), "Go to previous diagnostic message")
-			nmap("]d", vim.diagnostic.jump({ count = 1 }), "Go to next diagnostic message")
+			-- nmap("[d", vim.diagnostic.jump({ count = -1, float = true }), "Go to previous diagnostic message")
+			-- nmap("]d", vim.diagnostic.jump({ count = 1, float = true }), "Go to next diagnostic message")
 			nmap("dp", vim.diagnostic.open_float, "Open diagnostic message in float window")
 			nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
 
@@ -48,14 +48,12 @@ return {
 				print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 			end, "Workspace List Folders")
 
-			vim.keymap.set("i", "<c-s>", vim.lsp.buf.signature_help)
-
 			vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
 				vim.lsp.buf.format()
 			end, { desc = "Format current buffer with LSP" })
 		end
 
-		local capabilities = cmp_nvim_lsp.default_capabilities()
+		local capabilities = blink.get_lsp_capabilities()
 
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 		for type, icon in pairs(signs) do
