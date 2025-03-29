@@ -1,5 +1,4 @@
 return {
-	"rest-nvim/rest.nvim",
 	"tpope/vim-sleuth",
 	"christoomey/vim-tmux-navigator",
 	{
