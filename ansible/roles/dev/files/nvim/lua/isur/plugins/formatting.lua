@@ -3,8 +3,8 @@ return {
 		"mfussenegger/nvim-lint",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
+			vim.env.ESLINT_D_PPID = vim.fn.getpid()
 			local lint = require("lint")
-
 			lint.linters_by_ft = {
 				javascript = { "eslint_d" },
 				typescript = { "eslint_d" },
@@ -16,7 +16,7 @@ return {
 			local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })
 
 			if vim.env.NVIM_LINT ~= "off" then
-				vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+				vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 					group = lint_autogroup,
 					callback = function()
 						lint.try_lint()
@@ -28,9 +28,12 @@ return {
 			vim.api.nvim_buf_create_user_command(buf, "Lint", function()
 				lint.try_lint()
 			end, { desc = "Trigger linting for current file" })
-			vim.keymap.set("n", "<leader>ml", function()
-				lint.try_lint()
-			end, { desc = "Trigger linting for current file" })
+			vim.keymap.set(
+				"n",
+				"<leader>ml",
+				":%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F",
+				{ desc = "Trigger linting for current file" }
+			)
 		end,
 	},
 	{
