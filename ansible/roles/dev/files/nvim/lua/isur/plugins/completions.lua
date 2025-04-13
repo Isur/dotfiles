@@ -32,7 +32,7 @@ return {
 				["<C-s>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
 				["<C-space>"] = {
 					function(cmp)
-						cmp.show({ providers = { "snippets" } })
+						cmp.show({ sources = { "snippets" } })
 					end,
 				},
 			},
@@ -55,16 +55,16 @@ return {
 				default = { "lsp", "path", "buffer", "snippets" },
 				providers = {
 					lsp = {
-						score_offset = 1,
+						score_offset = 5,
 					},
 					path = {
-						score_offset = 2,
+						score_offset = 4,
 					},
 					buffer = {
 						score_offset = 3,
 					},
 					snippets = {
-						score_offset = 4,
+						score_offset = -1,
 					},
 				},
 			},
@@ -91,6 +91,5 @@ return {
 				},
 			},
 		},
-		opts_extend = { "sources.default" },
 	},
 }
