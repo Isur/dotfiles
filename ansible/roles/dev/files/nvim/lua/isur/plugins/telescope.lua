@@ -57,6 +57,7 @@ return {
 					},
 				},
 				dynamic_preview_title = true,
+				border = false, -- TODO: remove when telescope/plenary fix issues with `winborder` https://github.com/nvim-telescope/telescope.nvim/issues/3436#issuecomment-2766504120
 			},
 		})
 
