@@ -25,9 +25,9 @@ return {
 			modules = {},
 		},
 		statusline = {
-			theme = "vscode_colored",
+			theme = "default", -- default/vscode/vscode_colored/minimal
 			order = {
-				-- "isRecording",
+				"isRecording",
 				"supermaven",
 				"mode",
 				"file",
@@ -48,14 +48,14 @@ return {
 				isRecording = function()
 					local reg = vim.fn.reg_recording()
 					if reg == "" then
-						return " [_] "
+						return "[_]"
 					end -- not recording
-					return " [" .. reg .. "] "
+					return "[" .. reg .. "]"
 				end,
 				filePercentage = "%p%% ",
 				supermaven = function()
 					local sm = require("supermaven-nvim.api")
-					return sm.is_running() and " [SM] " or ""
+					return sm.is_running() and "[SM]" or ""
 				end,
 			},
 		},
