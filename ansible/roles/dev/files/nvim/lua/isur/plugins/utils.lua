@@ -84,6 +84,9 @@ return {
 			--   If not available, we use `mini` as the fallback
 			"rcarriga/nvim-notify",
 		},
+		keys = {
+			{ "<leader>nm", ":NoiceDismiss<CR>", desc = "Dismiss noice messages" },
+		},
 		config = function()
 			local noice = require("noice")
 
