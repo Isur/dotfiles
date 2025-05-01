@@ -1,0 +1,6 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Upgrade System
+  kewlfft.aur.aur:
+    upgrade: true
+    use: yay

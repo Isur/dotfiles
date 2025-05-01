@@ -1,0 +1,5 @@
+# vim:ft=yaml.ansible
+- name: Update my System
+  hosts: home
+  roles:
+    - update

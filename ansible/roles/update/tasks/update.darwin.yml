@@ -1,0 +1,5 @@
+# vim:ft=yaml.ansible
+---
+- name: Darwin | Brew update
+  community.general.homebrew:
+    update_homebrew: true

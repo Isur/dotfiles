@@ -1,0 +1,6 @@
+# vim:ft=yaml.ansible
+---
+- name: Update oh-my-zsh
+  ansible.builtin.shell: |
+    set -o pipefail
+    $ZSH/tools/upgrade.sh

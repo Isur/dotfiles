@@ -1,36 +1,3 @@
 #!/bin/bash
 
-system=""
-
-if [ "$(uname)" == "Darwin" ]; then
-	system="Darwin"
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-	if [ -f /etc/arch-release ]; then
-		system="Arch Based"
-	elif [ -f /etc/debian_version ]; then
-		system="Debian Based"
-	fi
-fi
-
-echo "Updating System: $system"
-
-if [ "$system" == "Darwin" ]; then
-	echo "Updating Homebrew"
-	brew update
-	brew upgrade
-	brew cleanup
-elif [ "$system" == "Arch Based" ]; then
-	echo "Updating yay"
-	yay --noconfirm
-elif [ "$system" == "Debian Based" ]; then
-	echo "Updating Apt"
-	sudo apt update
-	sudo apt upgrade -y
-	sudo apt autoremove
-fi
-
-echo "Updating Oh My Zsh"
-$ZSH/tools/upgrade.sh
-
-echo "Updating Dotfiles"
-(cd $HOME/dotfiles && git pull)
+cd $HOME/dotfiles/ansible && ansible-playbook update.yml -i inventory.yml --vault-password-file ~/.vault_pass

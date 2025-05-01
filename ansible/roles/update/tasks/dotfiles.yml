@@ -1,0 +1,8 @@
+# vim:ft=yaml.ansible
+---
+- name: Update dotfiles
+  ansible.builtin.git:
+    repo: "git@github.com:Isur/dotfiles.git"
+    dest: "{{ ansible_env.HOME }}/dotfiles"
+    update: true
+    clone: false
