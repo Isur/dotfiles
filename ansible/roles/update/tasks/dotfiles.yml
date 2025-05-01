@@ -6,3 +6,8 @@
     dest: "{{ ansible_env.HOME }}/dotfiles"
     update: true
     clone: false
+  register: dotfiles_update_result
+
+- name: Show dotfiles update output
+  ansible.builtin.debug:
+    var: dotfiles_update_result.stdout_lines

@@ -1,6 +1,13 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Upgrade System
-  kewlfft.aur.aur:
-    upgrade: true
-    use: yay
+  ansible.builtin.shell: |
+    set -o pipefail
+    yay -Syu --noconfirm
+  register: yay_upgrade
+  changed_when: "'there is nothing to do' not in yay_upgrade.stdout"
+
+- name: Show updated packages
+  ansible.builtin.debug:
+    var: yay_upgrade.stdout_lines
+  when: yay_upgrade.changed
