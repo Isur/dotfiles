@@ -2,7 +2,7 @@ version: "3"
 
 services:
   database:
-    image: postgres:16
+    image: postgres:17
     container_name: localhost-database
     volumes:
       - ./data/psql:/var/lib/postgresql/data
