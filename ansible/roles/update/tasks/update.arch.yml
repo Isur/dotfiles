@@ -6,8 +6,3 @@
     yay -Syu --noconfirm
   register: yay_upgrade
   changed_when: "'there is nothing to do' not in yay_upgrade.stdout"
-
-- name: Show updated packages
-  ansible.builtin.debug:
-    var: yay_upgrade.stdout_lines
-  when: yay_upgrade.changed

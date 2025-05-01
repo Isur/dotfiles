@@ -7,19 +7,9 @@
   register: brew_upgrade
   changed_when: "'Already up-to-date' not in brew_upgrade.stdout and 'No outdated packages' not in brew_upgrade.stdout"
 
-- name: Darwin | Show updated Homebrew formulae
-  ansible.builtin.debug:
-    var: brew_upgrade.stdout_lines
-  when: brew_upgrade.changed
-
 - name: Darwin | Upgrade Homebrew casks
   ansible.builtin.shell: |
     set -o pipefail
     brew upgrade --cask
   register: brew_cask_upgrade
   changed_when: "'No cask upgrades' not in brew_cask_upgrade.stdout"
-
-- name: Darwin | Show updated Homebrew casks
-  ansible.builtin.debug:
-    var: brew_cask_upgrade.stdout_lines
-  when: brew_cask_upgrade.changed

@@ -6,8 +6,3 @@
     $ZSH/tools/upgrade.sh
   register: zsh_upgrade_result
   changed_when: "'Oh My Zsh is already at the latest version' not in zsh_upgrade_result.stdout"
-
-- name: Show oh-my-zsh upgrade output
-  ansible.builtin.debug:
-    var: zsh_upgrade_result.stdout_lines
-  when: zsh_upgrade_result.changed

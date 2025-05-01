@@ -1,13 +1,11 @@
 # vim:ft=yaml.ansible
 ---
 - name: Update dotfiles
-  ansible.builtin.git:
-    repo: "git@github.com:Isur/dotfiles.git"
-    dest: "{{ ansible_env.HOME }}/dotfiles"
-    update: true
-    clone: false
+  ansible.builtin.shell: |
+    set -o pipefail
+    git pull
+  args:
+    executable: /bin/bash
+    chdir: "{{ ansible_env.HOME }}/dotfiles"
   register: dotfiles_update_result
-
-- name: Show dotfiles update output
-  ansible.builtin.debug:
-    var: dotfiles_update_result.stdout_lines
+  changed_when: "'Already up to date' not in dotfiles_update_result.stdout"
