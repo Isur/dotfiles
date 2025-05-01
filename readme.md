@@ -9,6 +9,7 @@ Two playbooks:
 - `repos.yml` - just clone some personal repositories
 
 ## Supported systems
+
 Ansible roles are prepared to be used with Archlinux and Darwin systems.
 
 - arch based;
@@ -32,7 +33,7 @@ Ansible roles are prepared to be used with Archlinux and Darwin systems.
 Those scripts will be installed:
 
 - `keker` - automatically create directory for new project - template might be used for this;
-- `updater` - update dotfiles repo, packages with `yay`/`brew`/`apt` and `Oh My ZSH`;
+- `updater` - update dotfiles repo, packages and `Oh My ZSH`;
 - `tmux-sessionizer` - create tmux session in selected directory;
 - `tmux-fzf` - search in tmux window (used in tmux floating window);
 
@@ -50,6 +51,7 @@ Hidden with `ansible-vault`:
 ## Helpers
 
 ### Personal
+
 This script will install evertyhing that is required before using ansible playbook and will run this playbook.
 
 ```sh
