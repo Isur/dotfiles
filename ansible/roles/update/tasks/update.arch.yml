@@ -1,7 +1,6 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Upgrade System
-  become: true
   ansible.builtin.shell: |
     set -o pipefail
     yay -Syu --noconfirm
