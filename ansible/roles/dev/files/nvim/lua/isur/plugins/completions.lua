@@ -74,6 +74,7 @@ return {
 			},
 
 			fuzzy = {
+				use_frecency = true,
 				sorts = {
 					"exact",
 					"score",
