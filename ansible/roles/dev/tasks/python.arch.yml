@@ -1,0 +1,9 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install UV
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - uv

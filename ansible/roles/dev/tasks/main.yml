@@ -25,6 +25,7 @@
     - terminal.darwin.yml
     - tmux.darwin.yml
     - tmux.yml
+    - python.darwin.yml
   loop_control:
     loop_var: task
 
@@ -42,5 +43,6 @@
     - terminal.arch.yml
     - tmux.arch.yml
     - tmux.yml
+    - python.arch.yml
   loop_control:
     loop_var: task
