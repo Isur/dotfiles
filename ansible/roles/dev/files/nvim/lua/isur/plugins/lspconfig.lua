@@ -13,6 +13,9 @@ return {
 		local blink = require("blink.cmp")
 
 		vim.diagnostic.config({
+			float = {
+				source = true,
+			},
 			virtual_text = {
 				prefix = "■ ", -- Could be '●', '▎', 'x', '■', , 
 			},
