@@ -6,10 +6,6 @@ return {
 			vim.env.ESLINT_D_PPID = vim.fn.getpid()
 			local lint = require("lint")
 			lint.linters_by_ft = {
-				javascript = { "eslint_d" },
-				typescript = { "eslint_d" },
-				javascriptreact = { "eslint_d" },
-				typescriptreact = { "eslint_d" },
 				python = { "ruff" },
 			}
 
@@ -28,12 +24,6 @@ return {
 			vim.api.nvim_buf_create_user_command(buf, "Lint", function()
 				lint.try_lint()
 			end, { desc = "Trigger linting for current file" })
-			vim.keymap.set(
-				"n",
-				"<leader>ml",
-				":%!eslint_d --stdin --fix-to-stdout --stdin-filename %<CR>`F",
-				{ desc = "Trigger linting for current file" }
-			)
 		end,
 	},
 	{

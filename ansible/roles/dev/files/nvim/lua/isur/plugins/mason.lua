@@ -30,8 +30,8 @@ return {
 					"gopls",
 					"pyright",
 					"json-lsp",
+					"eslint-lsp",
 					-- Linters
-					"eslint_d",
 					"ruff",
 					"ansible-lint",
 					"markdownlint-cli2",

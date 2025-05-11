@@ -75,6 +75,13 @@ return {
 			},
 		})
 
+		lspconfig["eslint"].setup({
+			on_attach = function(client, bufnr)
+				on_attach(client, bufnr)
+			end,
+			capabilities = capabilities,
+		})
+
 		lspconfig["ts_ls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
