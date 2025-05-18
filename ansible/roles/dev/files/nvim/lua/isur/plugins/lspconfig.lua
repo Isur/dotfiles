@@ -75,12 +75,14 @@ return {
 			},
 		})
 
-		lspconfig["eslint"].setup({
-			on_attach = function(client, bufnr)
-				on_attach(client, bufnr)
-			end,
-			capabilities = capabilities,
-		})
+		if vim.env.NVIM_LINT ~= "off" then
+			lspconfig["eslint"].setup({
+				on_attach = function(client, bufnr)
+					on_attach(client, bufnr)
+				end,
+				capabilities = capabilities,
+			})
+		end
 
 		lspconfig["ts_ls"].setup({
 			on_attach = on_attach,
