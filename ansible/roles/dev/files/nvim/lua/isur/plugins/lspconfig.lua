@@ -2,15 +2,17 @@ return {
 	"neovim/nvim-lspconfig",
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
+		"hrsh7th/cmp-nvim-lsp",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
-		{ "saghen/blink.cmp" },
+		-- { "saghen/blink.cmp" },
 	},
 	config = function()
 		local lspconfig = require("lspconfig")
 		local util = require("lspconfig.util")
 		local builtins = require("telescope.builtin")
-		local blink = require("blink.cmp")
+		-- local blink = require("blink")
+		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		vim.diagnostic.config({
 			float = {
@@ -60,7 +62,8 @@ return {
 			end, { desc = "Format current buffer with LSP" })
 		end
 
-		local capabilities = blink.get_lsp_capabilities()
+		-- local capabilities = blink.get_lsp_capabilities()
+		local capabilities = cmp_nvim_lsp.default_capabilities()
 
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
 		vim.diagnostic.config({
