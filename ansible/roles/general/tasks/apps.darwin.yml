@@ -4,11 +4,11 @@
   community.general.homebrew:
     update_homebrew: true
 
-- name: Darwin | Brew taps
-  community.general.homebrew_tap:
-    name: "{{ item }}"
-  loop:
-    - homebrew/cask-fonts
+# - name: Darwin | Brew taps
+#   community.general.homebrew_tap:
+#     name: "{{ item }}"
+#   loop:
+#     - cask-name
 
 - name: Darwin | Install brew packages
   community.general.homebrew:
