@@ -11,6 +11,15 @@
     - btop
     - sshs
     - gnu-sed
+    - yazi
+    - ffmpeg
+    - sevenzip
+    - jq
+    - poppler
+    - zoxide
+    - resvg
+    - imagemagick
+    - font-symbols-only-nerd-font
 
 - name: Darwin | Install iterm2
   community.general.homebrew_cask:

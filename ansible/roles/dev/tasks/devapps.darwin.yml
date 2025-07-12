@@ -10,6 +10,7 @@
     - postman
     - virtualbox
     - openvpn-connect
+    - bruno
 
 - name: Darwin | Install brew packages
   community.general.homebrew:

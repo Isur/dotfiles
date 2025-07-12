@@ -12,6 +12,13 @@
     - btop
     - sshs
     - ghostty
+    - yazi
+    - ffmpeg
+    - 7zip
+    - jq
+    - poppler
+    - zoxide
+    - imagemagick
 
 - name: Arch | Ghostty config dir
   ansible.builtin.file:
