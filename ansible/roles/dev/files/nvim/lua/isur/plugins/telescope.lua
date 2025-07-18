@@ -45,11 +45,11 @@ return {
 						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
 					},
 				},
-				layout_strategy = "horizontal",
+				layout_strategy = "vertical",
 				layout_config = {
 					vertical = {
 						width = 0.8,
-						height = 0.8,
+						height = 0.9,
 					},
 					horizontal = {
 						width = 0.8,
