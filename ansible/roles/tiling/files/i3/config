@@ -62,7 +62,7 @@ include $HOME/.config/i3/bar.conf
 ##### GAPS #####
 gaps inner 12px
 gaps outer 0px
-smart_gaps off
+smart_gaps on
 
 ##### BORDERS #####
 default_border pixel 3
