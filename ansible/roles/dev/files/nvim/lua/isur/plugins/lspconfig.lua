@@ -3,15 +3,17 @@ return {
 	event = { "BufReadPre", "BufNewFile" },
 	dependencies = {
 		"hrsh7th/cmp-nvim-lsp",
+		"ray-x/lsp_signature.nvim",
 		{ "antosha417/nvim-lsp-file-operations", config = true },
 		{ "folke/neodev.nvim", opts = {} },
-		-- { "saghen/blink.cmp" },
 	},
 	config = function()
+		require("lsp_signature").setup({
+			toggle_key = "<c-k>",
+		})
 		local lspconfig = require("lspconfig")
 		local util = require("lspconfig.util")
 		local builtins = require("telescope.builtin")
-		-- local blink = require("blink")
 		local cmp_nvim_lsp = require("cmp_nvim_lsp")
 
 		vim.diagnostic.config({
