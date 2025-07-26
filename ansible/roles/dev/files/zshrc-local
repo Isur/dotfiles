@@ -49,3 +49,10 @@ export PATH="$POETRY_HOME/bin:$PATH"
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
+
+# bun completions
+[ -s "/home/isur/.bun/_bun" ] && source "/home/isur/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"

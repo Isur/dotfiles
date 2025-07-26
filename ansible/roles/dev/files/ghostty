@@ -5,7 +5,7 @@ font-style-bold = Bold
 font-style-bold-italic = BoldItalic
 
 theme = tokyonight_night
-font-size = 22
+font-size = 14
 window-decoration = true
 macos-titlebar-style = hidden
 gtk-titlebar = false
