@@ -37,7 +37,7 @@ return {
 						["<C-d>"] = actions.delete_buffer,
 					},
 					i = {
-						["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+						["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
 					},
 				},
 				layout_strategy = "vertical",
@@ -84,6 +84,5 @@ return {
 		vim.keymap.set("n", "<leader>sq", builtin.quickfix, { desc = "Search Quick fix" })
 		vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "Document symbols" })
 		vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Search Todo/Note/Fixme" })
-		vim.keymap.set("n", "<leader>T", "<cmd>Telescope themes<cr>", { desc = "Theme" })
 	end,
 }

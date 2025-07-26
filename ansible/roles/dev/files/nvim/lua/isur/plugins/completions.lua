@@ -66,6 +66,10 @@ return {
 			})
 
 			local options = {
+				window = {
+					completion = cmp.config.window.bordered(),
+					documentation = cmp.config.window.bordered(),
+				},
 				completion = {
 					completeopt = "menu,menuone,preview,noselect",
 				},
@@ -104,7 +108,6 @@ return {
 					},
 				},
 			}
-			-- options = vim.tbl_deep_extend("force", options, require("nvchad.cmp"))
 			cmp.setup(options)
 		end,
 	},
