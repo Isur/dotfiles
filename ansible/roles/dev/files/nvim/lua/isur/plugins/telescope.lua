@@ -12,7 +12,6 @@ return {
 		local actions = require("telescope.actions")
 		local builtin = require("telescope.builtin")
 		local themes = require("telescope.themes")
-		local utils = require("telescope.utils")
 		local gfh_actions = require("telescope").extensions.git_file_history.actions
 
 		telescope.setup({
@@ -33,10 +32,6 @@ return {
 				},
 			},
 			defaults = {
-				-- path_display = function(_, path)
-				-- 	local tail = utils.path_tail(path)
-				-- 	return string.format("%s - %s", tail, path), { { { 1, #tail }, "Constant" } }
-				-- end,
 				mappings = {
 					n = {
 						["<C-d>"] = actions.delete_buffer,

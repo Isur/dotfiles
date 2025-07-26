@@ -18,81 +18,6 @@ return {
 			delete_check_events = "TextChanged",
 		},
 	},
-	-- {
-	-- 	"saghen/blink.cmp",
-	-- 	dependencies = { "rafamadriz/friendly-snippets" },
-	--
-	-- 	-- use a release tag to download pre-built binaries
-	-- 	version = "1.*",
-	-- 	---@module 'blink.cmp'
-	-- 	---@type blink.cmp.Config
-	-- 	opts = {
-	-- 		keymap = {
-	-- 			preset = "default",
-	-- 			["<C-s>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
-	-- 			["<C-space>"] = {
-	-- 				function(cmp)
-	-- 					cmp.show({ sources = { "snippets" } })
-	-- 				end,
-	-- 			},
-	-- 		},
-	--
-	-- 		snippets = {
-	-- 			preset = "luasnip",
-	-- 		},
-	--
-	-- 		completion = {
-	-- 			documentation = {
-	-- 				auto_show = true,
-	-- 			},
-	-- 		},
-	--
-	-- 		appearance = {
-	-- 			nerd_font_variant = "mono",
-	-- 		},
-	--
-	-- 		sources = {
-	-- 			default = { "lsp", "path", "buffer", "snippets" },
-	-- 			providers = {
-	-- 				lsp = {
-	-- 					score_offset = 5,
-	-- 				},
-	-- 				path = {
-	-- 					score_offset = 4,
-	-- 				},
-	-- 				buffer = {
-	-- 					score_offset = 3,
-	-- 				},
-	-- 				snippets = {
-	-- 					score_offset = -1,
-	-- 				},
-	-- 			},
-	-- 		},
-	--
-	-- 		signature = {
-	-- 			enabled = true,
-	-- 		},
-	--
-	-- 		fuzzy = {
-	-- 			use_frecency = true,
-	-- 			sorts = {
-	-- 				"exact",
-	-- 				"score",
-	-- 				"sort_text",
-	-- 			},
-	-- 			implementation = "prefer_rust_with_warning",
-	-- 		},
-	--
-	-- 		cmdline = {
-	-- 			enabled = true,
-	-- 			completion = {
-	-- 				menu = {
-	-- 					auto_show = true,
-	-- 				},
-	-- 			},
-	-- 		},
-	-- 	},
-	-- },
 	{
 		"hrsh7th/nvim-cmp",
 		event = "InsertEnter",
@@ -179,7 +104,7 @@ return {
 					},
 				},
 			}
-			options = vim.tbl_deep_extend("force", options, require("nvchad.cmp"))
+			-- options = vim.tbl_deep_extend("force", options, require("nvchad.cmp"))
 			cmp.setup(options)
 		end,
 	},
