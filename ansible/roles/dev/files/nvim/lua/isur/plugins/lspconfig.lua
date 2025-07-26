@@ -23,6 +23,16 @@ return {
 			},
 		})
 
+		local virtual_text_enabled = true
+
+		vim.api.nvim_create_user_command("ToggleVirtualText", function()
+			virtual_text_enabled = not virtual_text_enabled
+			vim.diagnostic.config({
+				virtual_text = virtual_text_enabled,
+			})
+			print("Virtual Text is now " .. (virtual_text_enabled and "enabled" or "disabled"))
+		end, {})
+
 		local on_attach = function(_, bufnr)
 			local nmap = function(keys, func, desc)
 				if desc then
