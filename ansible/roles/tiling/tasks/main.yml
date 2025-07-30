@@ -16,5 +16,6 @@
   when: ansible_os_family == 'Archlinux'
   loop:
     - tiling.arch.yml
+    - hyprland.arch.yml
   loop_control:
     loop_var: task

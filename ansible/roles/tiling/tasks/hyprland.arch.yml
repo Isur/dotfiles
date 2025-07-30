@@ -1,0 +1,41 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Install hyprland stuff
+  kewlfft.aur.aur:
+    name: "{{ item }}"
+    use: yay
+    state: latest
+  loop:
+    - hyprland
+    - nvidia-dkms
+    - nvidia-utils
+    - lib32-nvidia-utils
+    - egl-wayland
+    - hyprpaper
+    - hyprlock
+    - hypridle
+    - hyprpolkitagent
+    - hyprsysteminfo
+    - hyprutils
+    - xdg-desktop-portal-hyprland
+    - xdg-desktop-portal-gtk
+    - pipwewire
+    - wireplumber
+    - grim
+    - slurp
+    - waybar
+
+- name: Arch | Prep modfile
+  ansible.builtin.shell: |
+    set -o pipefail
+    if [[ ! -f /etc/modprobe.d/nvidia.conf ]]; then
+      echo "options nvidia_drm modeset=1" > /etc/modprobe.d/nvidia.conf
+    fi
+
+- name: Arch | Config hyprland
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "hyprland", dest: "{{ ansible_env.HOME }}/.config/hypr" }
