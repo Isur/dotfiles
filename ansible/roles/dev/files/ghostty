@@ -4,7 +4,7 @@ font-style-italic = Italic
 font-style-bold = Bold
 font-style-bold-italic = BoldItalic
 
-theme = tokyonight_night
+theme = GruvboxDarkHard
 font-size = 14
 window-decoration = true
 macos-titlebar-style = hidden
