@@ -9,5 +9,5 @@ configuration {
  combi-modes: [ window, drun, run, ssh ];
 }
 
-@theme "~/.config/rofi/themes/gruvbox/gruvbox.rasi"
+@theme "~/.config/rofi/themes/tokyonight/tokyonight.rasi"
 /* Insert theme modifications after this */
