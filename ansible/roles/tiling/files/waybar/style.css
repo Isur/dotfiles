@@ -131,7 +131,7 @@
 #battery,
 #cpu,
 #memory,
-#temperature, #tray, #custom-power {
+#temperature, #tray, #custom-power, #custom-media {
     background-color: #1a1b26;
     padding: 0.3rem 0.7rem;
     margin: 5px 0px;
