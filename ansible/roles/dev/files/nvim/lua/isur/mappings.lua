@@ -14,6 +14,11 @@ vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 -- Remove highlights
 vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
 
+-- Buffers
+vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<leader>x", ":bd<CR>", { desc = "Close buffer" })
+
 -- file path
 vim.keymap.set("n", "<leader>fp", function()
 	local path = vim.fn.expand("%")
