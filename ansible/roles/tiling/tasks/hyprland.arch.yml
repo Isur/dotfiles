@@ -26,6 +26,10 @@
     - grim
     - slurp
     - waybar
+    - nm-connection-editor
+    - gtk-layer-shell
+    - gtk3
+    - nwg-look
 
 - name: Arch | Prep modfile
   ansible.builtin.shell: |
