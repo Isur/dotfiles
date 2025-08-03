@@ -1,6 +1,7 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Install hyprland stuff
+  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
@@ -17,7 +18,6 @@
     - hyprpicker
     - hyprpolkitagent
     - hyprsysteminfo
-    - hyprutils
     - hyprnotify
     - xdg-desktop-portal-hyprland
     - xdg-desktop-portal-gtk

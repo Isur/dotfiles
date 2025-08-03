@@ -1,6 +1,7 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Install tmux
+  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay

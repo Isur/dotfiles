@@ -1,6 +1,7 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Install Docker
+  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
