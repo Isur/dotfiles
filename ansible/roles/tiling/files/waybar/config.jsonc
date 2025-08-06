@@ -5,9 +5,7 @@
     "modules-left": [
         "hyprland/workspaces"
     ],
-    "modules-center": [
-        "clock"
-    ],
+    "modules-center": [],
     "modules-right": [
         "custom/media",
         "bluetooth",
@@ -16,6 +14,7 @@
         "memory",
         "temperature",
         "tray",
+        "clock",
         "custom/power"
     ],
     // Modules configuration
