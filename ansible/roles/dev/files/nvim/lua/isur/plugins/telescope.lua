@@ -83,6 +83,7 @@ return {
 		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "Search Diagnostics" })
 		vim.keymap.set("n", "<leader>sq", builtin.quickfix, { desc = "Search Quick fix" })
 		vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "Document symbols" })
+		vim.keymap.set("n", "<leader>ss", builtin.git_status, { desc = "Search Git Status files" })
 		vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Search Todo/Note/Fixme" })
 	end,
 }
