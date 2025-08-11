@@ -15,5 +15,10 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Setup Lazy
 require("lazy").setup({
-	{ import = "isur.plugins" },
+	spec = {
+		{ import = "isur.plugins" },
+	},
+	ui = {
+		border = "single",
+	},
 })
