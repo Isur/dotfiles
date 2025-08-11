@@ -1,4 +1,8 @@
 /* --- Global Styles --- */
+
+@define-color bg #002b36;
+@define-color bg-hover #073642;
+
 * {
     font-family: 'SF Pro Text', 'Inter', 'Segoe UI, NotoSans Nerd Font', sans-serif;
     font-size: 13px;
@@ -19,7 +23,7 @@
 /* --- Left Modules (Individual, Fully Rounded Blocks - With Horizontal Spacing & Simple Hover) --- */
 #workspaces,
 #custom-uptime {
-    background-color: #1a1b26;
+    background-color: @bg;
     padding: 0.3rem 0.7rem;
     margin: 5px 0px; /* 5px top/bottom margin, 0px left/right (base for individual control) */
     border-radius: 6px; /* These modules are always rounded */
@@ -43,7 +47,7 @@
 /* Simple Hover effects for individual left modules - BRIGHTER COLOR */
 #custom-uptime:hover,
 #cpu:hover {
-    background-color: rgb(41, 42, 53); /* Brighter highlight */
+    background-color: @bg-hover; /* Brighter highlight */
 }
 
 #workspaces button {
@@ -63,13 +67,13 @@
 }
 
 #workspaces button:hover {
-    background: rgb(41, 42, 53); /* Reference bright hover color */
+    background: @bg-hover; /* Reference bright hover color */
     color: #c6d0f5;
 }
 
 /* --- Center Module (Individual, Fully Rounded Block - With Simple Hover) --- */
 #clock {
-    background-color: #1a1b26;
+    background-color: @bg;
     padding: 0.3rem 0.7rem;
     margin: 5px 0px;
     border-radius: 6px; /* This module is always rounded */
@@ -81,11 +85,11 @@
 
 /* Simple Hover effect for clock module - BRIGHTER COLOR */
 #clock:hover {
-    background-color: rgba(153, 209, 219, 0.1); /* Brighter highlight */
+    background-color: @bg-hover; /* Brighter highlight */
 }
 
 #custom-pomodoro {
-    background-color: #1a1b26; /* Consistent dark background */
+    background-color: @bg; /* Consistent dark background */
     padding: 0.3rem 0.7rem; /* Consistent padding with other modules (e.g., cpu, uptime) */
     margin: 5px 0px; /* 5px top/bottom margin, 0px left/right (base for individual control) */
     border-radius: 6px; /* Consistent rounded corners with other individual modules */
@@ -107,7 +111,7 @@
 
 /* Hover effect for the new pomodoro module (consistent with others + rectangular outline) */
 #custom-pomodoro:hover {
-    background-color: rgb(41, 42, 53); /* Brighter highlight, consistent with other individual modules */
+    background-color: @bg-hover; /* Brighter highlight, consistent with other individual modules */
     color: #c6d0f5; /* Text color change on hover, consistent with other individual modules */
     outline: 1px solid rgba(255, 255, 255, 0.1); /* Rectangular outline on hover */
     outline-offset: -1px;
@@ -132,7 +136,7 @@
 #cpu,
 #memory,
 #temperature, #tray, #custom-power, #custom-media {
-    background-color: #1a1b26;
+    background-color: @bg;
     padding: 0.3rem 0.7rem;
     margin: 5px 0px;
     border-radius: 0;
@@ -148,7 +152,7 @@
 #network:hover,
 #custom-lock:hover,
 #battery:hover {
-    background-color: rgb(41, 42, 53);
+    background-color: @bg-hover;
 }
 
 #bluetooth {
@@ -204,7 +208,7 @@
     color: #99d1db;
 }
 #battery {
-    color: #99d1db;;
+    color: #99d1db;
 }
 #battery.charging {
     color: #a6d189;
@@ -215,7 +219,7 @@
 
 /* --- Tooltip Styles --- */
 tooltip {
-    background-color: #1a1b26;
+    background-color: @bg;
     color: #dddddd;
     padding: 5px 12px;
     margin: 5px 0px;

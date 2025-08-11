@@ -71,5 +71,21 @@ return {
 				end,
 			},
 		})
+
+		if vim.g.colors_name == "NeoSolarized" then
+			-- Solarized colorscheme changes
+			vim.api.nvim_set_hl(0, "MiniStatuslineFilename", { fg = "#268bd2", bg = "#073642", bold = false })
+
+			-- Subtle underline for non-current word
+			vim.api.nvim_set_hl(0, "MiniCursorword", { underline = true, sp = "#b58900" }) -- underline color = yellow
+
+			-- High-contrast but theme-matching for current word
+			vim.api.nvim_set_hl(0, "MiniCursorwordCurrent", {
+				bg = "#b58900", -- Solarized yellow background
+				fg = "#002b36", -- Base03 foreground (dark)
+				bold = true,
+				underline = true,
+			})
+		end
 	end,
 }
