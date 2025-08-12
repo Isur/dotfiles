@@ -217,6 +217,25 @@
     color: #e78284;
 }
 
+/* The whole menu background */
+menu {
+  background-color: @bg;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+/* All menu items */
+menuitem {
+  background-color: @bg;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 6px 12px;
+}
+
+menuitem:hover {
+  background-color: @bg-hover;
+}
+
 /* --- Tooltip Styles --- */
 tooltip {
     background-color: @bg;
