@@ -19,6 +19,10 @@ vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<leader>x", ":bd<CR>", { desc = "Close buffer" })
 
+vim.keymap.set("n", "<leader>sc", function()
+	vim.o.spell = not vim.o.spell
+end, { desc = "Toggle spellcheck" })
+
 -- file path
 vim.keymap.set("n", "<leader>fp", function()
 	local path = vim.fn.expand("%")

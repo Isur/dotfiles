@@ -50,6 +50,11 @@ vim.wo.cursorline = true
 
 vim.o.background = "dark" -- or "light" for light mode
 
+-- Spellcheck options
+vim.o.spell = true
+-- This should spellcheck English. To powinno również sprawdzać język polski.
+vim.o.spelllang = "en,pl"
+
 -- Highlight on yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
 vim.api.nvim_create_autocmd("TextYankPost", {
