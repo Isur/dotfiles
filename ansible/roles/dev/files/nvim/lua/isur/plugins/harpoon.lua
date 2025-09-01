@@ -13,6 +13,8 @@ return {
 		})
 
 		vim.keymap.set("n", "<leader>hh", function()
+			local filename = vim.fn.expand("%:t")
+			print(filename .. " - added to harpoon!")
 			harpoon:list():add()
 		end)
 		vim.keymap.set("n", "<leader>h", function()
