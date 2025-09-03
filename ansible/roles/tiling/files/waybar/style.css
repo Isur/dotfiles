@@ -1,7 +1,7 @@
 /* --- Global Styles --- */
 
-@define-color bg #002b36;
-@define-color bg-hover #073642;
+@define-color bg #24273a;
+@define-color bg-hover #363a4f;
 
 * {
     font-family: 'SF Pro Text', 'Inter', 'Segoe UI, NotoSans Nerd Font', sans-serif;
