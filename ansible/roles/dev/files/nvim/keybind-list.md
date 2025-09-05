@@ -142,3 +142,94 @@
 
 ### Control Keys
 - `<C-k>` - Toggle LSP signature help
+
+### Buffer Navigation
+- `<Tab>` - Next buffer
+- `<S-Tab>` - Previous buffer
+
+### Autocompletion (Insert Mode)
+- `<C-k>` - Select previous item
+- `<C-j>` - Select next item
+- `<C-u>` - Scroll docs up
+- `<C-d>` - Scroll docs down
+- `<C-s>` - Complete
+- `<C-e>` - Close completion
+- `<C-y>` - Confirm selection
+
+### Telescope Bindings (Within Telescope)
+- `<C-d>` - Delete buffer (in buffer picker)
+- `<C-q>` - Send to quickfix list
+- `<C-g>` - Open in browser (git file history)
+
+### Oil File Explorer
+- `<C-s>` - Open in vertical split
+- `<C-h>` - Open in horizontal split
+- `<C-t>` - Open in new tab
+- `<C-p>` - Preview file
+- `<C-q>` - Close Oil
+- `<C-l>` - Refresh
+
+### Treesitter Context
+- `[c` - Go to context
+- `]c` - Toggle context
+
+### Treesitter Text Objects
+
+**Movement:**
+- `]m` - Next function start
+- `[m` - Previous function start
+- `]M` - Next function end
+- `[M` - Previous function end
+- `]]` - Next class start
+- `[[` - Previous class start
+- `][` - Next class end
+- `[]` - Previous class end
+
+**Selection:**
+- `aa` - Select parameter (outer)
+- `ia` - Select parameter (inner)
+- `af` - Select function (outer)
+- `if` - Select function (inner)
+- `ac` - Select class (outer)
+- `ic` - Select class (inner)
+
+**Incremental Selection:**
+- `<Tab>` - Expand node selection (in visual mode)
+- `<S-Tab>` - Shrink node selection (in visual mode)
+
+### Common Vim Motions & Operators
+
+**Word Movement:**
+- `w` - Next word
+- `b` - Previous word
+- `e` - End of word
+- `ge` - End of previous word
+
+**Line Movement:**
+- `0` - Beginning of line
+- `^` - First non-blank character
+- `$` - End of line
+- `g_` - Last non-blank character
+
+**Paragraph/Block Movement:**
+- `{` - Previous paragraph/block
+- `}` - Next paragraph/block
+
+**Search:**
+- `/` - Search forward
+- `?` - Search backward
+- `n` - Next search result
+- `N` - Previous search result
+- `*` - Search word under cursor forward
+- `#` - Search word under cursor backward
+
+**Marks:**
+- `m{a-zA-Z}` - Set mark
+- `'{a-zA-Z}` - Jump to mark line
+- `` `{a-zA-Z}`` - Jump to mark position
+
+**Macros:**
+- `q{a-z}` - Start recording macro
+- `q` - Stop recording macro
+- `@{a-z}` - Play macro
+- `@@` - Repeat last macro
