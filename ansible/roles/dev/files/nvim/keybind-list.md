@@ -1,133 +1,144 @@
 # Neovim Keybind List
 
-## Custom changes to defaults
-Visual mode:
-J - moves line down
-K - moves line up
+## Custom Changes to Defaults
 
-# Leader start
-## Single key
-<leader>a - swap next parameter
-<leader>A - swap previous parameter
-<leader>e - File Explorer - Oil
-<leader>x - Close buffer
-<leader>u - Undootree
-<leader>D - go to type definition
+**Visual mode:**
+- `J` - Move line down
+- `K` - Move line up
 
-## c - code
-<leader>ca - code actions
-<leader>cf - code format
+---
 
-## n - highlights
-<leader>nh - Clear search highlights
+## Leader Key Bindings
 
-## h - harpoon
-<leader>h - show harpoon
-<leader>hh - add to harpoon
-<leader>1 - select (1 - 5)
-<leader><Tab> - next in harpoon
-<leader><S-Tab> - prev in harpoon
+### Single Key Actions
+- `<leader>a` - Swap next parameter
+- `<leader>A` - Swap previous parameter
+- `<leader>e` - File Explorer (Oil)
+- `<leader>x` - Close buffer
+- `<leader>u` - Undotree
+- `<leader>D` - Go to type definition
 
-## k - go to preview
-<leader>kk - definition window
-<leader>kq - close preview windows
-<leader>kt - type window
-<leader>kr - references window
-<leader>ki - implementation window
+### Code (`<leader>c`)
+- `<leader>ca` - Code actions
+- `<leader>cf` - Code format
 
+### Highlights (`<leader>n`)
+- `<leader>nh` - Clear search highlights
 
-## s - search & spellcheck
-<leader>sf - find files
-<leader>sh - help tags
-<leader>sk - keymaps
-<leader>so - previously openend files
-<leader>sg - live grep
-<leader>ss - git status
-<leader>sc - spell check suggest
-<leader>st - todo
-<leader>/ - fuzzy search in current buffer
-<leader><space> - find existing buffers
+### Harpoon (`<leader>h`)
+- `<leader>h` - Show harpoon menu
+- `<leader>hh` - Add to harpoon
+- `<leader>1` - Select harpoon file 1
+- `<leader>2` - Select harpoon file 2
+- `<leader>3` - Select harpoon file 3
+- `<leader>4` - Select harpoon file 4
+- `<leader>5` - Select harpoon file 5
+- `<leader><Tab>` - Next in harpoon
+- `<leader><S-Tab>` - Previous in harpoon
 
-<leader>S - spectre toggle
-<leader>sw - spectre search selected word
-<leader>sp - spectre search in current file
+### Go to Preview (`<leader>k`)
+- `<leader>kk` - Definition preview window
+- `<leader>kq` - Close preview windows
+- `<leader>kt` - Type definition preview window
+- `<leader>kr` - References preview window
+- `<leader>ki` - Implementation preview window
 
-## f
-<leader>fp - Copy file path
+### Search & Telescope (`<leader>s`)
+- `<leader>sf` - Find files
+- `<leader>sh` - Help tags
+- `<leader>sk` - Keymaps
+- `<leader>so` - Previously opened files
+- `<leader>sg` - Live grep
+- `<leader>ss` - Git status
+- `<leader>sc` - Spell check suggestions
+- `<leader>st` - Todo comments
+- `<leader>/` - Fuzzy search in current buffer
+- `<leader><space>` - Find existing buffers
 
-## r
-<leader>rn - rename
+### Spectre (Search & Replace)
+- `<leader>S` - Toggle spectre
+- `<leader>sw` - Search selected word
+- `<leader>sp` - Search in current file
 
-## m
-<leader>mm - MaximizerToggle
+### File (`<leader>f`)
+- `<leader>fp` - Copy file path
 
-## d - trouble & debug
-<leader>dd - Trouble Diagnostics
-<leader>dx - Trouble Buffer Diagnostics
-<leader>ds - Trouble Symbols
+### Rename (`<leader>r`)
+- `<leader>rn` - Rename symbol
 
-<leader>dc - debug continue
-<leader>db - debug breakpoint
-<leader>dr - debug repl
-<leader>dw - debug ui open
-<leader>dW - debug ui close
+### Maximizer (`<leader>m`)
+- `<leader>mm` - Toggle maximizer
 
-## t - testing
-<leader>tf - test run file
-<leader>tt - test run test
-<leader>tS - test run suite
-<leader>tl - test run last
-<leader>to - test output
-<leader>tO - test output panel
-<leader>tT - test terminate
-<leader>td - debug nearest
-<leader>tD - debug current file
+### Debug & Trouble (`<leader>d`)
+**Trouble:**
+- `<leader>dd` - Trouble diagnostics
+- `<leader>dx` - Trouble buffer diagnostics
+- `<leader>ds` - Trouble symbols
 
-## w - workspace
-<leader>wa - add workspace directory
-<leader>wr - remove workspace directory
-<leader>wl - list workspace directory
+**Debug:**
+- `<leader>dc` - Debug continue
+- `<leader>db` - Debug breakpoint
+- `<leader>dr` - Debug REPL
+- `<leader>dw` - Debug UI open
+- `<leader>dW` - Debug UI close
 
-## g - git
-<leader>gg - lazygit
-<leader>gf - git file history
-<leader>gh - git preview hunk
-<leader>gp - git prev hunk
-<leader>gn - git next hunk
-<leader>gs - git stage hunk
-<leader>gr - git reset hunk
+### Testing (`<leader>t`)
+- `<leader>tf` - Test run file
+- `<leader>tt` - Test run test
+- `<leader>tS` - Test run suite
+- `<leader>tl` - Test run last
+- `<leader>to` - Test output
+- `<leader>tO` - Test output panel
+- `<leader>tT` - Test terminate
+- `<leader>td` - Debug nearest test
+- `<leader>tD` - Debug current file
 
+### Workspace (`<leader>w`)
+- `<leader>wa` - Add workspace directory
+- `<leader>wr` - Remove workspace directory
+- `<leader>wl` - List workspace directories
 
-# Non Leader start
-## diagnostics
-[d  - previous
-]d  - next
-dp - open diagnostic message in float window
+### Git (`<leader>g`)
+- `<leader>gg` - LazyGit
+- `<leader>gf` - Git file history
+- `<leader>gh` - Git preview hunk
+- `<leader>gp` - Git previous hunk
+- `<leader>gn` - Git next hunk
+- `<leader>gs` - Git stage hunk
+- `<leader>gr` - Git reset hunk
 
-gd - go to definition
-gr - go to references
-gI - go to implementation
-gD - go to declaration
+---
 
-K - hover documentation
+## Non-Leader Key Bindings
 
-s - flash jump
-S - flash select
+### LSP & Diagnostics
+- `[d` - Previous diagnostic
+- `]d` - Next diagnostic
+- `dp` - Open diagnostic in float window
+- `gd` - Go to definition
+- `gr` - Go to references
+- `gI` - Go to implementation
+- `gD` - Go to declaration
+- `K` - Hover documentation
 
-## z
-zR - Open all folds
-zM - Close all folds
-zK - Peak fold
-za - Toggle fold
+### Flash (Motion)
+- `s` - Flash jump
+- `S` - Flash treesitter select
 
-## s - surrounding
-sa - add
-sd - delete
-sf - find right
-sF - find left
-sh - highlights
-sr - replace
-sn - update n lines
+### Folding (`z`)
+- `zR` - Open all folds
+- `zM` - Close all folds
+- `zK` - Peek fold
+- `za` - Toggle fold
 
-## ctrl
-ctrl-k - toggle lsp signature
+### Surrounding (`s`)
+- `sa` - Add surrounding
+- `sd` - Delete surrounding
+- `sf` - Find surrounding (right)
+- `sF` - Find surrounding (left)
+- `sh` - Highlight surrounding
+- `sr` - Replace surrounding
+- `sn` - Update n lines
+
+### Control Keys
+- `<C-k>` - Toggle LSP signature help
