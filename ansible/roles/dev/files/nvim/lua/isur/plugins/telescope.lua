@@ -58,7 +58,6 @@ return {
 		telescope.load_extension("fzf")
 		telescope.load_extension("git_file_history")
 
-		vim.keymap.set("n", "<leader>?", builtin.oldfiles, { desc = "Find recently opened files" })
 		vim.keymap.set(
 			"n",
 			"<leader><space>",
@@ -72,18 +71,13 @@ return {
 			}))
 		end, { desc = "Fuzzily search in current buffer" })
 
-		vim.keymap.set("n", "<leader>gf", builtin.git_files, { desc = "Search Git Files" })
 		vim.keymap.set("n", "<leader>sf", builtin.find_files, { desc = "Search Files" })
 		vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "Search Help" })
 		vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "Search keymaps" })
-		vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "Search current Word" })
 		vim.keymap.set("n", "<leader>so", builtin.oldfiles, { desc = "Search previously opened files" })
 		vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "Search by Grep" })
-		vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "Search Diagnostics" })
-		vim.keymap.set("n", "<leader>sq", builtin.quickfix, { desc = "Search Quick fix" })
-		vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "Document symbols" })
-		vim.keymap.set("n", "<leader>sgs", builtin.git_status, { desc = "Search Git Status files" })
-		vim.keymap.set("n", "<leader>ss", builtin.spell_suggest, { desc = "Search Spell Suggestions" })
+		vim.keymap.set("n", "<leader>ss", builtin.git_status, { desc = "Search Git Status files" })
+		vim.keymap.set("n", "<leader>sc", builtin.spell_suggest, { desc = "Search Spell Suggestions" })
 		vim.keymap.set("n", "<leader>st", "<cmd>TodoTelescope<cr>", { desc = "Search Todo/Note/Fixme" })
 	end,
 }

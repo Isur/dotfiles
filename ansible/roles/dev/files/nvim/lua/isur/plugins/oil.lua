@@ -58,7 +58,7 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>oi", "<Cmd>Oil --float<CR>", { desc = "File Explorer" })
+			vim.keymap.set("n", "<leader>e", "<Cmd>Oil --float<CR>", { desc = "File Explorer" })
 		end,
 	},
 }

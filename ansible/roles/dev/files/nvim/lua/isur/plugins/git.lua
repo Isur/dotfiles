@@ -6,7 +6,7 @@ return {
 		"isak102/telescope-git-file-history.nvim",
 		dependencies = { "tpope/vim-fugitive" },
 		config = function()
-			vim.keymap.set("n", "<leader>gh", ":Telescope git_file_history<CR>", { desc = "Git file history" })
+			vim.keymap.set("n", "<leader>gf", ":Telescope git_file_history<CR>", { desc = "Git file history" })
 		end,
 	},
 	{
@@ -31,7 +31,7 @@ return {
 					vim.keymap.set("n", "<leader>gn", function()
 						gitsigns.nav_hunk("next")
 					end, { buffer = bufnr, desc = "Go to next hunk" })
-					vim.keymap.set("n", "<leader>ph", gitsigns.preview_hunk, { buffer = bufnr, desc = "Preview hunk" })
+					vim.keymap.set("n", "<leader>gh", gitsigns.preview_hunk, { buffer = bufnr, desc = "Preview hunk" })
 					vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { buffer = bufnr, desc = "Stage hunk" })
 					vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { buffer = bufnr, desc = "Reset hunk" })
 				end,

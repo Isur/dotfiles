@@ -49,8 +49,6 @@ return {
 			nmap("gr", builtins.lsp_references, "Goto References")
 			nmap("gI", vim.lsp.buf.implementation, "Goto Implementation")
 			nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
-			nmap("<leader>ds", builtins.lsp_document_symbols, "Document Symbols")
-			nmap("<leader>ws", builtins.lsp_dynamic_workspace_symbols, "Workspace Symbols")
 			nmap("[d", function()
 				vim.diagnostic.jump({ count = -1, float = true })
 			end, "Go to previous diagnostic message")
