@@ -14,7 +14,6 @@
 - `<leader>a` - Swap next parameter
 - `<leader>A` - Swap previous parameter
 - `<leader>e` - File Explorer (Oil)
-- `<leader>x` - Close buffer
 - `<leader>u` - Undotree
 - `<leader>D` - Go to type definition
 
@@ -59,6 +58,11 @@
 - `<leader>S` - Toggle spectre
 - `<leader>sw` - Search selected word
 - `<leader>sp` - Search in current file
+
+### Buffer (`<leader>b`)
+- `<leader>bd` - Delete buffer
+- `<leader>bD` - Force delete buffer
+- `<leader>ba` - Delete all buffers except current
 
 ### File (`<leader>f`)
 - `<leader>fp` - Copy file path
@@ -140,8 +144,12 @@
 - `sr` - Replace surrounding
 - `sn` - Update n lines
 
+### Visual Mode Enhancements
+- `p` - Paste without yanking (preserves clipboard)
+
 ### Control Keys
 - `<C-k>` - Toggle LSP signature help
+- `<C-a>` - Select all
 
 ### Buffer Navigation
 - `<Tab>` - Next buffer

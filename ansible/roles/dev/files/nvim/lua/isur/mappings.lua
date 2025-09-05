@@ -14,11 +14,15 @@ vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights
 -- Buffers
 vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next buffer" })
 vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<leader>x", ":bd<CR>", { desc = "Close buffer" })
 
-vim.keymap.set("n", "<leader>sc", function()
-	vim.o.spell = not vim.o.spell
-end, { desc = "Toggle spellcheck" })
+vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Delete buffer" })
+vim.keymap.set("n", "<leader>bD", ":bd!<CR>", { desc = "Force delete buffer" })
+vim.keymap.set("n", "<leader>ba", ":%bd|e#|bd#<CR>", { desc = "Delete all buffers except current" })
+
+vim.keymap.set("v", "p", '"_dP', { desc = "Paste without yank" })
+
+-- Select all
+vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
 
 -- file path
 vim.keymap.set("n", "<leader>fp", function()
