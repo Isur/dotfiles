@@ -14,7 +14,8 @@ return {
 			mason_tool_installer.setup({
 				ensure_installed = {
 					-- LSPs
-					"typescript-language-server",
+					-- "typescript-language-server",
+					"vtsls",
 					"tailwindcss-language-server",
 					"dockerfile-language-server",
 					"bash-language-server",

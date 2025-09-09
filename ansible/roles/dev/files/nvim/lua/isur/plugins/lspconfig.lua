@@ -97,7 +97,7 @@ return {
 			})
 		end
 
-		lspconfig["ts_ls"].setup({
+		lspconfig["vtsls"].setup({
 			on_attach = on_attach,
 			capabilities = capabilities,
 		})

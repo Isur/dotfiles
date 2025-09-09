@@ -3,7 +3,16 @@ return {
 	dependencies = {
 		"folke/todo-comments.nvim",
 	},
-	opts = {}, -- for default options, refer to the configuration section for custom setup.
+	opts = {
+		max_items = 5000,
+		modes = {
+			symbols = {
+				win = {
+					size = 0.3,
+				},
+			},
+		},
+	}, -- for default options, refer to the configuration section for custom setup.
 	cmd = "Trouble",
 	keys = {
 		{
@@ -18,7 +27,7 @@ return {
 		},
 		{
 			"<leader>ds",
-			"<cmd>Trouble symbols toggle focus=true<cr>",
+			"<cmd>Trouble symbols toggle fold_close_all focus=true<cr>",
 			desc = "Trouble Symbols",
 		},
 		{
