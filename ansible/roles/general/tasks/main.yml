@@ -3,7 +3,8 @@
 - name: Common general tasks
   ansible.builtin.include_tasks: "./{{ task }}"
   loop:
-    - directories.yml
+    - dev.yml
+    - work.yml
   loop_control:
     loop_var: task
 
@@ -11,7 +12,7 @@
   ansible.builtin.include_tasks: "./{{ task }}"
   when: ansible_os_family == 'Darwin'
   loop:
-    - apps.darwin.yml
+    - dev.darwin.yml
   loop_control:
     loop_var: task
 
@@ -19,7 +20,7 @@
   ansible.builtin.include_tasks: "./{{ task }}"
   when: ansible_os_family == 'Archlinux'
   loop:
-    - directories.arch.yml
-    - apps.arch.yml
+    - dev.arch.yml
+    - hyprland.arch.yml
   loop_control:
     loop_var: task

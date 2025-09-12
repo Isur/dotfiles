@@ -1,36 +1,5 @@
 # vim:ft=yaml.ansible
 ---
-- name: Arch | Install hyprland stuff
-  kewlfft.aur.aur:
-    name: "{{ item }}"
-    use: yay
-    state: latest
-  loop:
-    - hyprland
-    - nvidia-dkms
-    - nvidia-utils
-    - lib32-nvidia-utils
-    - egl-wayland
-    - hyprpaper
-    - hyprlock
-    - hypridle
-    - hyprpicker
-    - hyprpolkitagent
-    - hyprsysteminfo
-    - hyprnotify
-    - xdg-desktop-portal-hyprland
-    - xdg-desktop-portal-gtk
-    - pipwewire
-    - wireplumber
-    - grim
-    - slurp
-    - waybar
-    - nm-connection-editor
-    - gtk-layer-shell
-    - gtk3
-    - nwg-look
-    - rofi
-
 - name: Arch | Prep modfile
   become: true
   ansible.builtin.shell: |

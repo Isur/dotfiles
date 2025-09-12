@@ -1,20 +1,5 @@
 # vim:ft=yaml.ansible
 ---
-
-- name: Darwin | Install git stuff
-  community.general.homebrew:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - git-delta
-    - lazygit
-
-- name: Darwin | Create lazygit directory
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/lazygit"
-    state: directory
-    mode: '755'
-
 - name: Darwin | Git Config
   ansible.builtin.file:
     src: "{{ role_path }}/files/{{ item.src }}"
@@ -23,3 +8,10 @@
   loop:
     - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
     - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/Library/Application Support/lazygit/config.yml" }
+
+- name: Darwin | ZSH default shell
+  become: true
+  ansible.builtin.user:
+    user: "{{ ansible_env.USER }}"
+    shell: /opt/homebrew/bin/zsh
+  when: ansible_os_family == 'Darwin'

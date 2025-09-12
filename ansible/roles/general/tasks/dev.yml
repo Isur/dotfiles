@@ -1,0 +1,133 @@
+# vim:ft=yaml.ansible
+---
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - .config
+    - .local/bin
+    - Developer
+    - Developer/Clients
+    - Developer/Personal
+    - Developer/PoC
+    - Developer/Global
+    - .config/lazygit
+    - .config/ghostty
+
+- name: Check if global docker-compose is already here
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"
+  register: docker_status
+  changed_when: false
+
+- name: Docker global docker-compose
+  ansible.builtin.copy:
+    src: "{{ role_path }}/files/docker-compose.yml"
+    dest: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"
+    mode: '755'
+  when: not docker_status.stat.exists
+
+- name: Check NVM
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
+  register: nvm_status
+
+- name: Install NVM and Node
+  ansible.builtin.shell: |
+    set -o pipefail
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/refs/heads/master/install.sh | bash
+    source $HOME/.nvm/nvm.sh
+    nvm install --lts
+    npm install -g pnpm
+    npm install -g neovim
+  when: not nvm_status.stat.exists
+  changed_when: true
+
+- name: ZSH OMZ stat
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-fzf-history-search"
+  register: zsh_status
+
+- name: Removed old OhMyZsh
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    state: absent
+  when: not zsh_status.stat.exists
+
+- name: Install OhMyZSH
+  ansible.builtin.shell: |
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  when: not zsh_status.stat.exists
+  changed_when: true
+
+- name: Download OhMyZSH plugins
+  ansible.builtin.git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+    version: master
+    force: true
+  loop:
+    - { repo: "https://github.com/joshskidmore/zsh-fzf-history-search", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-fzf-history-search" }
+    - { repo: "https://github.com/zsh-users/zsh-autosuggestions", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
+    - { repo: "https://github.com/zsh-users/zsh-syntax-highlighting", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"}
+  when: not zsh_status.stat.exists
+
+- name: Ensure that ssh directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.ssh"
+    state: directory
+    mode: '700'
+
+- name: Find SSH keys and config files
+  ansible.builtin.find:
+    paths: "{{ role_path }}/files/ssh"
+    file_type: file
+  register: found_files
+
+- name: SSH Config
+  ansible.builtin.copy:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_env.HOME }}/.ssh/{{ item.path | basename }}"
+    decrypt: true
+    mode: '600'
+  loop: "{{ found_files.files }}"
+
+- name: Verify the origin is set correctly
+  ansible.builtin.command: git remote get-url origin
+  args:
+    chdir: "{{ ansible_env.HOME }}/dotfiles"
+  register: current_origin
+  ignore_errors: true
+  changed_when: false
+
+- name: Dotfiles and other repositories
+  ansible.builtin.shell: |
+    eval `ssh-agent -s`
+    ssh-add ~/.ssh/id_rsa
+    git remote remove origin
+    git remote add origin git@github.com:Isur/dotfiles
+    git fetch --all
+    git branch --set-upstream-to=origin/master master
+  args:
+    chdir: "{{ ansible_env.HOME }}/dotfiles"
+  when: current_origin.stdout != "git@github.com:Isur/dotfiles"
+  changed_when: true
+
+- name: TMUX plugin manager
+  ansible.builtin.git:
+    repo: "https://github.com/tmux-plugins/tpm"
+    dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
+    clone: true
+
+- name: Link configs
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }
+    - { src: "zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }
+    - { src: "ghostty", dest: "{{ ansible_env.HOME }}/.config/ghostty/config" }
+    - { src: "tmux.conf", dest: "{{ ansible_env.HOME }}/.tmux.conf" }

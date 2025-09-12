@@ -1,7 +1,0 @@
-# vim:ft=yaml.ansible
----
-- name: Darwin | Install Docker
-  community.general.homebrew_cask:
-    name: docker
-    state: present
-    accept_external_apps: true
