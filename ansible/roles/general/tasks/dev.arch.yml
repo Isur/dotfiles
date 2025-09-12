@@ -34,6 +34,7 @@
     src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
+    force: true
   loop:
     - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
     - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }

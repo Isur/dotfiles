@@ -126,6 +126,7 @@
     src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
+    force: true
   loop:
     - { src: "nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }
     - { src: "zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }

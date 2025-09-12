@@ -18,6 +18,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		nvidia-settings \
 		pipewire \
 		wireplumber \
+		cuda \
 		sddm \
 		nm-connection-editor \
 		egl-wayland \
@@ -43,6 +44,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		gtk-layer-shell \
 		gtk3 \
 		nwg-look \
+		adw-gtk-theme \
 		font-awesome-5 \
 		ttf-jetbrains-mono-nerd \
 		ttf-maple
@@ -84,7 +86,9 @@ if [ "$SYSTEM" == "Arch" ]; then
 		vulkan-icd-loader \
 		lib32-vulkan-icd-loader \
 		gamemode \
-		lib32-gamemode
+		lib32-gamemode \
+		mangohud \
+		goverlay
 
 	# Applications/Utilities
 	yay -S --needed --noconfirm \

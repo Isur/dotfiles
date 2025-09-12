@@ -32,7 +32,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		rm -rf yay
 	fi
 
-	yay -S --noconfirm ansible python-psycopg2
+	yay -S --needed --noconfirm ansible python-psycopg2
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
