@@ -10,6 +10,13 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 if [ "$SYSTEM" == "Arch" ]; then
+	# nvidia
+	yay -S --needed --noconfirm \
+		nvidia-dkms \
+		nvidia-utils \
+		lib32-nvidia-utils \
+		nvidia-settings \
+
 	# General apps
 	yay -S --needed --noconfirm \
 		sysstat \
@@ -32,9 +39,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 	# hyprland stuff
 	yay -S --needed --noconfirm \
 		hyprland \
-		nvidia-dkms \
-		nvidia-utils \
-		lib32-nvidia-utils \
 		egl-wayland \
 		hyprpaper \
 		hyprlock \
@@ -109,10 +113,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 		wine \
 		steam \
 		lutris \
-		nvidia-dkms \
-		nvidia-utils \
-		lib32-nvidia-utils \
-		nvidia-settings \
 		vulkan-icd-loader \
 		lib32-vulkan-icd-loader \
 		gamemode \
