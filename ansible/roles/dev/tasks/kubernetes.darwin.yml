@@ -1,9 +1,0 @@
-# vim:ft=yaml.ansible
----
-- name: Darwin | Install K8S
-  community.general.homebrew:
-    name: "{{ item }}"
-    state: present
-  loop:
-    - kubernetes-cli
-    - minikube

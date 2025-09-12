@@ -1,0 +1,45 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Create Linux directories
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/{{ item }}"
+    state: directory
+    mode: '755'
+  loop:
+    - apps
+    - Pictures/Screenshots
+
+- name: Arch | Docker Group
+  become: true
+  ansible.builtin.group:
+    name: docker
+    state: present
+
+- name: Arch | Add user to docker group
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    groups: docker
+    append: true
+
+- name: Arch | Enable docker
+  become: true
+  ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started
+
+- name: Arch | Git Config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
+    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }
+
+- name: Arch | ZSH default shell
+  become: true
+  ansible.builtin.user:
+    user: "{{ ansible_env.USER }}"
+    shell: /usr/bin/zsh

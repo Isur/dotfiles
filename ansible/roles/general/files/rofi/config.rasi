@@ -1,0 +1,13 @@
+configuration {
+  modes: [ combi ];
+    display-ssh:    "";
+    display-run:    "";
+    display-drun:   "";
+    display-window: "";
+    display-combi:  "";
+    show-icons:     true;
+ combi-modes: [ window, drun, run, ssh ];
+}
+
+@theme "~/.config/rofi/themes/tokyonight/tokyonight.rasi"
+/* Insert theme modifications after this */

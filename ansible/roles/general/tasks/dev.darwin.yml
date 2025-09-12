@@ -1,0 +1,17 @@
+# vim:ft=yaml.ansible
+---
+- name: Darwin | Git Config
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
+    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/Library/Application Support/lazygit/config.yml" }
+
+- name: Darwin | ZSH default shell
+  become: true
+  ansible.builtin.user:
+    user: "{{ ansible_env.USER }}"
+    shell: /opt/homebrew/bin/zsh
+  when: ansible_os_family == 'Darwin'

@@ -1,8 +1,0 @@
-# vim:ft=yaml.ansible
----
-- name: Update oh-my-zsh
-  ansible.builtin.shell: |
-    set -o pipefail
-    $ZSH/tools/upgrade.sh
-  register: zsh_upgrade_result
-  changed_when: "'Oh My Zsh is already at the latest version' not in zsh_upgrade_result.stdout"

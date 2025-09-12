@@ -1,0 +1,19 @@
+# vim:ft=yaml.ansible
+---
+- name: Arch | Prep modfile
+  become: true
+  ansible.builtin.shell: |
+    set -o pipefail
+    if [[ ! -f /etc/modprobe.d/nvidia.conf ]]; then
+      echo "options nvidia_drm modeset=1" > /etc/modprobe.d/nvidia.conf
+    fi
+
+- name: Arch | Config hyprland
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+  loop:
+    - { src: "hyprland", dest: "{{ ansible_env.HOME }}/.config/hypr" }
+    - { src: "rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
+    - { src: "waybar", dest: "{{ ansible_env.HOME }}/.config/waybar" }

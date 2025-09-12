@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd $HOME/dotfiles/ansible && ansible-playbook update.yml -i inventory.yml --vault-password-file ~/.vault_pass --ask-become-pass
+cd $HOME/dotfiles/ansible && ./updater.sh
