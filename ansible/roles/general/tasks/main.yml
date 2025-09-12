@@ -4,7 +4,7 @@
   ansible.builtin.include_tasks: "./{{ task }}"
   loop:
     - dev.yml
-    - repos.yml
+    - work.yml
   loop_control:
     loop_var: task
 
@@ -20,7 +20,7 @@
   ansible.builtin.include_tasks: "./{{ task }}"
   when: ansible_os_family == 'Archlinux'
   loop:
-    - hyprland.arch.yml
     - dev.arch.yml
+    - hyprland.arch.yml
   loop_control:
     loop_var: task

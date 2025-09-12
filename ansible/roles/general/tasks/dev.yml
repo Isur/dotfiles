@@ -13,8 +13,10 @@
     - Developer/Personal
     - Developer/PoC
     - Developer/Global
+    - .config/lazygit
+    - .config/ghostty
 
-- name: Check if global docke-compose is already here
+- name: Check if global docker-compose is already here
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"
   register: docker_status
@@ -26,20 +28,6 @@
     dest: "{{ ansible_env.HOME }}/Developer/Global/docker-compose.yml"
     mode: '755'
   when: not docker_status.stat.exists
-
-- name: Create lazygit directory
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/lazygit"
-    state: directory
-    mode: '755'
-
-- name: Neovim Config
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-  loop:
-    - { src: "nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }
 
 - name: Check NVM
   ansible.builtin.stat:
@@ -86,15 +74,6 @@
     - { repo: "https://github.com/zsh-users/zsh-syntax-highlighting", dest: "{{ ansible_env.HOME }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"}
   when: not zsh_status.stat.exists
 
-- name: ZSH Config
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-    force: true
-  loop:
-    - { src: "zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }
-
 - name: Ensure that ssh directory exists
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.ssh"
@@ -136,30 +115,19 @@
   when: current_origin.stdout != "git@github.com:Isur/dotfiles"
   changed_when: true
 
-- name: Darwin | Ghostty config dir
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/ghostty/"
-    state: directory
-    mode: "0755"
-
-- name: Darwin | Ghostty Config
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-  loop:
-    - { src: "ghostty", dest: "{{ ansible_env.HOME }}/.config/ghostty/config" }
-
 - name: TMUX plugin manager
   ansible.builtin.git:
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "{{ ansible_env.HOME }}/.tmux/plugins/tpm"
     clone: true
 
-- name: Darwin | Tmux Config
+- name: Link configs
   ansible.builtin.file:
     src: "{{ role_path }}/files/{{ item.src }}"
     dest: "{{ item.dest }}"
     state: link
   loop:
+    - { src: "nvim", dest: "{{ ansible_env.HOME }}/.config/nvim" }
+    - { src: "zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }
+    - { src: "ghostty", dest: "{{ ansible_env.HOME }}/.config/ghostty/config" }
     - { src: "tmux.conf", dest: "{{ ansible_env.HOME }}/.tmux.conf" }

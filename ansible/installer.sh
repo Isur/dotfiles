@@ -11,7 +11,7 @@ fi
 
 if [ "$SYSTEM" == "Arch" ]; then
 	# General apps
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		sysstat \
 		gvfs \
 		font-awesome-5 \
@@ -30,7 +30,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		libreoffice-still
 
 	# hyprland stuff
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		hyprland \
 		nvidia-dkms \
 		nvidia-utils \
@@ -59,38 +59,38 @@ if [ "$SYSTEM" == "Arch" ]; then
 		sddm \
 		mission-center
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		dbeaver \
 		postman-bin \
 		virtualbox \
 		openvpn \
 		bruno-bin
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		docker \
 		docker-compose \
 		docker-buildx \
 		lazydocker
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		git \
 		git-delta \
 		lazygit
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		kubectl \
 		minikube
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		neovim \
 		python-neovim \
 		tmux
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		uv \
 		zsh
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		fzf \
 		ripgrep \
 		fd \
@@ -105,7 +105,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		zoxide \
 		imagemagick
 
-	yay -S --noconfirm \
+	yay -S --needed --noconfirm \
 		wine \
 		steam \
 		lutris \

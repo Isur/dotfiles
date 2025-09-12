@@ -3,6 +3,3 @@
   hosts: home
   roles:
     - general
-    - tiling
-    - gaming
-    - dev
