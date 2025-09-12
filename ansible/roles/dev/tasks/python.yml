@@ -19,10 +19,3 @@
   changed_when: true
   when: poetry_test.rc != 0
 
-- name: Pyenv
-  ansible.builtin.shell: |
-    set -o pipefail
-    curl https://pyenv.run | bash
-  changed_when: true
-  when: pyenv_test.rc != 0
-

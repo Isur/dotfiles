@@ -30,6 +30,9 @@
     - gtk3
     - nwg-look
     - rofi
+    - nautilus
+    - sddm
+    - mission-center
 
 - name: Arch | Prep modfile
   become: true
