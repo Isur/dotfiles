@@ -30,6 +30,7 @@
     - gtk-layer-shell
     - gtk3
     - nwg-look
+    - rofi
 
 - name: Arch | Prep modfile
   ansible.builtin.shell: |
@@ -45,3 +46,5 @@
     state: link
   loop:
     - { src: "hyprland", dest: "{{ ansible_env.HOME }}/.config/hypr" }
+    - { src: "rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
+    - { src: "waybar", dest: "{{ ansible_env.HOME }}/.config/waybar" }
