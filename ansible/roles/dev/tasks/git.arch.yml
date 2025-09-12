@@ -1,7 +1,6 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Install Git
-  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
