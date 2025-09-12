@@ -108,25 +108,34 @@ if [ "$SYSTEM" == "Arch" ]; then
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
-	brew install --cask  \
-		dbeaver-community \
-		postman \
-		virtualbox\
-		openvpn-connect\
-		bruno \
-		docker \
-		ghostty \
-		arc \
-		discord \
-		spotify \
-		bazecor \
-		obsidian \
+	# UI/Desktop (casks)
+	brew install --cask \
 		raycast \
 		font-jetbrains-mono-nerd-font \
 		font-maple-mono-nf \
 		font-hack-nerd-font \
 		font-sf-pro
 
+	# Terminal/Development (casks)
+	brew install --cask \
+		dbeaver-community \
+		postman \
+		bruno \
+		docker \
+		ghostty \
+		virtualbox \
+		openvpn-connect
+
+	# Applications/Utilities (casks)
+	brew install --cask \
+		arc \
+		zen \
+		discord \
+		spotify \
+		bazecor \
+		obsidian
+
+	# Terminal/Development (packages)
 	brew install \
 		postgresql@17 \
 		git \
@@ -145,13 +154,16 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		sshs \
 		gnu-sed \
 		yazi \
+		tmux \
+		font-symbols-only-nerd-font
+
+	# Applications/Utilities (packages)
+	brew install \
 		ffmpeg \
 		sevenzip \
 		jq \
 		poppler \
 		zoxide \
 		resvg \
-		imagemagick \
-		font-symbols-only-nerd-font \
-		tmux
+		imagemagick
 fi
