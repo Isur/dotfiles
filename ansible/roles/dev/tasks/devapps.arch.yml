@@ -2,7 +2,6 @@
 ---
 
 - name: Arch | Install AUR dev apps with no config
-  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay

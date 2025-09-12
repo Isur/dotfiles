@@ -1,13 +1,11 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Upgrade System
-  become: true
   kewlfft.aur.aur:
     upgrade: true
     use: yay
 
 - name: Arch | Install some packages and apps
-  become: true
   kewlfft.aur.aur:
     name: "{{ item }}"
     use: yay
