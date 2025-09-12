@@ -10,113 +10,147 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 if [ "$SYSTEM" == "Arch" ]; then
-	# nvidia
+	# NVIDIA drivers
 	yay -S --needed --noconfirm \
 		nvidia-dkms \
 		nvidia-utils \
 		lib32-nvidia-utils \
-		nvidia-settings \
+		nvidia-settings
 
-	# General apps
-	yay -S --needed --noconfirm \
-		sysstat \
-		gvfs \
-		font-awesome-5 \
-		ttf-jetbrains-mono-nerd \
-		ttf-maple \
-		mpv \
-		bazecor \
-		thunderbird \
-		thunderbird-i18n \
-		spotify-launcher \
-		obsidian \
-		discord \
-		zen-browser-bin \
-		thunar \
-		flameshot \
-		libreoffice-still
-
-	# hyprland stuff
+	# Hyprland window manager
 	yay -S --needed --noconfirm \
 		hyprland \
-		egl-wayland \
 		hyprpaper \
 		hyprlock \
 		hypridle \
 		hyprpicker \
 		hyprpolkitagent \
 		hyprsysteminfo \
-		hyprnotify \
+		hyprnotify
+
+	# Wayland support
+	yay -S --needed --noconfirm \
+		egl-wayland \
 		xdg-desktop-portal-hyprland \
 		xdg-desktop-portal-gtk \
 		pipwewire \
-		wireplumber \
+		wireplumber
+
+	# UI/Desktop tools
+	yay -S --needed --noconfirm \
+		waybar \
+		rofi \
+		sddm \
 		grim \
 		slurp \
-		waybar \
+		flameshot \
 		nm-connection-editor \
-		gtk-layer-shell \
-		gtk3 \
-		nwg-look \
-		rofi \
-		nautilus \
-		sddm \
 		mission-center
 
+	# GTK/Theming
+	yay -S --needed --noconfirm \
+		gtk-layer-shell \
+		gtk3 \
+		nwg-look
+
+	# File managers
+	yay -S --needed --noconfirm \
+		nautilus \
+		yazi
+
+	# Fonts
+	yay -S --needed --noconfirm \
+		font-awesome-5 \
+		ttf-jetbrains-mono-nerd \
+		ttf-maple
+
+	# Productivity apps
+	yay -S --needed --noconfirm \
+		obsidian \
+		libreoffice-still \
+		thunderbird \
+		thunderbird-i18n
+
+	# Communication/Social
+	yay -S --needed --noconfirm \
+		discord \
+		zen-browser-bin
+
+	# Media/Entertainment
+	yay -S --needed --noconfirm \
+		mpv \
+		spotify-launcher
+
+	# Gaming
+	yay -S --needed --noconfirm \
+		steam \
+		lutris \
+		wine \
+		vulkan-icd-loader \
+		lib32-vulkan-icd-loader \
+		gamemode \
+		lib32-gamemode
+
+	# Development tools
 	yay -S --needed --noconfirm \
 		dbeaver \
 		postman-bin \
-		virtualbox \
-		openvpn \
 		bruno-bin
 
+	# Virtualization
+	yay -S --needed --noconfirm \
+		virtualbox \
+		openvpn
+
+	# Containerization
 	yay -S --needed --noconfirm \
 		docker \
 		docker-compose \
 		docker-buildx \
 		lazydocker
 
+	# Kubernetes
+	yay -S --needed --noconfirm \
+		kubectl \
+		minikube
+
+	# Version control
 	yay -S --needed --noconfirm \
 		git \
 		git-delta \
 		lazygit
 
+	# Terminal/CLI tools
 	yay -S --needed --noconfirm \
-		kubectl \
-		minikube
-
-	yay -S --needed --noconfirm \
-		neovim \
-		python-neovim \
-		tmux
-
-	yay -S --needed --noconfirm \
-		uv \
-		zsh
-
-	yay -S --needed --noconfirm \
+		ghostty \
+		tmux \
+		zsh \
 		fzf \
 		ripgrep \
 		fd \
 		btop \
 		sshs \
-		ghostty \
-		yazi \
+		zoxide
+
+	# Text editor
+	yay -S --needed --noconfirm \
+		neovim \
+		python-neovim
+
+	# Programming languages/tools
+	yay -S --needed --noconfirm \
+		uv
+
+	# Utilities
+	yay -S --needed --noconfirm \
+		sysstat \
+		gvfs \
 		ffmpeg \
 		7zip \
 		jq \
 		poppler \
-		zoxide \
-		imagemagick
-
-	yay -S --needed --noconfirm \
-		wine \
-		steam \
-		lutris \
-		vulkan-icd-loader \
-		lib32-vulkan-icd-loader \
-		gamemode \
-		lib32-gamemode
+		imagemagick \
+		bazecor
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
