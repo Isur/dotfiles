@@ -10,14 +10,23 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 if [ "$SYSTEM" == "Arch" ]; then
-	# NVIDIA drivers
+	# Drivers/System
 	yay -S --needed --noconfirm \
 		nvidia-dkms \
 		nvidia-utils \
 		lib32-nvidia-utils \
-		nvidia-settings
+		nvidia-settings \
+		pipewire \
+		wireplumber \
+		sddm \
+		nm-connection-editor \
+		egl-wayland \
+		xdg-desktop-portal-hyprland \
+		xdg-desktop-portal-gtk \
+		sysstat \
+		gvfs
 
-	# Hyprland window manager
+	# UI/Desktop
 	yay -S --needed --noconfirm \
 		hyprland \
 		hyprpaper \
@@ -26,60 +35,46 @@ if [ "$SYSTEM" == "Arch" ]; then
 		hyprpicker \
 		hyprpolkitagent \
 		hyprsysteminfo \
-		hyprnotify
-
-	# Wayland support
-	yay -S --needed --noconfirm \
-		egl-wayland \
-		xdg-desktop-portal-hyprland \
-		xdg-desktop-portal-gtk \
-		pipwewire \
-		wireplumber
-
-	# UI/Desktop tools
-	yay -S --needed --noconfirm \
+		hyprnotify \
 		waybar \
 		rofi \
-		sddm \
 		grim \
 		slurp \
-		flameshot \
-		nm-connection-editor \
-		mission-center
-
-	# GTK/Theming
-	yay -S --needed --noconfirm \
 		gtk-layer-shell \
 		gtk3 \
-		nwg-look
-
-	# File managers
-	yay -S --needed --noconfirm \
-		nautilus \
-		yazi
-
-	# Fonts
-	yay -S --needed --noconfirm \
+		nwg-look \
 		font-awesome-5 \
 		ttf-jetbrains-mono-nerd \
 		ttf-maple
 
-	# Productivity apps
+	# Terminal/Development
 	yay -S --needed --noconfirm \
-		obsidian \
-		libreoffice-still \
-		thunderbird \
-		thunderbird-i18n
-
-	# Communication/Social
-	yay -S --needed --noconfirm \
-		discord \
-		zen-browser-bin
-
-	# Media/Entertainment
-	yay -S --needed --noconfirm \
-		mpv \
-		spotify-launcher
+		ghostty \
+		tmux \
+		zsh \
+		neovim \
+		python-neovim \
+		git \
+		git-delta \
+		lazygit \
+		docker \
+		docker-compose \
+		docker-buildx \
+		lazydocker \
+		kubectl \
+		minikube \
+		virtualbox \
+		openvpn \
+		dbeaver \
+		postman-bin \
+		bruno-bin \
+		fzf \
+		ripgrep \
+		fd \
+		btop \
+		sshs \
+		zoxide \
+		uv
 
 	# Gaming
 	yay -S --needed --noconfirm \
@@ -91,66 +86,25 @@ if [ "$SYSTEM" == "Arch" ]; then
 		gamemode \
 		lib32-gamemode
 
-	# Development tools
+	# Applications/Utilities
 	yay -S --needed --noconfirm \
-		dbeaver \
-		postman-bin \
-		bruno-bin
-
-	# Virtualization
-	yay -S --needed --noconfirm \
-		virtualbox \
-		openvpn
-
-	# Containerization
-	yay -S --needed --noconfirm \
-		docker \
-		docker-compose \
-		docker-buildx \
-		lazydocker
-
-	# Kubernetes
-	yay -S --needed --noconfirm \
-		kubectl \
-		minikube
-
-	# Version control
-	yay -S --needed --noconfirm \
-		git \
-		git-delta \
-		lazygit
-
-	# Terminal/CLI tools
-	yay -S --needed --noconfirm \
-		ghostty \
-		tmux \
-		zsh \
-		fzf \
-		ripgrep \
-		fd \
-		btop \
-		sshs \
-		zoxide
-
-	# Text editor
-	yay -S --needed --noconfirm \
-		neovim \
-		python-neovim
-
-	# Programming languages/tools
-	yay -S --needed --noconfirm \
-		uv
-
-	# Utilities
-	yay -S --needed --noconfirm \
-		sysstat \
-		gvfs \
+		nautilus \
+		yazi \
+		obsidian \
+		libreoffice-still \
+		thunderbird \
+		thunderbird-i18n \
+		discord \
+		zen-browser-bin \
+		mpv \
+		spotify-launcher \
 		ffmpeg \
 		7zip \
 		jq \
 		poppler \
 		imagemagick \
-		bazecor
+		bazecor \
+		mission-center
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
