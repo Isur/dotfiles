@@ -29,6 +29,18 @@
     mode: '755'
   when: not docker_status.stat.exists
 
+- name: Check bun
+  ansible.builtin.stat:
+    path: "{{ ansible_env.HOME }}/.bun/bin/bun"
+  register: bun_status
+
+- name: Install bun
+  ansible.builtin.shell: |
+    set -o pipefail
+    curl -fsSL https://bun.sh/install | bash
+  when: not bun_status.stat.exists
+  changed_when: true
+
 - name: Check NVM
   ansible.builtin.stat:
     path: "{{ ansible_env.HOME }}/.nvm/nvm.sh"
