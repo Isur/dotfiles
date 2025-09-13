@@ -18,6 +18,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		nvidia-settings \
 		pipewire \
 		wireplumber \
+		gwe \
 		cuda \
 		sddm \
 		nm-connection-editor \
@@ -25,6 +26,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		xdg-desktop-portal-hyprland \
 		xdg-desktop-portal-gtk \
 		sysstat \
+		bluez \
+		bluez-utils \
 		gvfs
 
 	# UI/Desktop
@@ -73,9 +76,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 		fzf \
 		ripgrep \
 		fd \
+		tree \
 		btop \
 		sshs \
 		zoxide \
+		bluetui \
 		uv
 
 	# Gaming

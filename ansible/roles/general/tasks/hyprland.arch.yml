@@ -22,6 +22,8 @@
 - name: Arch | Enable SDDM
   become: true
   ansible.builtin.systemd:
-    name: sddm
+    name: "{{ item}}"
     enabled: true
-    state: started
+  loop:
+    - "sddm"
+    - "bluetooth"
