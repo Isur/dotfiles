@@ -50,7 +50,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 		adw-gtk-theme \
 		font-awesome-5 \
 		ttf-jetbrains-mono-nerd \
-		ttf-maple
+		maplemono-ttf \
+		maplemononl-ttf \
+		ttf-hack-nerd \
+		apple-fonts \
+		nerd-fonts-apple
 
 	# Terminal/Development
 	yay -S --needed --noconfirm \

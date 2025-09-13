@@ -8,13 +8,13 @@
     "modules-center": [],
     "modules-right": [
         "custom/media",
-        "bluetooth",
         "pulseaudio",
         "cpu",
         "memory",
         "temperature",
-        "tray",
+        "bluetooth",
         "clock",
+        "tray",
         "custom/power"
     ],
     // Modules configuration
@@ -161,7 +161,7 @@
                 ""
             ]
         },
-        "on-click": "pavucontrol"
+        "on-click": "$HOME/.config/waybar/sink-toggle.sh"
     },
     "custom/media": {
         "format": "{icon} {text}",
