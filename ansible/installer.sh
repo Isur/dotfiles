@@ -10,113 +10,133 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 fi
 
 if [ "$SYSTEM" == "Arch" ]; then
-	# Drivers/System
-	yay -S --needed --noconfirm \
-		nvidia-dkms \
-		nvidia-utils \
-		lib32-nvidia-utils \
-		nvidia-settings \
-		pipewire \
-		wireplumber \
-		gwe \
-		cuda \
-		sddm \
-		nm-connection-editor \
-		egl-wayland \
-		xdg-desktop-portal-hyprland \
-		xdg-desktop-portal-gtk \
-		sysstat \
-		bluez \
-		bluez-utils \
+	driver_system=(
+		nvidia-dkms
+		nvidia-utils
+		lib32-nvidia-utils
+		nvidia-settings
+		pipewire
+		wireplumber
+		gwe
+		cuda
+		sddm
+		nm-connection-editor
+		egl-wayland
+		xdg-desktop-portal-hyprland
+		xdg-desktop-portal-gtk
+		sysstat
+		bluez
+		bluez-utils
+		nm-connection-editor
 		gvfs
-
-	# UI/Desktop
-	yay -S --needed --noconfirm \
-		hyprland \
-		hyprpaper \
-		hyprlock \
-		hypridle \
-		hyprpicker \
-		hyprpolkitagent \
-		hyprsysteminfo \
-		hyprnotify \
-		waybar \
-		rofi \
-		grim \
-		slurp \
-		gtk-layer-shell \
-		gtk3 \
-		nwg-look \
-		adw-gtk-theme \
-		font-awesome-5 \
-		ttf-jetbrains-mono-nerd \
-		maplemono-nf-unhinted \
-		ttf-hack-nerd \
-		apple-fonts \
+	)
+	ui_desktop=(
+		hyprland
+		hyprpaper
+		hyprlock
+		hypridle
+		hyprpicker
+		hyprpolkitagent
+		hyprsysteminfo
+		hyprnotify
+		waybar
+		rofi
+		grim
+		slurp
+		gtk-layer-shell
+		gtk3
+		nwg-look
+		adw-gtk-theme
+		font-awesome-5
+		ttf-jetbrains-mono-nerd
+		maplemono-nf-unhinted
+		ttf-hack-nerd
+		apple-fonts
 		nerd-fonts-apple
+	)
 
-	# Terminal/Development
-	yay -S --needed --noconfirm \
-		ghostty \
-		tmux \
-		zsh \
-		neovim \
-		python-neovim \
-		git \
-		git-delta \
-		lazygit \
-		docker \
-		docker-compose \
-		docker-buildx \
-		lazydocker \
-		kubectl \
-		minikube \
-		virtualbox \
-		openvpn \
-		dbeaver \
-		postman-bin \
-		bruno-bin \
-		fzf \
-		ripgrep \
-		fd \
-		tree \
-		btop \
-		sshs \
-		zoxide \
-		bluetui \
+	terminal_dev=(
+		ghostty
+		tmux
+		zsh
+		neovim
+		python-neovim
+		git
+		git-delta
+		lazygit
+		docker
+		docker-compose
+		docker-buildx
+		lazydocker
+		kubectl
+		minikube
+		virtualbox
+		openvpn
+		dbeaver
+		postman-bin
+		bruno-bin
+		fzf
+		ripgrep
+		fd
+		tree
+		btop
+		sshs
+		zoxide
+		bluetui
 		uv
+	)
 
-	# Gaming
-	yay -S --needed --noconfirm \
-		steam \
-		lutris \
-		wine \
-		vulkan-icd-loader \
-		lib32-vulkan-icd-loader \
-		gamemode \
-		lib32-gamemode \
-		mangohud \
+	gaming=(
+		steam
+		lutris
+		wine
+		vulkan-icd-loader
+		lib32-vulkan-icd-loader
+		gamemode
+		lib32-gamemode
+		mangohud
 		goverlay
+	)
 
-	# Applications/Utilities
-	yay -S --needed --noconfirm \
-		nautilus \
-		yazi \
-		obsidian \
-		libreoffice-still \
-		thunderbird \
-		thunderbird-i18n \
-		discord \
-		zen-browser-bin \
-		mpv \
-		spotify-launcher \
-		ffmpeg \
-		7zip \
-		jq \
-		poppler \
-		imagemagick \
-		bazecor \
+	applications_utilities=(
+		nautilus
+		yazi
+		obsidian
+		libreoffice-still
+		thunderbird
+		thunderbird-i18n
+		discord
+		zen-browser-bin
+		mpv
+		spotify-launcher
+		ffmpeg
+		7zip
+		jq
+		poppler
+		imagemagick
+		bazecor
 		mission-center
+	)
+
+	for package in "${driver_system[@]}"; do
+		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
+	done
+
+	for package in "${ui_desktop[@]}"; do
+		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
+	done
+
+	for package in "${terminal_dev[@]}"; do
+		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
+	done
+
+	for package in "${gaming[@]}"; do
+		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
+	done
+
+	for package in "${applications_utilities[@]}"; do
+		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
+	done
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
