@@ -103,7 +103,7 @@
             "▇",
             "█"
         ],
-        "on-click": "ghostty -e btop"
+        "on-click-right": "ghostty -e btop"
     },
     "memory": {
         "interval": 30,
@@ -125,7 +125,7 @@
         "format-disconnected": "󰤠 ",
         "interval": 5,
         "tooltip-format": "{essid} ({signalStrength}%)",
-        "on-click": "nm-connection-editor"
+        "on-click-right": "nm-connection-editor"
     },
     "bluetooth": {
         "format": "󰂲",
@@ -138,6 +138,7 @@
             "connected": "󰂱"
         },
         "on-click": "$HOME/.config/waybar/bluetooth-toogle.sh",
+        "on-click-right": "ghostty -e bluetui",
         "tooltip-format-connected": "{device_enumerate}"
     },
     "pulseaudio": {
@@ -162,7 +163,8 @@
                 ""
             ]
         },
-        "on-click": "$HOME/.config/waybar/sink-toggle.sh"
+        "on-click": "$HOME/.config/waybar/sink-toggle.sh",
+        "on-click-right": "pavucontrol"
     },
     "custom/media": {
         "format": "{icon} {text}",
@@ -173,7 +175,8 @@
             "default": "🎜"
         },
         "escape": true,
-        "exec": "python3 $HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+        "exec": "python3 $HOME/.config/waybar/mediaplayer.py 2> /dev/null", // Script in resources folder
+        "on-click": "playerctl play-pause"
     },
     "custom/power": {
         "format": "󰣇 ",
