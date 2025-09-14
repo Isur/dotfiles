@@ -96,6 +96,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		lib32-gamemode
 		mangohud
 		goverlay
+		lact
 	)
 
 	applications_utilities=(
