@@ -117,6 +117,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		imagemagick
 		bazecor
 		mission-center
+		yt-dlp
 	)
 
 	for package in "${driver_system[@]}"; do
