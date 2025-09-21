@@ -205,5 +205,6 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		poppler \
 		zoxide \
 		resvg \
-		imagemagick
+		imagemagick \
+		syncthing
 fi

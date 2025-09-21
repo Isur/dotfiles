@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+echo "Backup..."
+
+source=/media/Common/DataVault/
+target=/run/media/isur/Expansion/DataVault/
+
+echo "Source: $source"
+echo "Target: $target"
+
+read -p "Do you want to continue? (y/n) " answer
+
+case $answer in
+    [Yy]* ) ;;
+    * ) exit 1;;
+esac
+
+echo "Dry run to check what will be backed up..."
+
+rsync -av --dry-run --itemize-changes --delete $source $target \
+  | grep -E '^\*deleting|^>f|^c'
+
+read -p "Do you want to perform backup? (y/n) " answer
+
+cancel() {
+    echo "Backup canceled."
+    exit 1
+}
+
+backup() {
+    rsync -ah --info=progress2 --delete --stats $source $target
+    exit 0
+}
+case $answer in
+    [Yy]* ) backup;;
+    * ) cancel;;
+esac
