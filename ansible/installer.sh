@@ -22,6 +22,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		sddm
 		nm-connection-editor
 		egl-wayland
+		wl-clipboard
 		xdg-desktop-portal-hyprland
 		xdg-desktop-portal-gtk
 		sysstat
@@ -118,6 +119,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 		bazecor
 		mission-center
 		yt-dlp
+		nomacs
+		obs-studio
+		okular
+		gedit
+		syncthing
 	)
 
 	for package in "${driver_system[@]}"; do
