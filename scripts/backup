@@ -2,6 +2,19 @@
 
 echo "Backup..."
 
+confirm="no"
+
+arg=$1
+case $arg in
+    -c|--confirm)
+        confirm="yes"
+        ;;
+    -h|--help)
+        echo "Usage: backup [-h|--help]"
+        exit 0
+        ;;
+esac
+
 source=/media/Common/DataVault/
 target=/run/media/isur/Expansion/DataVault/
 
@@ -15,23 +28,28 @@ case $answer in
     * ) exit 1;;
 esac
 
-echo "Dry run to check what will be backed up..."
-
-rsync -av --dry-run --itemize-changes --delete $source $target \
-  | grep -E '^\*deleting|^>f|^c'
-
-read -p "Do you want to perform backup? (y/n) " answer
-
 cancel() {
     echo "Backup canceled."
     exit 1
 }
 
 backup() {
+    echo "Backing up..."
     rsync -ah --info=progress2 --delete --stats $source $target
     exit 0
 }
-case $answer in
-    [Yy]* ) backup;;
-    * ) cancel;;
-esac
+
+if [ "$confirm" == "yes" ]; then
+    backup
+else
+    echo "Dry run to check what will be backed up..."
+    rsync -av --dry-run --itemize-changes --delete $source $target \
+      | grep -E '^\*deleting|^>f|^c'
+
+    read -p "Do you want to perform backup? (y/n) " answer
+    case $answer in
+        [Yy]* ) backup;;
+        * ) cancel;;
+    esac
+fi
+
