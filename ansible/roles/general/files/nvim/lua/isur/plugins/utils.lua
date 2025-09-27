@@ -11,6 +11,12 @@ return {
 		end,
 	},
 	{
+		"xiyaowong/transparent.nvim",
+		config = function()
+			require("transparent").setup({})
+		end,
+	},
+	{
 		"folke/which-key.nvim",
 		config = function()
 			require("which-key").setup({
