@@ -17,4 +17,9 @@ if [ "$SYSTEM" == "Darwin" ]; then
 	brew update && brew upgrade
 fi
 
+if [ "$ZSH" == "" ]; then
+	ZSH="$HOME/.oh-my-zsh"
+fi
+
 $ZSH/tools/upgrade.sh
+

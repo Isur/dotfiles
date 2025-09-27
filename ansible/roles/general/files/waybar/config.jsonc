@@ -184,11 +184,13 @@
         "tooltip": true,
         "menu": "on-click",
         "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
+        "on-click-right": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater",
         "menu-actions": {
             "shutdown": "shutdown -h now",
             "reboot": "reboot",
             "suspend": "systemctl suspend",
-            "hibernate": "systemctl hibernate"
+            "hibernate": "systemctl hibernate",
+            "update": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater"
         }
     }
 }
