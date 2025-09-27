@@ -85,6 +85,9 @@ if [ "$SYSTEM" == "Arch" ]; then
 		zoxide
 		bluetui
 		uv
+		pandoc-cli
+		texlive-core
+		texlive
 	)
 
 	gaming=(
@@ -124,6 +127,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		okular
 		gedit
 		syncthing
+		zip
+		unzip
 	)
 
 	for package in "${driver_system[@]}"; do
