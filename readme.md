@@ -32,10 +32,12 @@ Ansible roles are prepared to be used with Archlinux and Darwin systems.
 
 Those scripts will be installed:
 
+- `backup` - backup script that will be used to backup my data to external drive;
 - `keker` - automatically create directory for new project - template might be used for this;
 - `updater` - update dotfiles repo, packages and `Oh My ZSH`;
 - `tmux-sessionizer` - create tmux session in selected directory;
 - `tmux-fzf` - search in tmux window (used in tmux floating window);
+- `wallchange` - change to random wallpaper in hyprland;
 
 ### Secrets
 
@@ -46,7 +48,6 @@ Hidden with `ansible-vault`:
 
 - `sudo` privileges;
 - `.vault_pass` file with password (required for ssh and other secrets) in `$HOME/.vault_pass` (when running helper script, required to run playbook - using directly can be used in other ways);
-
 
 ## Helpers
 
@@ -67,6 +68,6 @@ bash -c "$(curl https://raw.githubusercontent.com/isur/dotfiles/master/server.sh
 ```
 
 ## Preview
-i3wm
+Hyprland
 
-![Preview](./i3wm.png)
+![Preview](./hyprland.png)
