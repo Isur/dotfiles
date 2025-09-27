@@ -5,7 +5,9 @@
     "modules-left": [
         "hyprland/workspaces"
     ],
-    "modules-center": [],
+    "modules-center": [
+        "clock"
+    ],
     "modules-right": [
         "custom/media",
         "pulseaudio",
@@ -13,7 +15,6 @@
         "memory",
         "temperature",
         "bluetooth",
-        "clock",
         "tray",
         "custom/power"
     ],
@@ -22,7 +23,7 @@
         "format": "{}"
     },
     "hyprland/workspaces": {
-        "format": "{name}: {icon}",
+        "format": "{icon}",
         "format-icons": {
             "1": " ",
             "2": " ",
