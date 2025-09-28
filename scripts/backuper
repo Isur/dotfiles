@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+echo "Backuper..."
+
+source=$1
+target=$2
+
+if [ -z "$source" ] || [ -z "$target" ]; then
+    echo "Usage: backuper <source> <target>"
+    exit 1
+fi
+
+backup() {
+    echo "Backing up..."
+    rsync -ah --info=progress2 --delete --stats $source $target
+}
+
+cancel() {
+    echo "Backup canceled."
+    exit 1
+}
+
+confirm() {
+    echo "Dry run to check what will be backed up..."
+    echo "Source: $source"
+    echo "Target: $target"
+
+    read -p "Click to continue."
+
+    rsync -av --dry-run --itemize-changes --delete $source $target | grep -E '^\*deleting|^>f|^c'
+
+    read -p "Do you want to perform backup? (y/n) " answer
+    case $answer in
+        [Yy]* ) backup;;
+        * ) cancel;;
+    esac
+}
+
+confirm

@@ -33,6 +33,7 @@ Ansible roles are prepared to be used with Archlinux and Darwin systems.
 Those scripts will be installed:
 
 - `backup` - backup script that will be used to backup my data to external drive;
+- `backuper` - backup script that will be used to backup from `source` to `target`
 - `keker` - automatically create directory for new project - template might be used for this;
 - `updater` - update dotfiles repo, packages and `Oh My ZSH`;
 - `tmux-sessionizer` - create tmux session in selected directory;
