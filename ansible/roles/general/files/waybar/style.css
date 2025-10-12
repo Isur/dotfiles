@@ -1,6 +1,6 @@
 /* --- Global Styles --- */
 
-@define-color bg #24273a;
+@define-color bg #1e1e2e;
 @define-color bg-hover #363a4f;
 @define-color c #c6d0f5;
 
@@ -13,125 +13,92 @@
     min-height: 0;
 }
 
-/* --- Waybar Container --- */
 #waybar {
-    background: transparent;
-    color: @c;
+  background: transparent;
+  color: @c;
 }
 
 tooltip {
   background: #1e1e2e;
+  opacity: 0.8;
+  color: #c6d0f5;
   border-radius: 10px;
   border-width: 0px;
   border-style: solid;
   border-color: #11111b;
 }
 
-/* --- Workspaces Module on the Left --- */
-#workspaces {
-    background-color: transparent;
-    padding: 0.3rem 0.7rem;
-    margin: 5px 0px; /* 5px top/bottom margin, 0px left/right (base for individual control) */
-    min-width: 0;
-    /* Transition for background-color and color only */
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-#workspaces button {
-    color: #babbf1;
-    border-radius: 10px; /* Workspaces buttons are always rounded */
-    padding: 0.3rem 0.6rem; /* 0.3rem 0.6rem 0.3rem 0.9rem; */
-    background: @bg;
-    transition: all 0.2s ease-in-out;
-    border: none;
-    outline: none;
-    margin-right: 3px;
-}
-
-#workspaces button.active, #workspaces button:hover {
-    background-color:  @bg-hover;
-}
-
-/* --- Center Module (Individual, Fully Rounded Block - With Simple Hover) --- */
-#clock {
-    background-color: @bg;
-    padding: 0.5rem 1.0rem;
-    margin: 5px 0px;
-    border-radius: 15px; /* This module is always rounded */
-    box-shadow: 0 1px 3px rgba(153, 209, 219, 0.2);
-    min-width: 0;
-    border: none;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-
-/* --- Right Modules (Single, Seamless Bar ) --- */
-#bluetooth,
+/* --- All Modules --- */
+#workspaces,
+#clock,
+#custom-media,
 #pulseaudio,
-#backlight,
-#network,
-#custom-lock,
-#battery,
+#bluetooth,
 #cpu,
 #memory,
 #temperature,
 #tray,
-#custom-power,
-#custom-media {
-    background-color: @bg;
-    color: @c;
-    padding: 0.3rem 0.7rem;
-    margin: 5px 3px;
-    border-radius: 15px;
-    box-shadow: none;
-    min-width: 0;
-    border: none;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+#network,
+#custom-power {
+    background: @bg;
+    opacity: 0.8;
+    padding: 0px 10px;
+    margin-top: 5px;
+    margin-left: 5px;
+    border: 0px solid #181825;
+    border-radius: 10px;
 }
 
-#bluetooth:hover,
+#clock:hover,
+#custom-media:hover,
 #pulseaudio:hover,
-#backlight:hover,
-#network:hover,
-#custom-lock:hover,
-#battery:hover,
+#bluetooth:hover,
 #cpu:hover,
 #memory:hover,
 #temperature:hover,
 #tray:hover,
-#custom-power:hover,
-#custom-media:hover,
-#clock:hover {
+#network:hover,
+#custom-power:hover {
     background-color: @bg-hover;
 }
 
+/* ---  Workspaces --- */
 
-#bluetooth {
-    color: #888888;
-    font-size: 18px;
+#workspaces {
+    background-color: @bg;
+    padding: 0px 0px;
 }
+
+#workspaces button {
+  color: @c;
+  border-radius: 10px;
+}
+
+#workspaces button.active {
+  background-color:  @bg-hover;
+  color: #a6adc8;
+}
+
+#workspaces button.focused {
+  color: #a6adc8;
+}
+
+#workspaces button.urgent {
+  color: #11111b;
+}
+
+#workspaces button:hover {
+  background-color:  @bg-hover;
+  color: #cdd6f4;
+}
+
+/* ---  Custom Module Styles --- */
+
+#custom-power {
+    margin-right: 5px;
+}
+
 #bluetooth.on {
     color: #2196f3;
-}
-#bluetooth.connected {
-    color: #99d1db;
-}
-
-/* The whole menu background */
-menu {
-  background-color: @bg;
-  padding: 4px;
-  border-radius: 6px;
-}
-
-/* All menu items */
-menuitem {
-  background-color: @bg;
-  color: #ffffff;
-  padding: 6px 12px;
-}
-
-menuitem:hover {
-  background-color: @bg-hover;
 }
 
