@@ -32,6 +32,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		gvfs
 	)
 	ui_desktop=(
+		hyprutils
+		hyprlang
 		hyprland
 		hyprpaper
 		hyprlock
@@ -88,6 +90,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		pandoc-cli
 		texlive-core
 		texlive
+		just
 	)
 
 	gaming=(
@@ -200,7 +203,8 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		gnu-sed \
 		yazi \
 		tmux \
-		font-symbols-only-nerd-font
+		font-symbols-only-nerd-font \
+		just
 
 	# Applications/Utilities (packages)
 	brew install \
