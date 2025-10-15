@@ -91,6 +91,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		texlive-core
 		texlive
 		just
+		github-cli
+		tldr
 	)
 
 	gaming=(
