@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+cmd=$(compgen -c | sort -u | fzf --prompt='Launch > ') || return
+
+if [[ -n "$cmd" ]]; then
+    $cmd
+fi
