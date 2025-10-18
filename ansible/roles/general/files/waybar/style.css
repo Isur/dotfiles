@@ -5,12 +5,12 @@
 @define-color c #c6d0f5;
 
 * {
-    font-family: 'Maple Mono NF';
-    border: none;
-    border-radius: 0;
-    font-size: 15px;
-    font-weight: bold;
-    min-height: 0;
+  font-family: 'Maple Mono NF';
+  border: none;
+  border-radius: 0;
+  font-size: 15px;
+  font-weight: bold;
+  min-height: 0;
 }
 
 #waybar {
@@ -18,10 +18,17 @@
   color: @c;
 }
 
-tooltip {
+tooltip, menu {
   background: #1e1e2e;
-  opacity: 0.8;
   color: #c6d0f5;
+  border-radius: 10px;
+  border-width: 0px;
+  border-style: solid;
+  border-color: #11111b;
+}
+
+menuitem:hover {
+  background-color: @bg-hover;
   border-radius: 10px;
   border-width: 0px;
   border-style: solid;
@@ -40,13 +47,13 @@ tooltip {
 #tray,
 #network,
 #custom-power {
-    background: @bg;
-    opacity: 0.8;
-    padding: 0px 10px;
-    margin-top: 5px;
-    margin-left: 5px;
-    border: 0px solid #181825;
-    border-radius: 10px;
+  background: @bg;
+  opacity: 0.8;
+  padding: 0px 10px;
+  margin-top: 5px;
+  margin-left: 5px;
+  border: 0px solid #181825;
+  border-radius: 10px;
 }
 
 #clock:hover,
@@ -59,14 +66,14 @@ tooltip {
 #tray:hover,
 #network:hover,
 #custom-power:hover {
-    background-color: @bg-hover;
+  background-color: @bg-hover;
 }
 
 /* ---  Workspaces --- */
 
 #workspaces {
-    background-color: @bg;
-    padding: 0px 0px;
+  background-color: @bg;
+  padding: 0px 0px;
 }
 
 #workspaces button {
@@ -95,10 +102,9 @@ tooltip {
 /* ---  Custom Module Styles --- */
 
 #custom-power {
-    margin-right: 5px;
+  margin-right: 5px;
 }
 
 #bluetooth.on {
-    color: #2196f3;
+  color: #2196f3;
 }
-
