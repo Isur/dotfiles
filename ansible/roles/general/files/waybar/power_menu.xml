@@ -22,5 +22,13 @@
 	<property name="label">Update</property>
       </object>
     </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="delimiter3"/>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="wallchange">
+	<property name="label">Wallchange</property>
+      </object>
+    </child>
   </object>
 </interface>

@@ -190,7 +190,8 @@
             "reboot": "reboot",
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate",
-            "update": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater"
+            "update": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater",
+            "wallchange": "ghostty -e ~/dotfiles/scripts/wallchange"
         }
     }
 }
