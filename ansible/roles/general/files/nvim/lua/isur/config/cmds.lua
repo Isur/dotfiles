@@ -7,12 +7,13 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
+-- Spellcheck toggle
 vim.api.nvim_create_user_command("Spellcheck", function()
 	vim.o.spell = not vim.o.spell
 end, {})
 
+-- Virtual text toggle
 local virtual_text_enabled = false
-local virtual_lines_enabled = false
 vim.api.nvim_create_user_command("DiagnosticVirtualText", function()
 	virtual_text_enabled = not virtual_text_enabled
 	vim.diagnostic.config({
@@ -20,6 +21,9 @@ vim.api.nvim_create_user_command("DiagnosticVirtualText", function()
 	})
 	print("Virtual Text is now " .. (virtual_text_enabled and "enabled" or "disabled"))
 end, {})
+
+-- Virtual lines toggle
+local virtual_lines_enabled = false
 vim.api.nvim_create_user_command("DiagnosticVirtualLines", function()
 	virtual_lines_enabled = not virtual_lines_enabled
 	vim.diagnostic.config({
@@ -28,6 +32,7 @@ vim.api.nvim_create_user_command("DiagnosticVirtualLines", function()
 	print("Virtual Lines is now " .. (virtual_lines_enabled and "enabled" or "disabled"))
 end, {})
 
+-- Attach to LSP
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
 	callback = function(event)
@@ -68,6 +73,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
+-- linter
 local lint = require("lint")
 if vim.env.NVIM_LINT ~= "off" then
 	vim.api.nvim_create_autocmd({ "BufWritePost" }, {
