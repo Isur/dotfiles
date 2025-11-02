@@ -8,22 +8,6 @@ return {
 			lint.linters_by_ft = {
 				python = { "ruff" },
 			}
-
-			local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })
-
-			if vim.env.NVIM_LINT ~= "off" then
-				vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-					group = lint_autogroup,
-					callback = function()
-						lint.try_lint()
-					end,
-				})
-			end
-
-			local buf = vim.api.nvim_get_current_buf()
-			vim.api.nvim_buf_create_user_command(buf, "Lint", function()
-				lint.try_lint()
-			end, { desc = "Trigger linting for current file" })
 		end,
 	},
 	{

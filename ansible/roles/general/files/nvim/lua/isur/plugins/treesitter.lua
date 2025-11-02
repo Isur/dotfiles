@@ -46,6 +46,8 @@ return {
 					"cpp",
 					"http",
 					"go",
+					"latex",
+					"yaml",
 				},
 				auto_install = false,
 				highlight = { enable = true },

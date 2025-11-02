@@ -92,6 +92,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		texlive
 		just
 		github-cli
+		tree-sitter-cli
+		luarocks
 		tldr
 	)
 

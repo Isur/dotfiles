@@ -1,3 +1,5 @@
-require("isur.options")
-require("isur.mappings")
-require("isur.lazy")
+require("isur.config.options")
+require("isur.core.lazy")
+require("isur.core.lsp")
+require("isur.config.mappings")
+require("isur.config.cmds")

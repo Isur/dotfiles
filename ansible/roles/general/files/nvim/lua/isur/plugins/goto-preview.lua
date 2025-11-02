@@ -1,5 +1,6 @@
 return {
 	"rmagatti/goto-preview",
+	dependencies = { "rmagatti/logger.nvim" },
 	config = function()
 		local gt = require("goto-preview")
 		gt.setup({})

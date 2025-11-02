@@ -1,114 +1,50 @@
 return {
 	{
-		"L3MON4D3/LuaSnip",
-		lazy = true,
-		dependencies = {
-			{
-				"rafamadriz/friendly-snippets",
-				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
-					require("luasnip.loaders.from_vscode").lazy_load({
-						paths = { vim.fn.stdpath("config") .. "/snippets" },
-					})
-				end,
-			},
-		},
+		"saghen/blink.cmp",
+		dependencies = {},
+		version = "1.*",
+
+		---@module 'blink.cmp'
+		---@type blink.cmp.Config
 		opts = {
-			history = true,
-			delete_check_events = "TextChanged",
-		},
-	},
-	{
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			"hrsh7th/cmp-buffer", -- source for text in buffer
-			"hrsh7th/cmp-path", -- source for file system paths
-			"hrsh7th/cmp-cmdline", -- source for command line
-			-- "hrsh7th/cmp-nvim-lsp-signature-help", -- source for signature help
-			"L3MON4D3/LuaSnip", -- snippet engine
-			"saadparwaiz1/cmp_luasnip", -- for autocompletion
-			"rafamadriz/friendly-snippets", -- useful snippets
-			"onsails/lspkind.nvim", -- vs-code like pictograms
-		},
+			keymap = {
+				preset = "default",
+				["<C-s>"] = { "show", "hide" },
+				["<C-k>"] = { "show_documentation", "hide_documentation", "show_signature", "hide_signature" },
+				["<C-u>"] = { "scroll_documentation_up" },
+				["<C-d>"] = { "scroll_documentation_down" },
+			},
 
-		config = function()
-			local cmp = require("cmp")
-			local luasnip = require("luasnip")
-			local lspkind = require("lspkind")
+			signature = { enabled = true },
 
-			cmp.setup.filetype({ "sql" }, {
-				sources = {
-					{ name = "vim-dadbod-completion" },
-					{ name = "buffer" },
-				},
-			})
+			appearance = {
+				nerd_font_variant = "mono",
+			},
 
-			cmp.setup.cmdline({ "/", "?" }, {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = {
-					{ name = "buffer" },
-				},
-			})
+			completion = { documentation = { auto_show = false } },
 
-			cmp.setup.cmdline(":", {
-				mapping = cmp.mapping.preset.cmdline(),
-				sources = cmp.config.sources({
-					{ name = "path" },
-				}, {
-					{
-						name = "cmdline",
-						option = {
-							ignore_cmds = { "Man", "!" },
-						},
-					},
-				}),
-			})
-
-			local options = {
-				window = {
-					completion = cmp.config.window.bordered(),
-					documentation = cmp.config.window.bordered(),
+			sources = {
+				default = { "lsp", "path", "buffer" },
+				per_filetype = {
+					sql = { "dadbod" },
+					-- optionally inherit from the `default` sources
+					lua = { inherit_defaults = true, "lazydev" },
 				},
-				completion = {
-					completeopt = "menu,menuone,preview,noselect",
-				},
-				snippet = {
-					expand = function(args)
-						luasnip.lsp_expand(args.body)
-					end,
-				},
-				mapping = cmp.mapping.preset.insert({
-					["<C-k>"] = cmp.mapping.select_prev_item(),
-					["<C-j>"] = cmp.mapping.select_next_item(),
-					["<C-u>"] = cmp.mapping.scroll_docs(-4),
-					["<C-d>"] = cmp.mapping.scroll_docs(4),
-					["<C-s>"] = cmp.mapping.complete(),
-					["<C-e>"] = cmp.mapping.close(),
-					["<C-y>"] = cmp.mapping.confirm({ select = true }),
-				}),
-				sources = {
-					-- { name = "nvim_lsp_signature_help" },
-					{ name = "nvim_lsp" },
-					{ name = "luasnip" },
-					{ name = "buffer" },
-					{ name = "path" },
-				},
-				formatting = {
-					fields = { "kind", "abbr", "menu" },
-					format = lspkind.cmp_format({ with_text = true }),
-				},
-				sorting = {
-					comparators = {
-						cmp.config.compare.offset,
-						cmp.config.compare.exact,
-						cmp.config.compare.score,
-						cmp.config.compare.recently_used,
-						cmp.config.compare.kind,
+				providers = {
+					lazydev = {
+						name = "LazyDev",
+						module = "lazydev.integrations.blink",
+						score_offset = 100,
 					},
 				},
-			}
-			cmp.setup(options)
-		end,
+			},
+
+			cmdline = {
+				keymap = { preset = "inherit" },
+				completion = { menu = { auto_show = true } },
+			},
+			fuzzy = { implementation = "prefer_rust_with_warning" },
+		},
+		opts_extend = { "sources.default" },
 	},
 }
