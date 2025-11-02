@@ -56,6 +56,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		ttf-hack-nerd
 		apple-fonts
 		nerd-fonts-apple
+		vicinae-bin
 	)
 
 	terminal_dev=(
