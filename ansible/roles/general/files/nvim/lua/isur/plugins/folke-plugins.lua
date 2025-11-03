@@ -172,7 +172,7 @@ return {
 			{
 				"<leader>so",
 				function()
-					Snacks.picker.recent({ focus = "list" })
+					Snacks.picker.recent({ focus = "list", filter = { cwd = true } })
 				end,
 				desc = "Picker Oldfiles",
 			},
