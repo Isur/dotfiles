@@ -6,7 +6,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			{ "fredrikaverpil/neotest-golang", version = "*" },
+			{ "fredrikaverpil/neotest-golang", version = "v1.15.1" },
 		},
 		config = function()
 			local neotest_golang_opts = {}
