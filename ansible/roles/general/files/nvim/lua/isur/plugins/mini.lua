@@ -27,12 +27,6 @@ return {
 			},
 		})
 		require("mini.trailspace").setup()
-		require("mini.notify").setup()
-		require("mini.indentscope").setup({
-			draw = {
-				animation = require("mini.indentscope").gen_animation.none(),
-			},
-		})
 		require("mini.statusline").setup({
 			content = {
 				active = function()

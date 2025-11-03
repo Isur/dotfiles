@@ -1,5 +1,4 @@
 return {
-	"kdheepak/lazygit.nvim",
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 	{
@@ -12,8 +11,6 @@ return {
 	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
-			vim.keymap.set("n", "<leader>gg", vim.cmd.LazyGit, { desc = "Lazy Git" })
-
 			local gitsigns = require("gitsigns")
 
 			gitsigns.setup({
