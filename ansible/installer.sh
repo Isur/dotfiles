@@ -209,7 +209,9 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		yazi \
 		tmux \
 		font-symbols-only-nerd-font \
-		just
+		just \
+		tree-sitter-cli \
+		luarocks
 
 	# Applications/Utilities (packages)
 	brew install \
