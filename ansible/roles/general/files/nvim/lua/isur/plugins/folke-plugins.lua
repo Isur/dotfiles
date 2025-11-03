@@ -186,7 +186,7 @@ return {
 			{
 				"<leader>ss",
 				function()
-					Snacks.picker.git_status()
+					Snacks.picker.git_status({ focus = "list" })
 				end,
 				desc = "Picker Git Status",
 			},

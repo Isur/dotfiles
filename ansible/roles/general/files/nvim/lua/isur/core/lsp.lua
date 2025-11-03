@@ -52,10 +52,18 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		end
 
 		nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-		nmap("gd", vim.lsp.buf.definition, "Goto Definition")
-		nmap("gr", vim.lsp.buf.references, "Goto References")
-		nmap("gI", vim.lsp.buf.implementation, "Goto Implementation")
-		nmap("<leader>D", vim.lsp.buf.type_definition, "Type Definition")
+		nmap("gd", function()
+			Snacks.picker.lsp_definitions()
+		end, "Goto Definition")
+		nmap("gr", function()
+			Snacks.picker.lsp_references()
+		end, "Goto References")
+		nmap("gI", function()
+			Snacks.picker.lsp_implementations()
+		end, "Goto Implementation")
+		nmap("<leader>D", function()
+			Snacks.picker.lsp_type_definitions()
+		end, "Goto Type Definition")
 		nmap("[d", function()
 			vim.diagnostic.jump({ count = -1, float = true })
 		end, "Go to previous diagnostic message")
@@ -67,7 +75,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 
 		nmap("K", vim.lsp.buf.hover, "Hover Documentation")
 
-		nmap("gD", vim.lsp.buf.declaration, "Goto Declaration")
+		nmap("gD", function()
+			Snacks.picker.lsp_declarations()
+		end, "Goto Declaration")
+
 		nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
 		nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
 		nmap("<leader>wl", function()
