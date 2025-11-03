@@ -1,4 +1,4 @@
-require("isur.config.options")
+require("isur.core.options")
 require("isur.core.lazy")
 require("isur.core.lsp")
 require("isur.config.mappings")
