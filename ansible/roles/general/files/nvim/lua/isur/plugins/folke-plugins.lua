@@ -121,6 +121,13 @@ return {
 		},
 		keys = {
 			{
+				"<leader>sS",
+				function()
+					Snacks.picker()
+				end,
+				desc = "Picker pickers",
+			},
+			{
 				"<leader>gg",
 				function()
 					Snacks.lazygit()

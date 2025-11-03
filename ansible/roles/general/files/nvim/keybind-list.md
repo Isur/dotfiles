@@ -42,7 +42,7 @@
 - `<leader>kr` - References preview window
 - `<leader>ki` - Implementation preview window
 
-### Search & Telescope (`<leader>s`)
+### Search & Picker (`<leader>s`)
 - `<leader>sf` - Find files
 - `<leader>sh` - Help tags
 - `<leader>sk` - Keymaps
@@ -51,6 +51,9 @@
 - `<leader>ss` - Git status
 - `<leader>sc` - Spell check suggestions
 - `<leader>st` - Todo comments
+- `<leader>si` - Picker icons
+- `<leader>su` - Picker undo
+- `<leader>sr` - GitHub PR picker
 - `<leader>/` - Fuzzy search in current buffer
 - `<leader><space>` - Find existing buffers
 
@@ -78,6 +81,7 @@
 - `<leader>dd` - Trouble diagnostics
 - `<leader>dx` - Trouble buffer diagnostics
 - `<leader>ds` - Trouble symbols
+- `<leader>dt` - Trouble todos
 
 **Debug:**
 - `<leader>dc` - Debug continue
@@ -91,6 +95,7 @@
 - `<leader>tt` - Test run test
 - `<leader>tS` - Test run suite
 - `<leader>tl` - Test run last
+- `<leader>ts` - Test summary
 - `<leader>to` - Test output
 - `<leader>tO` - Test output panel
 - `<leader>tT` - Test terminate
@@ -148,7 +153,7 @@
 - `p` - Paste without yanking (preserves clipboard)
 
 ### Control Keys
-- `<C-k>` - Toggle LSP signature help
+- `<C-k>` - Show/hide documentation and signature help
 - `<C-a>` - Select all
 
 ### Buffer Navigation
@@ -156,11 +161,11 @@
 - `<S-Tab>` - Previous buffer
 
 ### Autocompletion (Insert Mode)
-- `<C-k>` - Select previous item
+- `<C-k>` - Show/hide documentation and signature help
 - `<C-j>` - Select next item
 - `<C-u>` - Scroll docs up
 - `<C-d>` - Scroll docs down
-- `<C-s>` - Complete
+- `<C-s>` - Show/hide completion
 - `<C-e>` - Close completion
 - `<C-y>` - Confirm selection
 
