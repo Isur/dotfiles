@@ -11,4 +11,4 @@ macos-titlebar-style = hidden
 gtk-titlebar = false
 link-url = true
 
-background-opacity = 0.9
+background-opacity = 1.0
