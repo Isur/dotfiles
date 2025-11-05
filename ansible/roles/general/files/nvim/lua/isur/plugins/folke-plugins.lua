@@ -117,7 +117,6 @@ return {
 			notify = { enabled = true },
 			notifier = { enabled = true },
 			scope = { enabled = true },
-			scroll = { enabled = true },
 		},
 		keys = {
 			{
