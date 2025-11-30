@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+DIRECTORY="/home/$(whoami)/prompts"
+COMMAND="opencode run 'Use the prompt from attached file' --file "
+
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --dir|--directory)
+            DIRECTORY="$2"
+            shift 2
+            ;;
+        --command|--cmd)
+            COMMAND="$2"
+            shift 2
+            ;;
+        --help|-h)
+            echo "Usage: $0 [OPTIONS]"
+            echo ""
+            echo "Options:"
+            echo "  --dir, --directory DIR    Directory to search for files (default: .)"
+            echo "  --command, --cmd CMD      Command to execute on selected file (default: echo)"
+            echo "  --help, -h                Show this help message"
+            echo ""
+            echo "Example:"
+            echo "  $0 --dir /path/to/my/dir --command cat"
+            exit 0
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Use --help for usage information"
+            exit 1
+            ;;
+    esac
+done
+
+if ! command -v fzf &> /dev/null; then
+    echo "Error: fzf is not installed. Please install it first."
+    exit 1
+fi
+
+if ! command -v fd &> /dev/null; then
+    echo "Error: fd is not installed. Please install it first."
+    exit 1
+fi
+
+if [ ! -d "$DIRECTORY" ]; then
+    echo "Error: Directory '$DIRECTORY' does not exist."
+    exit 1
+fi
+
+selected_file=$(fd --type f . "$DIRECTORY" | fzf --prompt="Select a file: " --height=40% --border)
+
+if [ -z "$selected_file" ]; then
+    echo "No file selected. Exiting."
+    exit 0
+fi
+
+$COMMAND "$selected_file"
