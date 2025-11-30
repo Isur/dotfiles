@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DIRECTORY="/home/$(whoami)/prompts"
+DIRECTORY="$HOME/prompts"
 PROMPT='Use the prompt from attached file'
 DRY_RUN=false
 declare -A CUSTOM_ARGS
