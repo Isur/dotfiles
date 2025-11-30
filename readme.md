@@ -39,6 +39,7 @@ Those scripts will be installed:
 - `tmux-sessionizer` - create tmux session in selected directory;
 - `tmux-fzf` - search in tmux window (used in tmux floating window);
 - `wallchange` - change to random wallpaper in hyprland;
+- `prompter` - script to run custom prompts with opencode;
 
 ### Secrets
 
