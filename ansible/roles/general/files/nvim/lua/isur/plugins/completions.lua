@@ -26,7 +26,7 @@ return {
 			sources = {
 				default = { "lsp", "path", "buffer" },
 				per_filetype = {
-					sql = { "dadbod" },
+					-- sql = { "dadbod" },
 					-- optionally inherit from the `default` sources
 					lua = { inherit_defaults = true, "lazydev" },
 				},
