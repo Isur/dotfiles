@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 DIRECTORY="/home/$(whoami)/prompts"
-COMMAND="opencode run 'Use the prompt from attached file' --file "
+PROMPT='Use the prompt from attached file'
+declare -A CUSTOM_ARGS
 
 while [[ $# -gt 0 ]]; do
     case $1 in
@@ -9,21 +10,30 @@ while [[ $# -gt 0 ]]; do
             DIRECTORY="$2"
             shift 2
             ;;
-        --command|--cmd)
-            COMMAND="$2"
-            shift 2
-            ;;
         --help|-h)
             echo "Usage: $0 [OPTIONS]"
             echo ""
             echo "Options:"
-            echo "  --dir, --directory DIR    Directory to search for files (default: .)"
-            echo "  --command, --cmd CMD      Command to execute on selected file (default: echo)"
+            echo "  --dir, --directory DIR    Directory to search for files (default: /home/\$(whoami)/prompts)"
             echo "  --help, -h                Show this help message"
+            echo "  --<key> <value>           Custom arguments to inject into the prompt"
             echo ""
             echo "Example:"
-            echo "  $0 --dir /path/to/my/dir --command cat"
+            echo "  $0 --dir /path/to/my/dir --branch dev --env production"
+            echo ""
+            echo "Custom arguments will be appended to the prompt like:"
+            echo "  'Use the prompt from attached file. Variables: branch=dev, env=production'"
             exit 0
+            ;;
+        --*)
+            # Capture any other --option as a custom argument
+            key="${1#--}"
+            if [[ $# -lt 2 || "$2" == --* ]]; then
+                echo "Error: Option $1 requires a value"
+                exit 1
+            fi
+            CUSTOM_ARGS["$key"]="$2"
+            shift 2
             ;;
         *)
             echo "Unknown option: $1"
@@ -54,5 +64,16 @@ if [ -z "$selected_file" ]; then
     echo "No file selected. Exiting."
     exit 0
 fi
+
+if [ ${#CUSTOM_ARGS[@]} -gt 0 ]; then
+    vars_string=""
+    for key in "${!CUSTOM_ARGS[@]}"; do
+        vars_string+="${key}=${CUSTOM_ARGS[$key]}, "
+    done
+    vars_string="${vars_string%, }"
+    PROMPT="${PROMPT}. Variables: ${vars_string}"
+fi
+
+COMMAND="opencode run '${PROMPT}' --file "
 
 $COMMAND "$selected_file"
