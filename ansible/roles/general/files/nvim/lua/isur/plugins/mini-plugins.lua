@@ -81,5 +81,9 @@ return {
 				underline = true,
 			})
 		end
+
+		if vim.g.colors_name == "oldworld" then
+			vim.api.nvim_set_hl(0, "MiniStatuslineFilename", { fg = "#C9C7CD", bold = false })
+		end
 	end,
 }

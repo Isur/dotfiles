@@ -4,7 +4,7 @@ font-style-italic = Italic
 font-style-bold = Bold
 font-style-bold-italic = BoldItalic
 
-theme = Catppuccin Macchiato
+theme = Elementary
 font-size = 16
 window-decoration = true
 macos-titlebar-style = hidden
