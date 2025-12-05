@@ -2,13 +2,6 @@ return {
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 	{
-		"isak102/telescope-git-file-history.nvim",
-		dependencies = { "tpope/vim-fugitive" },
-		config = function()
-			vim.keymap.set("n", "<leader>gf", ":Telescope git_file_history<CR>", { desc = "Git file history" })
-		end,
-	},
-	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			local gitsigns = require("gitsigns")

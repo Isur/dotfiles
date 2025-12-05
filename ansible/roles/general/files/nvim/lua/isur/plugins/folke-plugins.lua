@@ -224,6 +224,13 @@ return {
 				end,
 				desc = "GitHub",
 			},
+			{
+				"<leader>gf",
+				function()
+					Snacks.picker.git_log_file()
+				end,
+				desc = "Git file history",
+			},
 		},
 	},
 }
