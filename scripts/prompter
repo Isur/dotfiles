@@ -3,6 +3,7 @@
 DIRECTORY="$HOME/prompts"
 PROMPT='Use the prompt from attached file'
 DRY_RUN=false
+DIRECT_PROMPT=""
 typeset -A CUSTOM_ARGS
 
 while [[ $# -gt 0 ]]; do
@@ -15,20 +16,29 @@ while [[ $# -gt 0 ]]; do
             DRY_RUN=true
             shift
             ;;
+        --select)
+            DIRECT_PROMPT="$2"
+            shift 2
+            ;;
         --help|-h)
-            echo "Usage: $0 [OPTIONS]"
+            echo "Usage: $0 [PROMPT_NAME] [OPTIONS]"
+            echo ""
+            echo "Arguments:"
+            echo "  PROMPT_NAME               Directly run a prompt by name (without extension)"
             echo ""
             echo "Options:"
+            echo "  --select PROMPT_NAME      Directly run a prompt by name (without extension)"
             echo "  --dir, --directory DIR    Directory to search for files (default: \$HOME/prompts)"
             echo "  --dry-run                 Show the command that would be executed without running it"
             echo "  --help, -h                Show this help message"
             echo "  --<key> <value>           Custom arguments to inject into the prompt"
             echo ""
-            echo "Example:"
-            echo "  $0 --dir /path/to/my/dir --branch dev --env production"
-            echo ""
-            echo "Custom arguments will be appended to the prompt like:"
-            echo "  'Use the prompt from attached file. Variables: branch=dev, env=production'"
+            echo "Examples:"
+            echo "  $0                                    # Interactive mode with fzf"
+            echo "  $0 my-prompt                          # Run 'my-prompt' directly"
+            echo "  $0 --select my-prompt                 # Run 'my-prompt' directly"
+            echo "  $0 my-prompt --branch dev             # Run 'my-prompt' with custom variables"
+            echo "  $0 --dir /path/to/my/dir --branch dev # Custom directory with variables"
             exit 0
             ;;
         --*)
@@ -42,9 +52,15 @@ while [[ $# -gt 0 ]]; do
             shift 2
             ;;
         *)
-            echo "Unknown option: $1"
-            echo "Use --help for usage information"
-            exit 1
+            # If no flag, treat as direct prompt name
+            if [ -z "$DIRECT_PROMPT" ]; then
+                DIRECT_PROMPT="$1"
+                shift
+            else
+                echo "Unknown option: $1"
+                echo "Use --help for usage information"
+                exit 1
+            fi
             ;;
     esac
 done
@@ -80,23 +96,37 @@ typeset -A file_map
 while IFS= read -r filepath; do
     # Extract filename without extension for display
     display_name=$(basename "$filepath" | sed 's/\.[^.]*$//')
-    file_map["$display_name"]="$filepath"
+    file_map[$display_name]="$filepath"
 done < <(fd --type f . "$DIRECTORY")
 
-# Show clean names in fzf with preview
-selected_display=$(printf '%s\n' "${(k)file_map[@]}" | sort | fzf \
-    --prompt="Select a prompt: " \
-    --height=100% \
-    --border \
-    --preview "cat '${DIRECTORY}/{}.xml' 2>/dev/null || cat '${DIRECTORY}/{}.'* 2>/dev/null" \
-    --preview-window=right:60%:wrap)
+# Handle direct prompt selection or interactive mode
+if [ -n "$DIRECT_PROMPT" ]; then
+    # Direct prompt specified - find and run it
+    if [ -z "${file_map[$DIRECT_PROMPT]}" ]; then
+        echo "Error: Prompt '$DIRECT_PROMPT' not found in directory '$DIRECTORY'"
+        echo ""
+        echo "Available prompts:"
+        printf '%s\n' "${(k)file_map[@]}" | sort | sed 's/^/  - /'
+        exit 1
+    fi
+    selected_display="$DIRECT_PROMPT"
+    selected_file="${file_map[$DIRECT_PROMPT]}"
+else
+    # Interactive mode - show fzf
+    selected_display=$(printf '%s\n' "${(k)file_map[@]}" | sort | fzf \
+        --prompt="Select a prompt: " \
+        --height=100% \
+        --border \
+        --preview "cat '${DIRECTORY}/{}.xml' 2>/dev/null || cat '${DIRECTORY}/{}.'* 2>/dev/null" \
+        --preview-window=right:60%:wrap)
 
-if [ -z "$selected_display" ]; then
-    echo "Operation cancelled - no prompt selected"
-    exit 0
+    if [ -z "$selected_display" ]; then
+        echo "Operation cancelled - no prompt selected"
+        exit 0
+    fi
+
+    selected_file="${file_map[$selected_display]}"
 fi
-
-selected_file="${file_map[$selected_display]}"
 
 typeset -A required_map
 
