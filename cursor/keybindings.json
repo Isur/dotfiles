@@ -1,0 +1,81 @@
+[
+    {
+        "key": "ctrl+i",
+        "command": "composerMode.agent"
+    },
+    {
+        "key": "ctrl+shift+i",
+        "command": "composerMode.chat"
+    },
+    {
+        "key": "ctrl+shift+a",
+        "command": "workbench.action.terminal.focusNext",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+b",
+        "command": "workbench.action.terminal.focusPrevious",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "runCommands",
+        "args": {
+            "commands": ["workbench.action.togglePanel", "workbench.action.focusPanel"]
+        },
+    },
+    {
+        "key": "ctrl+shift+j",
+        "command": "runCommands",
+        "args": {
+            "commands": ["workbench.action.togglePanel", "workbench.action.focusActiveEditorGroup"]
+        },
+        "when": "panelFocus"
+    },
+    {
+        "key": "ctrl+shift+n",
+        "command": "workbench.action.terminal.new",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+w",
+        "command": "workbench.action.terminal.kill",
+        "when": "terminalFocus"
+    },
+    {
+        "command": "runCommands",
+        "key": "ctrl+e",
+        "args": {
+            "commands": ["workbench.files.action.focusFilesExplorer"]
+        },
+        "when": "editorFocus"
+    },
+    {
+        "command": "runCommands",
+        "key": "ctrl+e",
+        "args": {
+            "commands": ["workbench.action.focusActiveEditorGroup", "workbench.action.closeSidebar"]
+        },
+        "when": "filesExplorerFocus"
+    },
+    {
+        "key": "n",
+        "command": "explorer.newFile",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "command": "renameFile",
+        "key": "r",
+        "when": "filesExplorerFocus && !inputFocus"
+    },
+    {
+        "key": "shift+n",
+        "command": "explorer.newFolder",
+        "when": "explorerViewletFocus"
+    },
+    {
+        "command": "deleteFile",
+        "key": "d",
+        "when": "filesExplorerFocus && !inputFocus"
+    }
+]
