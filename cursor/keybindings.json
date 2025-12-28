@@ -43,20 +43,8 @@
         "when": "terminalFocus"
     },
     {
-        "command": "runCommands",
+        "command": "workbench.action.closeSidebar",
         "key": "ctrl+e",
-        "args": {
-            "commands": ["workbench.files.action.focusFilesExplorer"]
-        },
-        "when": "editorFocus"
-    },
-    {
-        "command": "runCommands",
-        "key": "ctrl+e",
-        "args": {
-            "commands": ["workbench.action.focusActiveEditorGroup", "workbench.action.closeSidebar"]
-        },
-        "when": "filesExplorerFocus"
     },
     {
         "key": "n",
@@ -77,5 +65,9 @@
         "command": "deleteFile",
         "key": "d",
         "when": "filesExplorerFocus && !inputFocus"
-    }
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "workbench.scm.action.openReviewChangesPane"
+    },
 ]
