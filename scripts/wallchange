@@ -6,7 +6,7 @@ FOCUSED_MONITOR="DP-1"
 replace() {
     CURRENT_WALL=$(hyprctl hyprpaper listloaded)
     WALLPAPER=$(find "$1" -type f ! -name "$(basename "$CURRENT_WALL")" | shuf -n 1)
-    hyprctl hyprpaper reload "$2","$WALLPAPER"
+    hyprctl hyprpaper wallpaper "$2, $WALLPAPER"
 }
 
 case "$1" in
