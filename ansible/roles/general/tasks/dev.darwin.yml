@@ -8,6 +8,7 @@
     force: true
   loop:
     - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
+    - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_env.HOME }}/.gitconfig-gravyty" }
     - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/Library/Application Support/lazygit/config.yml" }
 
 - name: Darwin | ZSH default shell

@@ -45,3 +45,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 export BROWSER="zen-browser"
+
+
+# Load Angular CLI autocompletion.
+source <(ng completion script)
