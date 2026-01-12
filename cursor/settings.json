@@ -25,6 +25,10 @@
             "commands": ["workbench.action.closeActiveEditor"]
         },
         {
+            "before": ["leader", "X"],
+            "commands": ["workbench.action.closeOtherEditors"]
+        },
+        {
             "before": ["leader", "h"],
             "commands": ["workbench.action.focusLeftGroup"]
         },
@@ -54,15 +58,15 @@
             "commands": ["editor.action.marker.next"]
         },
         {
-            "before": ["<leader>", "c", "a"],
+            "before": ["leader", "c", "a"],
             "commands": ["editor.action.quickFix"]
         },
         {
-            "before": ["<leader>","g", "h"],
+            "before": ["leader","g", "h"],
             "commands": ["git.openChange"]
         },
         {
-            "before": ["<leader>","g", "g"],
+            "before": ["leader","g", "g"],
             "commands": ["workbench.view.scm"]
         },
     ],
