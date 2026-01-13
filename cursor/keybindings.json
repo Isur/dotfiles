@@ -52,6 +52,11 @@
         "when": "filesExplorerFocus && !inputFocus"
     },
     {
+        "key": "enter",
+        "command": "list.select",
+        "when":"filesExplorerFocus && !inputFocus"
+    },
+    {
         "command": "renameFile",
         "key": "r",
         "when": "filesExplorerFocus && !inputFocus"

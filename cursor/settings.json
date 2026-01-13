@@ -1,7 +1,6 @@
 {
     "window.commandCenter": true,
     "editor.fontFamily": "'Maple Mono NF', 'Droid Sans Mono', 'monospace', monospace",
-    "workbench.colorTheme": "Catppuccin Mocha",
     "vim.leader": "<Space>",
     "vim.useSystemClipboard": true,
     "vim.hlsearch": true,
@@ -25,6 +24,15 @@
             "commands": ["workbench.action.closeActiveEditor"]
         },
         {
+            "before": ["leader", "m"],
+            "commands": [            
+                "workbench.action.toggleSidebarVisibility",
+                "workbench.action.togglePanel",
+                "workbench.action.toggleAuxiliaryBar",
+                "workbench.action.focusActiveEditorGroup"
+            ]
+        },
+        {
             "before": ["leader", "X"],
             "commands": ["workbench.action.closeOtherEditors"]
         },
@@ -44,7 +52,11 @@
             "before": ["leader", "l"],
             "commands": ["workbench.action.focusRightGroup"]
         },
-        { "before": ["leader", "f"], "commands": ["workbench.action.quickOpen"] },
+        {
+            "before": ["leader", "f"],
+            "commands": ["editor.action.formatDocument"]
+        },
+        { "before": ["leader", "s", "f"], "commands": ["workbench.action.quickOpen"] },
         {
             "before": ["S-k"],
             "commands": ["editor.action.showDefinitionPreviewHover"]
@@ -79,5 +91,9 @@
         { "before": ["K"], "commands": ["editor.action.moveLinesUpAction"] },
         // toggle comment selection
         { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] }
-    ]
+    ],
+    "editor.cursorStyle": "block",
+    "workbench.activityBar.orientation": "vertical",
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "screencastMode.fontSize": 20
 }
