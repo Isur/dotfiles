@@ -92,8 +92,8 @@
         // toggle comment selection
         { "before": ["leader", "c"], "commands": ["editor.action.commentLine"] }
     ],
-    "editor.cursorStyle": "block",
     "workbench.activityBar.orientation": "vertical",
     "workbench.colorTheme": "Catppuccin Mocha",
-    "screencastMode.fontSize": 20
+    "screencastMode.fontSize": 20,
+    "gitlens.launchpad.indicator.enabled": false
 }
