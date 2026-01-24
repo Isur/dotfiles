@@ -25,7 +25,7 @@ map <leader>nh :nohlsearch<CR>
 
 " Quick actions
 map <leader>ca <Action>(ShowIntentionActions)
-map <S-k> <Action>(ShowQuickDoc)
+map K <Action>(ShowHoverInfo)
 
 " Git
 map <leader>gg <Action>(ActivateVersionControlToolWindow)
