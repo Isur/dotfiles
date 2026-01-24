@@ -1,0 +1,84 @@
+" Leader
+let mapleader=" "
+
+" Plugins
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-commentary'
+
+" Explorer / files
+map <leader>e <Action>(ActivateProjectToolWindow)
+map <leader>f <Action>(GotoFile)
+
+" Buffers / tabs
+map <Tab> <Action>(NextTab)
+map <S-Tab> <Action>(PreviousTab)
+map <leader>x <Action>(CloseEditor)
+map <leader>X <Action>(CloseAllEditorsButActive)
+
+" Splits
+map <leader>v <Action>(SplitVertically)
+map <leader>s <Action>(SplitHorizontally)
+
+" Search
+map <leader>nh :nohlsearch<CR>
+
+" Quick actions
+map <leader>ca <Action>(ShowIntentionActions)
+map <S-k> <Action>(ShowQuickDoc)
+
+" Git
+map <leader>gg <Action>(ActivateVersionControlToolWindow)
+map <leader>gh <Action>(Vcs.ShowTabbedFileHistory)
+
+" Leader Maps from previous setup
+map <leader>b <Action>(ToggleLineBreakpoint)
+map <leader>r <Action>(RenameElement)
+map <leader>a <Action>(ShowIntentionActions)
+map <leader>t <Action>(ActivateTerminalToolWindow)
+map <leader>us <Action>(FindUsages)
+
+" Pane focus
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+
+" Methods
+map [[ <Action>(MethodUp)
+map ]] <Action>(MethodDown)
+
+" Go to
+map gd <Action>(GotoDeclaration)
+map gD <Action>(GotoTypeDeclaration)
+map gi <Action>(GotoImplementation)
+map gT <Action>(GotoTest)
+
+" Go to Errors
+map g[ <Action>(GotoPreviousError)
+map g] <Action>(GotoNextError)
+
+" Move selected
+vnoremap < <gv
+vnoremap > >gv
+vnoremap J :m '>+1<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
+nnoremap <leader>gc :Commentary<CR>
+vnoremap <leader>gc :Commentary<CR>
+
+" Nerdtree
+set NERDTree
+let g:NERDTreeMapActivateNode='l'
+let g:NERDTreeMapJumpParent='l'
+
+" Options
+set ideajoin
+set relativenumber
+set number
+set clipboard=unnamedplus
+set scrolloff=8
+set tabstop=4
+set shiftwidth=4
+set expandtab
+set breakindent
+set hlsearch
+
