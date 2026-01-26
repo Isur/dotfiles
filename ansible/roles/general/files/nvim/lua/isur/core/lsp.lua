@@ -2,6 +2,7 @@ vim.lsp.enable({
 	"gopls",
 	"lua_ls",
 	"arduino_language_server",
+	"angularls",
 	"tailwindcss",
 	"cssls",
 	"dockerls",

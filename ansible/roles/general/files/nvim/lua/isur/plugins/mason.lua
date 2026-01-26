@@ -27,6 +27,7 @@ return {
 					"arduino-language-server",
 					"clangd",
 					"ansible-language-server",
+					"angular-language-server",
 					"marksman",
 					"gopls",
 					"pyright",
