@@ -40,12 +40,8 @@ return {
 					local diff = MiniStatusline.section_diff({ trunc_width = 75 })
 					local modified = vim.bo.modified and "●" or ""
 
-					-- Check if the supermaven is running
-					local supermaven = require("supermaven-nvim.api").is_running() and "[SM]" or ""
-
 					return MiniStatusline.combine_groups({
 						{ hl = "MiniStatuslineDevinfo", strings = { serachCount } },
-						{ hl = "MiniIconsPurple", strings = { supermaven } },
 						{ hl = mode_hl, strings = { mode } },
 						{ hl = "MiniIconsYellow", strings = { modified } },
 						{ hl = "MiniStatuslineDevinfo", strings = { git, diagnostics } },
