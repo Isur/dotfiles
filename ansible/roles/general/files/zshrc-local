@@ -38,7 +38,7 @@ export NVM_DIR="$HOME/.nvm"
 # NVM END
 
 # bun completions
-[ -s "/home/isur/.bun/_bun" ] && source "/home/isur/.bun/_bun"
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -49,3 +49,6 @@ export BROWSER="zen-browser"
 
 # Load Angular CLI autocompletion.
 source <(ng completion script)
+
+# dotnet
+export PATH="$PATH:$HOME/.dotnet/tools"
