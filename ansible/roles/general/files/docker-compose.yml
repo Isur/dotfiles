@@ -12,3 +12,19 @@ services:
       - POSTGRES_USER=local
       - POSTGRES_PASSWORD=local
       - TZ="Europe/Warsaw"
+
+  global-proxy:
+    container_name: global-caddy
+    image: caddy:2
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./config/caddy:/etc/caddy
+      - ./config/caddy_site:/srv
+      - ./data/caddy_data:/data
+      - ./data/caddy_config:/config
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
