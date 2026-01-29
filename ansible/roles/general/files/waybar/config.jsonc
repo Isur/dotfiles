@@ -14,6 +14,7 @@
         "cpu",
         "memory",
         "temperature",
+        "custom/notifications",
         "bluetooth",
         "tray",
         "custom/power"
@@ -193,5 +194,14 @@
             "update": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater",
             "wallchange": "ghostty -e ~/dotfiles/scripts/wallchange"
         }
+    },
+    "custom/notifications": {
+        "return-type": "json",
+        "exec": "$HOME/.config/waybar/notifications.py 100",
+        "interval": 5,
+        "tooltip": true,
+        "on-click": "ghostty --wait-after-command -e makoctl history",
+        "on-click-right": "makoctl restore",
+        "on-click-middle": "sh -c 'pkill -x mako; mako >/dev/null 2>&1 &'"
     }
 }

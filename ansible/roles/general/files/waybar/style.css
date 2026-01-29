@@ -39,6 +39,7 @@ menuitem:hover {
 #workspaces,
 #clock,
 #custom-media,
+#custom-notifications,
 #pulseaudio,
 #bluetooth,
 #cpu,
@@ -58,6 +59,7 @@ menuitem:hover {
 
 #clock:hover,
 #custom-media:hover,
+#custom-notifications:hover,
 #pulseaudio:hover,
 #bluetooth:hover,
 #cpu:hover,

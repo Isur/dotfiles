@@ -41,7 +41,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		hyprpicker
 		hyprpolkitagent
 		hyprsysteminfo
-		hyprnotify
+		# hyprnotify
+		mako # notification
 		waybar
 		rofi
 		grim
