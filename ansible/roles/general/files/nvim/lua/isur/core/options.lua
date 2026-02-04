@@ -56,3 +56,6 @@ vim.o.winborder = "single"
 vim.o.spell = false
 -- This should spellcheck English. To powinno również sprawdzać język polski.
 vim.o.spelllang = "en,pl"
+
+vim.opt.fileformat = "unix"
+vim.opt.fileformats = { "unix", "dos", "mac" }
