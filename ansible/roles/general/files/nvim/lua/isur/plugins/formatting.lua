@@ -29,6 +29,10 @@ return {
 		config = function()
 			local conform = require("conform")
 
+			if vim.env.NVIM_FORMAT == "off" then
+				return
+			end
+
 			conform.setup({
 				formatters = {
 					prettierd = {
