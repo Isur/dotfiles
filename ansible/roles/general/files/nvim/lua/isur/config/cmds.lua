@@ -31,11 +31,3 @@ vim.api.nvim_create_user_command("DiagnosticVirtualLines", function()
 	})
 	print("Virtual Lines is now " .. (virtual_lines_enabled and "enabled" or "disabled"))
 end, {})
-
--- Change file format to unix always
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufWritePre" }, {
-	pattern = "*",
-	callback = function()
-		vim.bo.fileformat = "unix"
-	end,
-})
