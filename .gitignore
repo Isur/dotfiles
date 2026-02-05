@@ -1,2 +1,3 @@
 lazy-lock.json
 .vault_pass
+ansible/roles/general/files/waybar/theme.css

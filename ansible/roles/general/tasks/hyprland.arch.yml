@@ -20,6 +20,15 @@
     - { src: "rofi", dest: "{{ ansible_env.HOME }}/.config/rofi" }
     - { src: "waybar", dest: "{{ ansible_env.HOME }}/.config/waybar" }
 
+- name: Arch | Waybar theme.css
+  ansible.builtin.copy:
+    dest: "{{ ansible_env.HOME }}/.config/waybar/theme.css"
+    mode: "0644"
+    content: ""
+    force: false
+    group: "{{ ansible_env.USER }}"
+    owner: "{{ ansible_env.USER }}"
+
 - name: Arch | Enable SDDM
   become: true
   ansible.builtin.systemd:
