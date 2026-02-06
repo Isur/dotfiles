@@ -13,7 +13,7 @@ vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights
 
 -- Buffers
 vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Previous buffer" })
 
 vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Delete buffer" })
 vim.keymap.set("n", "<leader>bD", ":bd!<CR>", { desc = "Force delete buffer" })

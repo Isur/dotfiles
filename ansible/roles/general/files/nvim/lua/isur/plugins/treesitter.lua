@@ -19,7 +19,7 @@ return {
 
 			vim.keymap.set("n", "]c", function()
 				context.toggle()
-			end, { silent = true, desc = "Go to context" })
+			end, { silent = true, desc = "Context toggle" })
 
 			treesitter.setup({
 				ignore_install = {},

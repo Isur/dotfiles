@@ -46,8 +46,8 @@ return {
 								if line:find("<!%-%- toc %-%->") then
 									return true
 								end
-								return false
 							end
+							return false
 						end,
 					},
 					["markdownlint-cli2"] = {

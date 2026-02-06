@@ -14,7 +14,6 @@
 - `<leader>a` - Swap next parameter
 - `<leader>A` - Swap previous parameter
 - `<leader>e` - File Explorer (Oil)
-- `<leader>u` - Undotree
 - `<leader>D` - Go to type definition
 
 ### Code (`<leader>c`)
@@ -35,13 +34,6 @@
 - `<leader><Tab>` - Next in harpoon
 - `<leader><S-Tab>` - Previous in harpoon
 
-### Go to Preview (`<leader>k`)
-- `<leader>kk` - Definition preview window
-- `<leader>kq` - Close preview windows
-- `<leader>kt` - Type definition preview window
-- `<leader>kr` - References preview window
-- `<leader>ki` - Implementation preview window
-
 ### Search & Picker (`<leader>s`)
 - `<leader>sf` - Find files
 - `<leader>sh` - Help tags
@@ -54,6 +46,7 @@
 - `<leader>si` - Picker icons
 - `<leader>su` - Picker undo
 - `<leader>sr` - GitHub PR picker
+- `<leader>sS` - Picker list (all pickers)
 - `<leader>/` - Fuzzy search in current buffer
 - `<leader><space>` - Find existing buffers
 
@@ -87,6 +80,10 @@
 - `<leader>dc` - Debug continue
 - `<leader>db` - Debug breakpoint
 - `<leader>dr` - Debug REPL
+- `<leader>do` - Debug step over
+- `<leader>di` - Debug step into
+- `<leader>du` - Debug step out
+- `<leader>dC` - Debug clear breakpoints
 - `<leader>dw` - Debug UI open
 - `<leader>dW` - Debug UI close
 
@@ -153,7 +150,6 @@
 - `p` - Paste without yanking (preserves clipboard)
 
 ### Control Keys
-- `<C-k>` - Show/hide documentation and signature help
 - `<C-a>` - Select all
 
 ### Buffer Navigation
@@ -169,17 +165,13 @@
 - `<C-e>` - Close completion
 - `<C-y>` - Confirm selection
 
-### Telescope Bindings (Within Telescope)
-- `<C-d>` - Delete buffer (in buffer picker)
-- `<C-q>` - Send to quickfix list
-- `<C-g>` - Open in browser (git file history)
-
 ### Oil File Explorer
 - `<C-s>` - Open in vertical split
 - `<C-h>` - Open in horizontal split
 - `<C-t>` - Open in new tab
 - `<C-p>` - Preview file
 - `<C-q>` - Close Oil
+- `<leader>q` - Close Oil
 - `<C-l>` - Refresh
 
 ### Treesitter Context
