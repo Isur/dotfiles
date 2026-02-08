@@ -35,12 +35,18 @@ return {
 					local diagnostics = MiniStatusline.section_diagnostics({ trunc_width = 75 })
 					local filename = MiniStatusline.section_filename({ trunc_width = 140 })
 					local fileinfo = MiniStatusline.section_fileinfo({ trunc_width = 120 })
-					local location = MiniStatusline.section_location({ trunc_width = 75 })
+					-- local location = MiniStatusline.section_location({ trunc_width = 75 })
 					local serachCount = MiniStatusline.section_searchcount({ trunc_width = 75 })
 					local diff = MiniStatusline.section_diff({ trunc_width = 75 })
 					local modified = vim.bo.modified and "●" or ""
+					local recording = vim.fn.reg_recording()
+					if recording == "" then
+					else
+						recording = "@[" .. recording .. "]"
+					end
 
 					return MiniStatusline.combine_groups({
+						{ hl = mode_hl, strings = { recording } },
 						{ hl = "MiniStatuslineDevinfo", strings = { serachCount } },
 						{ hl = mode_hl, strings = { mode } },
 						{ hl = "MiniIconsYellow", strings = { modified } },
@@ -49,7 +55,7 @@ return {
 						{ hl = "MiniStatuslineFilename", strings = { filename, diff } },
 						"%=", -- End left alignment
 						{ hl = "MiniStatuslineFileinfo", strings = { fileinfo } },
-						{ hl = mode_hl, strings = { location } },
+						-- { hl = mode_hl, strings = { location } },
 					})
 				end,
 				inactive = function()

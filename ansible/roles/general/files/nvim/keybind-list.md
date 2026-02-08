@@ -47,6 +47,7 @@
 - `<leader>su` - Picker undo
 - `<leader>sr` - GitHub PR picker
 - `<leader>sS` - Picker list (all pickers)
+- `<leader>sC` - Picker color schemes
 - `<leader>/` - Fuzzy search in current buffer
 - `<leader><space>` - Find existing buffers
 

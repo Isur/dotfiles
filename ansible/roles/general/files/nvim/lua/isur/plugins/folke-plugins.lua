@@ -102,6 +102,20 @@ return {
 		},
 	},
 	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			presets = {
+				bottom_search = true,
+				lsp_doc_border = true,
+			},
+		},
+		dependencies = {
+			-- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+			"MunifTanjim/nui.nvim",
+		},
+	},
+	{
 		"folke/snacks.nvim",
 		priority = 1000,
 		lazy = false,
@@ -232,6 +246,13 @@ return {
 					Snacks.picker.git_log_file()
 				end,
 				desc = "Git file history",
+			},
+			{
+				"<leader>sC",
+				function()
+					Snacks.picker.colorschemes()
+				end,
+				desc = "Picker color schemes",
 			},
 		},
 	},
