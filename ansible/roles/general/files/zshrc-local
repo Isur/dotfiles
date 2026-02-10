@@ -7,7 +7,7 @@ export LANG="en_US.UTF-8"
 ZSH_THEME="amuse"
 
 # PLUGINS
-plugins=(zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting poetry ssh-agent)
+plugins=(zsh-fzf-history-search zsh-autosuggestions zsh-syntax-highlighting poetry ssh-agent direnv)
 
 # OH MY ZSH
 source $ZSH/oh-my-zsh.sh

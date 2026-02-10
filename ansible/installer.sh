@@ -97,6 +97,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		tree-sitter-cli
 		luarocks
 		tldr
+		direnv
 	)
 
 	gaming=(
@@ -168,7 +169,8 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		font-jetbrains-mono-nerd-font \
 		font-maple-mono-nf \
 		font-hack-nerd-font \
-		font-sf-pro
+		font-sf-pro \
+		shottr
 
 	# Terminal/Development (casks)
 	brew install --cask \
@@ -178,21 +180,26 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		docker \
 		ghostty \
 		virtualbox \
-		openvpn-connect
+		openvpn-connect \
+		dotnet-sdk \
+		dotnet-sdk@8 \
+		cursor
 
 	# Applications/Utilities (casks)
 	brew install --cask \
-		arc \
-		zen \
+		brave-browser \
+		libreoffice \
 		discord \
 		spotify \
 		bazecor \
-		obsidian
+		obsidian \
+		rustdesk
 
 	# Terminal/Development (packages)
 	brew install \
 		postgresql@17 \
 		git \
+		gh \
 		openvpn \
 		lazygit \
 		git-delta \
@@ -212,7 +219,10 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		font-symbols-only-nerd-font \
 		just \
 		tree-sitter-cli \
-		luarocks
+		luarocks \
+		opencode \
+		tree-sitter-cli \
+		direnv
 
 	# Applications/Utilities (packages)
 	brew install \
