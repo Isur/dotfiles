@@ -7,12 +7,20 @@ return {
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
 			{ "fredrikaverpil/neotest-golang", version = "v1.15.1" },
+			{ "nsidorenco/neotest-vstest" },
 		},
 		config = function()
 			local neotest_golang_opts = {}
+			vim.g.neotest_vstest = vim.tbl_deep_extend("force", vim.g.neotest_vstest or {}, {
+				dap_settings = {
+					type = "netcoredbg",
+				},
+			})
+
 			require("neotest").setup({
 				adapters = {
 					require("neotest-golang")(neotest_golang_opts),
+					require("neotest-vstest"),
 				},
 			})
 		end,

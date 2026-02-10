@@ -19,6 +19,12 @@ return {
 				},
 			}
 
+			dap.adapters["netcoredbg"] = {
+				type = "executable",
+				command = "netcoredbg",
+				args = { "--interpreter=vscode" },
+			}
+
 			dap.adapters.delve = {
 				type = "server",
 				port = "2345",
