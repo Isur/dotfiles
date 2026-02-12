@@ -7,7 +7,7 @@ export LANG="en_US.UTF-8"
 ZSH_THEME="bira"
 
 # PLUGINS
-plugins=(ansible bun docker fzf gh git golang kubectl nestjs ng node npm nvm poetry redis-cli rsync ssh ssh-agent systemd tmux uv z zsh-autosuggestions zsh-fzf-history-search zsh-syntax-highlighting)
+plugins=(ansible bun direnv docker fzf gh git golang kubectl nestjs ng node npm nvm poetry redis-cli rsync ssh ssh-agent systemd tmux uv z zsh-autosuggestions zsh-fzf-history-search zsh-syntax-highlighting)
 
 # OH MY ZSH
 source $ZSH/oh-my-zsh.sh
