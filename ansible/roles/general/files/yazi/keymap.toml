@@ -1,0 +1,12 @@
+[[mgr.prepend_keymap]]
+on = "T"
+run = '''
+shell --block -- sh -c '
+p="%h"
+[ -n "$p" ] || exit 0
+[ -d "$p" ] || p="$(dirname "$p")"
+tmux new-window -c "$p"
+'
+'''
+desc = "Open tmux window here"
+

@@ -15,6 +15,7 @@
     - Developer/Global
     - .config/lazygit
     - .config/ghostty
+    - .config/yazi
 
 - name: Check if global docker-compose is already here
   ansible.builtin.stat:
@@ -144,3 +145,6 @@
     - { src: "zshrc-local", dest: "{{ ansible_env.HOME }}/.zshrc" }
     - { src: "ghostty", dest: "{{ ansible_env.HOME }}/.config/ghostty/config" }
     - { src: "tmux.conf", dest: "{{ ansible_env.HOME }}/.tmux.conf" }
+    - { src: "yazi/keymap.toml", dest: "{{ ansible_env.HOME }}/.config/yazi/keymap.toml"}
+    - { src: "yazi/package.toml", dest: "{{ ansible_env.HOME }}/.config/yazi/package.toml"}
+    - { src: "yazi/theme.toml", dest: "{{ ansible_env.HOME }}/.config/yazi/theme.toml"}
