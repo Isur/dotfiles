@@ -40,6 +40,7 @@ zle -N zle-line-init
 # ALIASES
 alias dotfiles="cd $HOME/dotfiles"
 alias zsh-refresh="source $HOME/.zshrc"
+alias yy="yazi $HOME/Downloads $HOME/DataVault/Business/Kontrakty/Gravyty $HOME/DataVault/Business/Kontrakty/Estimity/Projekty/Flux $HOME/DataVault/Business/Księgowość/Faktury/2026"
 
 
 # PATHS
