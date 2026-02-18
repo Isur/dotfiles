@@ -7,6 +7,9 @@ return {
 			local gitsigns = require("gitsigns")
 
 			gitsigns.setup({
+				diff_opts = {
+					ignore_whitespace_change_at_eol = true,
+				},
 				signs = {
 					add = { text = "+" },
 					change = { text = "~" },
@@ -31,6 +34,11 @@ return {
 	{
 		-- "sindrets/diffview.nvim",
 		"esmuellert/codediff.nvim",
+		opts = {
+			diff = {
+				ignore_trim_whitespace = true,
+			},
+		},
 	},
 	{
 		"NeogitOrg/neogit",
