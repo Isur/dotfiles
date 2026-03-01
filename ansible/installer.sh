@@ -139,6 +139,10 @@ if [ "$SYSTEM" == "Arch" ]; then
 		syncthing
 		zip
 		unzip
+		restic
+		localsend
+		cryptomator
+		cryptomator-cli
 	)
 
 	for package in "${driver_system[@]}"; do

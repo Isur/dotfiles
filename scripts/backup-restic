@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+RESTIC_REPOSITORY="/run/media/isur/Expansion/data_vault"
+BACKUP_TARGET="/media/Common/data_vault"
+
+echo "Backup repository: $RESTIC_REPOSITORY"
+echo "Backup target: $BACKUP_TARGET"
+
+init() {
+    restic --repo $RESTIC_REPOSITORY init
+}
+
+backup() {
+    restic --repo $RESTIC_REPOSITORY --verbose backup $BACKUP_TARGET --skip-if-unchanged
+}
+
+check() {
+    restic --repo $RESTIC_REPOSITORY check
+}
+
+clear() {
+    restic --repo $RESTIC_REPOSITORY ls latest
+}
+
+arg=$1
+case $arg in
+    i|init)
+        init
+        ;;
+    b|backup)
+        backup
+        ;;
+    ls)
+        ls
+        ;;
+    c|check)
+        check
+        ;;
+    -h|--help|h|help|*)
+        echo "Usage:"
+        echo "backup-restic init"
+        echo "backup-restic backup"
+        ;;
+esac
