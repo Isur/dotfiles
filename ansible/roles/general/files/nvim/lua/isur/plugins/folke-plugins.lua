@@ -125,7 +125,7 @@ return {
 				enabled = true,
 			},
 			gh = { enabled = true },
-			lazygit = { enabled = false }, -- disabled while testing neogit
+			lazygit = { enabled = true },
 			statuscolumn = { enabled = true },
 			indent = { enabled = true },
 			words = { enabled = true },
@@ -142,14 +142,13 @@ return {
 				end,
 				desc = "Picker pickers",
 			},
-			-- {
-			-- NOTE: not used while testing neogit
-			-- 	"<leader>gg",
-			-- 	function()
-			-- 		Snacks.lazygit()
-			-- 	end,
-			-- 	desc = "Lazy Git",
-			-- },
+			{
+				"<leader>gG",
+				function()
+					Snacks.lazygit()
+				end,
+				desc = "Lazy Git",
+			},
 			{
 				"<leader><space>",
 				function()
