@@ -32,13 +32,7 @@ return {
 		end,
 	},
 	{
-		-- "sindrets/diffview.nvim",
-		"esmuellert/codediff.nvim",
-		opts = {
-			diff = {
-				ignore_trim_whitespace = true,
-			},
-		},
+		"sindrets/diffview.nvim",
 	},
 	{
 		"NeogitOrg/neogit",
