@@ -31,3 +31,17 @@ vim.api.nvim_create_user_command("DiagnosticVirtualLines", function()
 	})
 	print("Virtual Lines is now " .. (virtual_lines_enabled and "enabled" or "disabled"))
 end, {})
+
+_G.lazygit_open_file = function(filename, line)
+	if not filename or filename == "" then
+		return
+	end
+
+	pcall(vim.api.nvim_win_close, 0, true)
+	vim.cmd.edit(vim.fn.fnameescape(filename))
+
+	local line_number = tonumber(line)
+	if line_number and line_number > 0 then
+		pcall(vim.api.nvim_win_set_cursor, 0, { line_number, 0 })
+	end
+end

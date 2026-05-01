@@ -3,4 +3,5 @@ git:
     - colorArg: always
       pager: delta --dark --paging=never
 os:
-  editPreset: "nvim-remote"
+  edit: "sh -c 'if [ -n \"$NVIM\" ]; then nvim --server \"$NVIM\" --remote-send \"<cmd>lua _G.lazygit_open_file([[$1]], [[1]])<CR>\"; else nvim \"$1\"; fi' _ {{filename}}"
+  editAtLine: "sh -c 'if [ -n \"$NVIM\" ]; then nvim --server \"$NVIM\" --remote-send \"<cmd>lua _G.lazygit_open_file([[$1]], [[$2]])<CR>\"; else nvim \"+$2\" \"$1\"; fi' _ {{filename}} {{line}}"
