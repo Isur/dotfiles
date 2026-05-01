@@ -37,12 +37,15 @@ return {
 				"regex",
 				"yaml",
 				"css",
-				"norg",
 				"scss",
 				"svelte",
 				"typst",
 				"vue",
 			}
+
+			vim.api.nvim_create_user_command("TSInstallAllMyLangs", function()
+				require("nvim-treesitter").install(languages):wait(300000)
+			end, { desc = "Install all configured treesitter languages" })
 
 			vim.opt.rtp:prepend(install_dir)
 			require("nvim-treesitter").setup({
