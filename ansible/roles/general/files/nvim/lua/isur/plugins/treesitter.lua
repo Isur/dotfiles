@@ -9,17 +9,18 @@ return {
 		},
 		build = ":TSUpdate",
 		config = function()
+			local map = require("isur.core.keymap").map
 			local treesitter = require("nvim-treesitter.configs")
 			local context = require("treesitter-context")
 			context.setup({ enable = false })
 
-			vim.keymap.set("n", "[c", function()
+			map("n", "[c", function()
 				context.go_to_context(vim.v.count1)
-			end, { silent = true, desc = "Go to context" })
+			end, { silent = true, desc = "Context: [c]ontext go" })
 
-			vim.keymap.set("n", "]c", function()
+			map("n", "]c", function()
 				context.toggle()
-			end, { silent = true, desc = "Context toggle" })
+			end, { silent = true, desc = "Context: [c]ontext toggle" })
 
 			treesitter.setup({
 				ignore_install = {},
@@ -47,6 +48,7 @@ return {
 					"http",
 					"go",
 					"latex",
+					"regex",
 					"yaml",
 				},
 				auto_install = false,

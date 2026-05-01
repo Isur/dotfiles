@@ -1,3 +1,5 @@
+local map = require("isur.core.keymap").map
+
 vim.lsp.enable({
 	"gopls",
 	"lua_ls",
@@ -46,45 +48,47 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(event)
 		local nmap = function(keys, func, desc)
 			if desc then
-				desc = "LSP: " .. desc
+				if not desc:match("^Diag:") then
+					desc = "LSP: " .. desc
+				end
 			end
 
-			vim.keymap.set("n", keys, func, { buffer = event.buf, desc = desc })
+			map("n", keys, func, { buffer = event.buf, desc = desc })
 		end
 
-		nmap("<leader>ca", vim.lsp.buf.code_action, "Code Action")
-		nmap("gd", function()
+		nmap("<leader>la", vim.lsp.buf.code_action, "[l]sp code [a]ction")
+		nmap("<leader>ld", function()
 			Snacks.picker.lsp_definitions()
-		end, "Goto Definition")
-		nmap("gr", function()
+		end, "[l]sp [d]efinition")
+		nmap("<leader>lr", function()
 			Snacks.picker.lsp_references()
-		end, "Goto References")
-		nmap("gI", function()
+		end, "[l]sp [r]eferences")
+		nmap("<leader>li", function()
 			Snacks.picker.lsp_implementations()
-		end, "Goto Implementation")
-		nmap("<leader>D", function()
+		end, "[l]sp [i]mplementation")
+		nmap("<leader>lD", function()
 			Snacks.picker.lsp_type_definitions()
-		end, "Goto Type Definition")
-		nmap("[d", function()
-			vim.diagnostic.jump({ count = -1, float = true })
-		end, "Go to previous diagnostic message")
-		nmap("]d", function()
+		end, "[l]sp type [D]efinition")
+		nmap("<leader>dn", function()
 			vim.diagnostic.jump({ count = 1, float = true })
-		end, "Go to next diagnostic message")
-		nmap("dp", vim.diagnostic.open_float, "Open diagnostic message in float window")
-		nmap("<leader>rn", vim.lsp.buf.rename, "Rename")
+		end, "Diag: [d]iagnostic [n]ext")
+		nmap("<leader>dp", function()
+			vim.diagnostic.jump({ count = -1, float = true })
+		end, "Diag: [d]iagnostic [p]revious")
+		nmap("<leader>df", vim.diagnostic.open_float, "Diag: [d]iagnostic [f]loat")
+		nmap("<leader>lR", vim.lsp.buf.rename, "[l]sp [R]ename")
 
-		nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+		nmap("<leader>lh", vim.lsp.buf.hover, "[l]sp [h]over")
 
-		nmap("gD", function()
+		nmap("<leader>lq", function()
 			Snacks.picker.lsp_declarations()
-		end, "Goto Declaration")
+		end, "[l]sp declaration [q]")
 
-		nmap("<leader>wa", vim.lsp.buf.add_workspace_folder, "Workspace Add Folder")
-		nmap("<leader>wr", vim.lsp.buf.remove_workspace_folder, "Workspace Remove Folder")
-		nmap("<leader>wl", function()
+		nmap("<leader>lwa", vim.lsp.buf.add_workspace_folder, "[l]sp [w]orkspace [a]dd")
+		nmap("<leader>lwr", vim.lsp.buf.remove_workspace_folder, "[l]sp [w]orkspace [r]emove")
+		nmap("<leader>lwl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-		end, "Workspace List Folders")
+		end, "[l]sp [w]orkspace [l]ist")
 
 		vim.api.nvim_buf_create_user_command(event.buf, "Format", function(_)
 			vim.lsp.buf.format()

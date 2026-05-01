@@ -20,13 +20,14 @@ return {
 
 			vim.api.nvim_create_user_command("Lint", function()
 				lint.try_lint()
-			end, { desc = "Trigger linting for current file" })
+			end, { desc = "Lint: [l]int current file" })
 		end,
 	},
 	{
 		"stevearc/conform.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
+			local map = require("isur.core.keymap").map
 			local conform = require("conform")
 
 			if vim.env.NVIM_FORMAT == "off" then
@@ -78,21 +79,21 @@ return {
 					["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
 				},
 				format_on_save = {
-					lsp_fallback = true,
+					lsp_format = "fallback",
 					async = false,
 					timeout_ms = 500,
 				},
 			})
 
-			vim.keymap.set({ "n", "v" }, "<leader>cf", function()
+			map({ "n", "v" }, "<leader>cf", function()
 				conform.format({
-					lsp_fallback = true,
+					lsp_format = "fallback",
 					async = false,
 					timeout_ms = 1000,
 				})
-			end, { desc = "Format file or range in visualmode" })
+			end, { desc = "Code: [c]ode [f]ormat" })
 
-			vim.bo.formatexpr = "v:lua.require’conform’.formatexpr()"
+			vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
 		end,
 	},
 }

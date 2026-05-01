@@ -1,32 +1,34 @@
--- Keymaps for moving lines
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "{V} Move Selected Down" })
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "{V} Move Selected Up" })
+local map = require("isur.core.keymap").map
 
-vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+-- Keymaps for moving lines
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Editor: move selection [J] down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Editor: move selection [K] up" })
+
+map({ "n", "v" }, "<Space>", "<Nop>", { silent = true, desc = "Editor: [l]eader key" })
 
 -- Remap for dealing with word wrap
-vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = "Editor: wrapped line [k] up" })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Editor: wrapped line [j] down" })
 
 -- Remove highlights
-vim.keymap.set("n", "<leader>nh", ":nohl<CR>", { desc = "Clear search highlights" })
+map("n", "<leader>sn", ":nohl<CR>", { desc = "Search: [s]earch [n]o highlights" })
 
 -- Buffers
-vim.keymap.set("n", "<TAB>", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "<S-TAB>", ":bprevious<CR>", { desc = "Previous buffer" })
+map("n", "<leader>bn", ":bnext<CR>", { desc = "Buffer: [b]uffer [n]ext" })
+map("n", "<leader>bp", ":bprevious<CR>", { desc = "Buffer: [b]uffer [p]revious" })
 
-vim.keymap.set("n", "<leader>bd", ":bd<CR>", { desc = "Delete buffer" })
-vim.keymap.set("n", "<leader>bD", ":bd!<CR>", { desc = "Force delete buffer" })
-vim.keymap.set("n", "<leader>ba", ":%bd|e#|bd#<CR>", { desc = "Delete all buffers except current" })
+map("n", "<leader>bd", ":bd<CR>", { desc = "Buffer: [b]uffer [d]elete" })
+map("n", "<leader>bD", ":bd!<CR>", { desc = "Buffer: [b]uffer force [D]elete" })
+map("n", "<leader>ba", ":%bd|e#|bd#<CR>", { desc = "Buffer: [b]uffer delete [a]ll but current" })
 
-vim.keymap.set("v", "p", '"_dP', { desc = "Paste without yank" })
+map("v", "p", '"_dP', { desc = "Editor: [p]aste without yank" })
 
 -- Select all
-vim.keymap.set("n", "<C-a>", "ggVG", { desc = "Select all" })
+map("n", "<C-a>", "ggVG", { desc = "Editor: select [a]ll" })
 
 -- file path
-vim.keymap.set("n", "<leader>fp", function()
+map("n", "<leader>fp", function()
 	local path = vim.fn.expand("%")
 	print(path)
 	vim.fn.setreg("+", path) -- Copy to system clipboard
-end, { desc = "Copy file path" })
+end, { desc = "Editor: [f]ile [p]ath copy" })

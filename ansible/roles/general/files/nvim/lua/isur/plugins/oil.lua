@@ -16,6 +16,7 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		},
 		config = function()
+			local map = require("isur.core.keymap").map
 			require("oil").setup({
 				win_options = {
 					signcolumn = "yes:2",
@@ -58,7 +59,7 @@ return {
 				},
 			})
 
-			vim.keymap.set("n", "<leader>e", "<Cmd>Oil --float<CR>", { desc = "File Explorer" })
+			map("n", "<leader>e", "<Cmd>Oil --float<CR>", { desc = "Explorer: [e]xplorer" })
 		end,
 	},
 }

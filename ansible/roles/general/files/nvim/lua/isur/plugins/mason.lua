@@ -9,7 +9,7 @@ return {
 			local mason = require("mason")
 			local mason_tool_installer = require("mason-tool-installer")
 
-			mason.setup({})
+			mason.setup(opts)
 
 			mason_tool_installer.setup({
 				ensure_installed = {
@@ -47,7 +47,6 @@ return {
 					"delve",
 					"js-debug-adapter",
 				},
-				automatic_installation = true,
 			})
 		end,
 	},

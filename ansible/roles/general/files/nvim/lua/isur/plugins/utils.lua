@@ -1,3 +1,5 @@
+local keymap = require("isur.core.keymap")
+
 return {
 	"tpope/vim-sleuth",
 	"neovim/nvim-lspconfig",
@@ -5,7 +7,7 @@ return {
 	{
 		"szw/vim-maximizer",
 		keys = {
-			{ "<leader>mm", ":MaximizerToggle<CR>", desc = "Maximize/minimize the split" },
+			keymap.lazy("<leader>mm", ":MaximizerToggle<CR>", { desc = "UI: [m]aximizer [m]ode" }),
 		},
 	},
 }

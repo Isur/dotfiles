@@ -4,6 +4,7 @@ return {
 	dependencies = { "nvim-lua/plenary.nvim" },
 
 	config = function()
+		local map = require("isur.core.keymap").map
 		local harpoon = require("harpoon")
 
 		harpoon:setup({
@@ -12,36 +13,36 @@ return {
 			},
 		})
 
-		vim.keymap.set("n", "<leader>hh", function()
+		map("n", "<leader>hh", function()
 			local filename = vim.fn.expand("%:t")
 			print(filename .. " - added to harpoon!")
 			harpoon:list():add()
-		end)
-		vim.keymap.set("n", "<leader>h", function()
+		end, { desc = "Harpoon: [h]arpoon [h]old file" })
+		map("n", "<leader>h", function()
 			harpoon.ui:toggle_quick_menu(harpoon:list())
-		end)
+		end, { desc = "Harpoon: [h]arpoon menu" })
 
-		vim.keymap.set("n", "<leader>1", function()
+		map("n", "<leader>h1", function()
 			harpoon:list():select(1)
-		end)
-		vim.keymap.set("n", "<leader>2", function()
+		end, { desc = "Harpoon: [h]arpoon file [1]" })
+		map("n", "<leader>h2", function()
 			harpoon:list():select(2)
-		end)
-		vim.keymap.set("n", "<leader>3", function()
+		end, { desc = "Harpoon: [h]arpoon file [2]" })
+		map("n", "<leader>h3", function()
 			harpoon:list():select(3)
-		end)
-		vim.keymap.set("n", "<leader>4", function()
+		end, { desc = "Harpoon: [h]arpoon file [3]" })
+		map("n", "<leader>h4", function()
 			harpoon:list():select(4)
-		end)
-		vim.keymap.set("n", "<leader>5", function()
+		end, { desc = "Harpoon: [h]arpoon file [4]" })
+		map("n", "<leader>h5", function()
 			harpoon:list():select(5)
-		end)
+		end, { desc = "Harpoon: [h]arpoon file [5]" })
 
-		vim.keymap.set("n", "<leader><S-Tab>", function()
+		map("n", "<leader>hp", function()
 			harpoon:list():prev({ ui_nav_wrap = true })
-		end)
-		vim.keymap.set("n", "<leader><Tab>", function()
+		end, { desc = "Harpoon: [h]arpoon [p]revious" })
+		map("n", "<leader>hn", function()
 			harpoon:list():next({ ui_nav_wrap = true })
-		end)
+		end, { desc = "Harpoon: [h]arpoon [n]ext" })
 	end,
 }

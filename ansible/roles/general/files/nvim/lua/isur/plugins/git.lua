@@ -1,9 +1,12 @@
+local keymap = require("isur.core.keymap")
+
 return {
 	"tpope/vim-fugitive",
 	"tpope/vim-rhubarb",
 	{
 		"lewis6991/gitsigns.nvim",
 		config = function()
+			local map = require("isur.core.keymap").map
 			local gitsigns = require("gitsigns")
 
 			gitsigns.setup({
@@ -18,15 +21,15 @@ return {
 					changedelete = { text = "~" },
 				},
 				on_attach = function(bufnr)
-					vim.keymap.set("n", "<leader>gp", function()
+					map("n", "<leader>gp", function()
 						gitsigns.nav_hunk("prev", {})
-					end, { buffer = bufnr, desc = "Go to previous hunk" })
-					vim.keymap.set("n", "<leader>gn", function()
+					end, { buffer = bufnr, desc = "Git: [g]it [p]revious hunk" })
+					map("n", "<leader>gn", function()
 						gitsigns.nav_hunk("next")
-					end, { buffer = bufnr, desc = "Go to next hunk" })
-					vim.keymap.set("n", "<leader>gh", gitsigns.preview_hunk, { buffer = bufnr, desc = "Preview hunk" })
-					vim.keymap.set("n", "<leader>gs", gitsigns.stage_hunk, { buffer = bufnr, desc = "Stage hunk" })
-					vim.keymap.set("n", "<leader>gr", gitsigns.reset_hunk, { buffer = bufnr, desc = "Reset hunk" })
+					end, { buffer = bufnr, desc = "Git: [g]it [n]ext hunk" })
+					map("n", "<leader>gh", gitsigns.preview_hunk, { buffer = bufnr, desc = "Git: [g]it [h]unk preview" })
+					map("n", "<leader>gs", gitsigns.stage_hunk, { buffer = bufnr, desc = "Git: [g]it [s]tage hunk" })
+					map("n", "<leader>gr", gitsigns.reset_hunk, { buffer = bufnr, desc = "Git: [g]it [r]eset hunk" })
 				end,
 			})
 		end,
@@ -42,7 +45,7 @@ return {
 		},
 		cmd = "Neogit",
 		keys = {
-			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+			keymap.lazy("<leader>gg", "<cmd>Neogit<cr>", { desc = "Git: [g]it neo[g]it" }),
 		},
 	},
 }

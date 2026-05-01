@@ -1,25 +1,23 @@
+local keymap = require("isur.core.keymap")
+
 return {
 	{
 		"folke/flash.nvim",
 		event = "VeryLazy",
 		opts = {},
 		keys = {
-			{
-				"s",
-				mode = { "n", "x", "o" },
-				function()
+			keymap.lazy("s", function()
 					require("flash").jump()
-				end,
-				desc = "Flash",
-			},
-			{
-				"S",
-				mode = { "n", "x", "o" },
-				function()
+				end, {
+					mode = { "n", "x", "o" },
+					desc = "Motion: fla[s]h jump",
+				}),
+			keymap.lazy("S", function()
 					require("flash").treesitter()
-				end,
-				desc = "Flash Treesitter",
-			},
+				end, {
+					mode = { "n", "x", "o" },
+					desc = "Motion: fla[S]h treesitter",
+				}),
 		},
 	},
 	{
@@ -39,26 +37,14 @@ return {
 		}, -- for default options, refer to the configuration section for custom setup.
 		cmd = "Trouble",
 		keys = {
-			{
-				"<leader>dd",
-				"<cmd>Trouble diagnostics toggle focus=true<cr>",
-				desc = "Trouble Diagnostics",
-			},
-			{
+			keymap.lazy("<leader>dd", "<cmd>Trouble diagnostics toggle focus=true<cr>", { desc = "Diag: [d]iagnostics [d]ashboard" }),
+			keymap.lazy(
 				"<leader>dx",
 				"<cmd>Trouble diagnostics toggle focus=true filter.buf=0<cr>",
-				desc = "Trouble Buffer Diagnostics",
-			},
-			{
-				"<leader>ds",
-				"<cmd>Trouble symbols toggle fold_close_all focus=true<cr>",
-				desc = "Trouble Symbols",
-			},
-			{
-				"<leader>dt",
-				"<cmd>Trouble todo toggle focus=true<cr>",
-				desc = "Trouble Todos",
-			},
+				{ desc = "Diag: [d]iagnostics buffer [x]" }
+			),
+			keymap.lazy("<leader>ds", "<cmd>Trouble symbols toggle fold_close_all focus=true<cr>", { desc = "Diag: [d]iagnostics [s]ymbols" }),
+			keymap.lazy("<leader>dt", "<cmd>Trouble todo toggle focus=true<cr>", { desc = "Diag: [d]iagnostics [t]odos" }),
 		},
 	},
 	{
@@ -105,6 +91,13 @@ return {
 		"folke/noice.nvim",
 		event = "VeryLazy",
 		opts = {
+			lsp = {
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true,
+				},
+			},
 			presets = {
 				bottom_search = true,
 				lsp_doc_border = true,
@@ -135,125 +128,57 @@ return {
 			scope = { enabled = true },
 		},
 		keys = {
-			{
-				"<leader>sS",
-				function()
+			keymap.lazy("<leader>sS", function()
 					Snacks.picker()
-				end,
-				desc = "Picker pickers",
-			},
-			{
-				"<leader>gG",
-				function()
+				end, { desc = "Search: [s]earch picker[S]" }),
+			keymap.lazy("<leader>gG", function()
 					Snacks.lazygit()
-				end,
-				desc = "Lazy Git",
-			},
-			{
-				"<leader><space>",
-				function()
+				end, { desc = "Git: [g]it lazy[G]it" }),
+			keymap.lazy("<leader><space>", function()
 					Snacks.picker.buffers({ focus = "list" })
-				end,
-				desc = "Picker Buffers",
-			},
-			{
-				"<leader>/",
-				function()
+				end, { desc = "Search: [s]earch buffers" }),
+			keymap.lazy("<leader>/", function()
 					Snacks.picker.lines()
-				end,
-				desc = "Picker Lines",
-			},
-			{
-				"<leader>sf",
-				function()
+				end, { desc = "Search: [s]earch current buffer" }),
+			keymap.lazy("<leader>sf", function()
 					Snacks.picker.smart()
-				end,
-				desc = "Picker Files",
-			},
-			{
-				"<leader>sh",
-				function()
+				end, { desc = "Search: [s]earch [f]iles" }),
+			keymap.lazy("<leader>sh", function()
 					Snacks.picker.help()
-				end,
-				desc = "Picker Help",
-			},
-			{
-				"<leader>sk",
-				function()
+				end, { desc = "Search: [s]earch [h]elp" }),
+			keymap.lazy("<leader>sk", function()
 					Snacks.picker.keymaps()
-				end,
-				desc = "Picker Keymaps",
-			},
-			{
-				"<leader>so",
-				function()
+				end, { desc = "Search: [s]earch [k]eymaps" }),
+			keymap.lazy("<leader>so", function()
 					Snacks.picker.recent({ focus = "list", filter = { cwd = true } })
-				end,
-				desc = "Picker Oldfiles",
-			},
-			{
-				"<leader>sg",
-				function()
+				end, { desc = "Search: [s]earch [o]ld files" }),
+			keymap.lazy("<leader>sg", function()
 					Snacks.picker.grep()
-				end,
-				desc = "Picker Grep",
-			},
-			{
-				"<leader>ss",
-				function()
+				end, { desc = "Search: [s]earch [g]rep" }),
+			keymap.lazy("<leader>ss", function()
 					Snacks.picker.git_status({ focus = "list" })
-				end,
-				desc = "Picker Git Status",
-			},
-			{
-				"<leader>sc",
-				function()
+				end, { desc = "Search: [s]earch git [s]tatus" }),
+			keymap.lazy("<leader>sc", function()
 					Snacks.picker.spelling()
-				end,
-				desc = "Picker Spell Suggest",
-			},
-			{
-				"<leader>st",
-				function()
+				end, { desc = "Search: [s]earch spell [c]heck" }),
+			keymap.lazy("<leader>st", function()
 					Snacks.picker.todo_comments({ focus = "list" })
-				end,
-				desc = "Picker Todo",
-			},
-			{
-				"<leader>si",
-				function()
+				end, { desc = "Search: [s]earch [t]odos" }),
+			keymap.lazy("<leader>si", function()
 					Snacks.picker.icons()
-				end,
-				desc = "Picker Icons",
-			},
-			{
-				"<leader>su",
-				function()
+				end, { desc = "Search: [s]earch [i]cons" }),
+			keymap.lazy("<leader>su", function()
 					Snacks.picker.undo({ focus = "list" })
-				end,
-				desc = "Picker Undo",
-			},
-			{
-				"<leader>sr",
-				function()
+				end, { desc = "Search: [s]earch [u]ndo" }),
+			keymap.lazy("<leader>sr", function()
 					Snacks.picker.gh_pr()
-				end,
-				desc = "GitHub",
-			},
-			{
-				"<leader>gf",
-				function()
+				end, { desc = "Search: [s]earch github p[r]" }),
+			keymap.lazy("<leader>gf", function()
 					Snacks.picker.git_log_file()
-				end,
-				desc = "Git file history",
-			},
-			{
-				"<leader>sC",
-				function()
+				end, { desc = "Git: [g]it [f]ile history" }),
+			keymap.lazy("<leader>sC", function()
 					Snacks.picker.colorschemes()
-				end,
-				desc = "Picker color schemes",
-			},
+				end, { desc = "Search: [s]earch [C]olorschemes" }),
 		},
 	},
 }
