@@ -2,16 +2,52 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter-textobjects",
 			"nvim-treesitter/nvim-treesitter-context",
 			"windwp/nvim-ts-autotag",
 			"JoosepAlviste/nvim-ts-context-commentstring",
 		},
 		build = ":TSUpdate",
+		branch = "main",
 		config = function()
 			local map = require("isur.core.keymap").map
-			local treesitter = require("nvim-treesitter.configs")
 			local context = require("treesitter-context")
+			local install_dir = vim.fn.stdpath("data") .. "/site"
+			local languages = {
+				"lua",
+				"python",
+				"tsx",
+				"typescript",
+				"vimdoc",
+				"vim",
+				"arduino",
+				"bash",
+				"dockerfile",
+				"gitignore",
+				"graphql",
+				"html",
+				"json",
+				"markdown",
+				"prisma",
+				"sql",
+				"javascript",
+				"cpp",
+				"http",
+				"go",
+				"latex",
+				"regex",
+				"yaml",
+				"css",
+				"norg",
+				"scss",
+				"svelte",
+				"typst",
+				"vue",
+			}
+
+			vim.opt.rtp:prepend(install_dir)
+			require("nvim-treesitter").setup({
+				install_dir = install_dir,
+			})
 			context.setup({ enable = false })
 
 			map("n", "[c", function()
@@ -22,95 +58,18 @@ return {
 				context.toggle()
 			end, { silent = true, desc = "Context: [c]ontext toggle" })
 
-			treesitter.setup({
-				ignore_install = {},
-				modules = {},
-				sync_install = false,
-				ensure_installed = {
-					"lua",
-					"python",
-					"tsx",
-					"typescript",
-					"vimdoc",
-					"vim",
-					"arduino",
-					"bash",
-					"dockerfile",
-					"gitignore",
-					"graphql",
-					"html",
-					"json",
-					"markdown",
-					"prisma",
-					"sql",
-					"javascript",
-					"cpp",
-					"http",
-					"go",
-					"latex",
-					"regex",
-					"yaml",
-					"css",
-					"norg",
-					"scss",
-					"svelte",
-					"typst",
-					"vue",
-				},
-				auto_install = false,
-				highlight = { enable = true },
-				indent = { enable = true, disable = { "python" } },
-				incremental_selection = {
-					enable = true,
-					keymaps = {
-						node_incremental = "<Tab>",
-						node_decremental = "<S-Tab>",
-					},
-				},
-				textobjects = {
-					select = {
-						enable = true,
-						lookahead = true,
-						keymaps = {
-							["aa"] = "@parameter.outer",
-							["ia"] = "@parameter.inner",
-							["af"] = "@function.outer",
-							["if"] = "@function.inner",
-							["ac"] = "@class.outer",
-							["ic"] = "@class.inner",
-						},
-					},
-					move = {
-						enable = true,
-						set_jumps = true,
-						goto_next_start = {
-							["]m"] = "@function.outer",
-							["]]"] = "@class.outer",
-						},
-						goto_next_end = {
-							["]M"] = "@function.outer",
-							["]["] = "@class.outer",
-						},
-						goto_previous_start = {
-							["[m"] = "@function.outer",
-							["[["] = "@class.outer",
-						},
-						goto_previous_end = {
-							["[M"] = "@function.outer",
-							["[]"] = "@class.outer",
-						},
-					},
-					swap = {
-						enable = true,
-						swap_next = {
-							["<leader>a"] = "@parameter.inner",
-						},
-						swap_previous = {
-							["<leader>A"] = "@parameter.inner",
-						},
-					},
-				},
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = languages,
+				callback = function(args)
+					vim.treesitter.start(args.buf)
+					vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", { win = 0 })
+					vim.api.nvim_set_option_value("foldmethod", "expr", { win = 0 })
+					if vim.bo[args.buf].filetype ~= "python" then
+						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+					end
+				end,
 			})
+
 			require("ts_context_commentstring").setup({})
 			require("nvim-ts-autotag").setup()
 		end,
