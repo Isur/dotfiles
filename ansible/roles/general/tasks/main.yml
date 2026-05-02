@@ -10,7 +10,7 @@
 
 - name: Darwin | Include Darwin specific tasks
   ansible.builtin.include_tasks: "./{{ task }}"
-  when: ansible_os_family == 'Darwin'
+  when: ansible_facts['os_family'] == 'Darwin'
   loop:
     - dev.darwin.yml
   loop_control:
@@ -18,7 +18,7 @@
 
 - name: Arch | Include Linux specific tasks
   ansible.builtin.include_tasks: "./{{ task }}"
-  when: ansible_os_family == 'Archlinux'
+  when: ansible_facts['distribution'] == 'Archlinux'
   loop:
     - dev.arch.yml
     - hyprland.arch.yml

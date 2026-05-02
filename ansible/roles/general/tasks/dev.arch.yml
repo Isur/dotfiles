@@ -2,7 +2,7 @@
 ---
 - name: Arch | Create Linux directories
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/{{ item }}"
+    path: "{{ ansible_facts['env']['HOME'] }}/{{ item }}"
     state: directory
     mode: '755'
   loop:
@@ -18,7 +18,7 @@
 - name: Arch | Add user to docker group
   become: true
   ansible.builtin.user:
-    name: "{{ ansible_env.USER }}"
+    name: "{{ ansible_facts['user_id'] }}"
     groups: docker
     append: true
 
@@ -36,12 +36,12 @@
     state: link
     force: true
   loop:
-    - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
-    - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_env.HOME }}/.gitconfig-gravyty" }
-    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/.config/lazygit/config.yml" }
+    - { src: "git-configs/gitconfig", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig" }
+    - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig-gravyty" }
+    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/lazygit/config.yml" }
 
 - name: Arch | ZSH default shell
   become: true
   ansible.builtin.user:
-    user: "{{ ansible_env.USER }}"
+    user: "{{ ansible_facts['user_id'] }}"
     shell: /usr/bin/zsh

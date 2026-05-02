@@ -2,14 +2,14 @@
 ---
 - name: Ensure the Personal directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/Developer/Personal"
+    path: "{{ ansible_facts['env']['HOME'] }}/Developer/Personal"
     state: directory
     mode: '755'
 
 - name: Clone repos
   ansible.builtin.git:
     repo: "git@github.com:{{ item.src }}"
-    dest: "{{ ansible_env.HOME }}/Developer/Personal/{{ item.name }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/Developer/Personal/{{ item.name }}"
     clone: true
     update: false
     accept_hostkey: true

@@ -7,13 +7,13 @@
     state: link
     force: true
   loop:
-    - { src: "git-configs/gitconfig", dest: "{{ ansible_env.HOME }}/.gitconfig" }
-    - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_env.HOME }}/.gitconfig-gravyty" }
-    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_env.HOME }}/Library/Application Support/lazygit/config.yml" }
+    - { src: "git-configs/gitconfig", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig" }
+    - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig-gravyty" }
+    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_facts['env']['HOME'] }}/Library/Application Support/lazygit/config.yml" }
 
 - name: Darwin | ZSH default shell
   become: true
   ansible.builtin.user:
-    user: "{{ ansible_env.USER }}"
+    user: "{{ ansible_facts['user_id'] }}"
     shell: /opt/homebrew/bin/zsh
-  when: ansible_os_family == 'Darwin'
+  when: ansible_facts['os_family'] == 'Darwin'

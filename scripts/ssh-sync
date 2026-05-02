@@ -1,0 +1,313 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
+
+SSH_DIR="${HOME}/.ssh"
+SSH_BACKUP_ROOT="${HOME}/.ssh-backups"
+SSH_BACKUP_KEEP=10
+BUNDLE_DIR="${REPO_ROOT}/ansible/roles/general/files/ssh"
+BUNDLE_NAME="ssh_bundle.tar.gz.vault"
+BUNDLE_PATH="${BUNDLE_DIR}/${BUNDLE_NAME}"
+VAULT_PASS_FILE_DEFAULT="${HOME}/.vault_pass"
+
+DRY_RUN=0
+FORCE=0
+VAULT_PASS_FILE="$VAULT_PASS_FILE_DEFAULT"
+
+TMP_ROOT=""
+
+cleanup() {
+  if [ -n "${TMP_ROOT}" ] && [ -d "${TMP_ROOT}" ]; then
+    rm -rf "${TMP_ROOT}"
+  fi
+}
+trap cleanup EXIT
+
+usage() {
+  cat <<'EOF'
+ssh-sync - sync SSH config/keys between ~/.ssh and dotfiles vault bundle
+
+Usage:
+  ssh-sync push [--dry-run] [--force] [--vault-pass-file PATH]
+  ssh-sync pull [--dry-run] [--force] [--vault-pass-file PATH]
+  ssh-sync --help
+
+Description:
+  push  Collects top-level files from ~/.ssh (excluding runtime/host files),
+        creates a tar.gz bundle, and encrypts it with ansible-vault into:
+        ansible/roles/general/files/ssh/ssh_bundle.tar.gz.vault
+
+  pull  Decrypts the vaulted bundle and restores files into ~/.ssh.
+
+Defaults:
+  Vault password file: ~/.vault_pass
+
+Safety:
+  - Creates timestamped backups in ~/.ssh-backups before overwriting
+  - Skips nested directories
+  - Use --dry-run to preview actions
+  - Use --force to overwrite existing files during pull
+EOF
+}
+
+log() {
+  printf '[ssh-sync] %s\n' "$*"
+}
+
+die() {
+  printf '[ssh-sync] ERROR: %s\n' "$*" >&2
+  exit 1
+}
+
+run_cmd() {
+  if [ "$DRY_RUN" -eq 1 ]; then
+    printf '[dry-run] '
+    printf '%q ' "$@"
+    printf '\n'
+  else
+    "$@"
+  fi
+}
+
+require_cmd() {
+  command -v "$1" >/dev/null 2>&1 || die "Required command not found: $1"
+}
+
+timestamp() {
+  date +%Y%m%d-%H%M%S
+}
+
+is_excluded_name() {
+  case "$1" in
+    known_hosts|known_hosts.old|known_hosts2|known_hosts2.old) return 0 ;;
+    known_hosts.*) return 0 ;;
+    authorized_keys|authorized_keys2) return 0 ;;
+    .DS_Store) return 0 ;;
+    *.sock|*.tmp|*.swp|*.swo|*~) return 0 ;;
+    control*|ctl*|agent.*|environment|environment.*) return 0 ;;
+    *) return 1 ;;
+  esac
+}
+
+ensure_vault_pass_file() {
+  [ -f "$VAULT_PASS_FILE" ] || die "Vault password file not found: $VAULT_PASS_FILE"
+}
+
+prune_ssh_backups() {
+  [ -d "$SSH_BACKUP_ROOT" ] || return 0
+
+  local -a backups=()
+  while IFS= read -r entry; do
+    backups+=("$entry")
+  done < <(find "$SSH_BACKUP_ROOT" -mindepth 1 -maxdepth 1 -name 'ssh-*' -printf '%T@ %p\n' | sort -rn | awk '{print $2}')
+
+  local total="${#backups[@]}"
+  if [ "$total" -le "$SSH_BACKUP_KEEP" ]; then
+    return 0
+  fi
+
+  local idx
+  for ((idx=SSH_BACKUP_KEEP; idx<total; idx++)); do
+    run_cmd rm -rf "${backups[$idx]}"
+    log "Pruned old backup: ${backups[$idx]}"
+  done
+}
+
+collect_files() {
+  local out_file="$1"
+  : >"$out_file"
+
+  [ -d "$SSH_DIR" ] || die "SSH directory not found: $SSH_DIR"
+
+  for item in "$SSH_DIR"/*; do
+    [ -e "$item" ] || continue
+    [ -f "$item" ] || continue
+
+    local name
+    name="$(basename "$item")"
+
+    if is_excluded_name "$name"; then
+      continue
+    fi
+
+    printf '%s\n' "$name" >>"$out_file"
+  done
+}
+
+backup_file() {
+  local src="$1"
+  local backup="$2"
+  run_cmd cp -p "$src" "$backup"
+  log "Backup created: $backup"
+}
+
+push_bundle() {
+  require_cmd ansible-vault
+  require_cmd tar
+  ensure_vault_pass_file
+
+  TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/ssh-sync.XXXXXX")"
+  local list_file="$TMP_ROOT/files.list"
+  local tar_file="$TMP_ROOT/ssh_bundle.tar.gz"
+  local encrypted_file="$TMP_ROOT/${BUNDLE_NAME}"
+
+  collect_files "$list_file"
+
+  if [ ! -s "$list_file" ]; then
+    die "No eligible top-level files found in $SSH_DIR"
+  fi
+
+  log "Preparing SSH bundle from $SSH_DIR"
+  while IFS= read -r file; do
+    log "  include: $file"
+  done <"$list_file"
+
+  run_cmd tar -C "$SSH_DIR" -czf "$tar_file" -T "$list_file"
+
+  run_cmd cp "$tar_file" "$encrypted_file"
+  run_cmd ansible-vault encrypt --vault-password-file "$VAULT_PASS_FILE" "$encrypted_file"
+
+  if [ -f "$BUNDLE_PATH" ]; then
+    local backup_path="${BUNDLE_PATH}.bak.$(timestamp)"
+    backup_file "$BUNDLE_PATH" "$backup_path"
+  fi
+
+  if [ "$DRY_RUN" -eq 0 ]; then
+    mkdir -p "$BUNDLE_DIR"
+  fi
+  run_cmd cp "$encrypted_file" "$BUNDLE_PATH"
+
+  log "Vaulted SSH bundle written to: $BUNDLE_PATH"
+}
+
+set_ssh_permissions() {
+  run_cmd chmod 700 "$SSH_DIR"
+
+  for item in "$SSH_DIR"/*; do
+    [ -e "$item" ] || continue
+    [ -f "$item" ] || continue
+
+    local name
+    name="$(basename "$item")"
+
+    if is_excluded_name "$name"; then
+      continue
+    fi
+
+    if [ "$name" = "config" ]; then
+      run_cmd chmod 600 "$item"
+      continue
+    fi
+
+    case "$name" in
+      *.pub) run_cmd chmod 644 "$item" ;;
+      *) run_cmd chmod 600 "$item" ;;
+    esac
+  done
+}
+
+pull_bundle() {
+  require_cmd ansible-vault
+  require_cmd tar
+  ensure_vault_pass_file
+
+  [ -f "$BUNDLE_PATH" ] || die "Vaulted bundle not found: $BUNDLE_PATH"
+
+  TMP_ROOT="$(mktemp -d "${TMPDIR:-/tmp}/ssh-sync.XXXXXX")"
+  local encrypted_copy="$TMP_ROOT/${BUNDLE_NAME}"
+  local tar_file="$TMP_ROOT/ssh_bundle.tar.gz"
+  local extract_dir="$TMP_ROOT/extract"
+  local ssh_backup_dir="${SSH_BACKUP_ROOT}/ssh-$(timestamp)"
+  local backup_used=0
+
+  run_cmd cp "$BUNDLE_PATH" "$encrypted_copy"
+  run_cmd ansible-vault decrypt --vault-password-file "$VAULT_PASS_FILE" "$encrypted_copy"
+  run_cmd mv "$encrypted_copy" "$tar_file"
+
+  if [ "$DRY_RUN" -eq 0 ]; then
+    mkdir -p "$extract_dir"
+  fi
+  run_cmd tar -xzf "$tar_file" -C "$extract_dir"
+
+  if [ "$DRY_RUN" -eq 0 ]; then
+    mkdir -p "$SSH_DIR"
+    mkdir -p "$SSH_BACKUP_ROOT"
+  fi
+
+  local file
+  for file in "$extract_dir"/*; do
+    [ -e "$file" ] || continue
+    [ -f "$file" ] || continue
+
+    local name
+    name="$(basename "$file")"
+    local dest="$SSH_DIR/$name"
+
+    if [ -e "$dest" ]; then
+      if [ "$backup_used" -eq 0 ]; then
+        run_cmd mkdir -p "$ssh_backup_dir"
+        backup_used=1
+      fi
+      run_cmd cp -p "$dest" "$ssh_backup_dir/$name"
+      if [ "$FORCE" -ne 1 ]; then
+        die "Destination exists: $dest (backup at $ssh_backup_dir). Re-run with --force to overwrite."
+      fi
+    fi
+
+    run_cmd cp "$file" "$dest"
+    log "Restored: $dest"
+  done
+
+  set_ssh_permissions
+  if [ "$backup_used" -eq 1 ]; then
+    log "Restore completed. Backup dir: $ssh_backup_dir"
+    prune_ssh_backups
+  else
+    log "Restore completed. No existing files needed backup."
+  fi
+}
+
+MODE=""
+
+if [ "$#" -eq 0 ]; then
+  usage
+  exit 1
+fi
+
+while [ "$#" -gt 0 ]; do
+  case "$1" in
+    push|pull)
+      [ -z "$MODE" ] || die "Only one mode can be specified"
+      MODE="$1"
+      ;;
+    --vault-pass-file)
+      shift
+      [ "$#" -gt 0 ] || die "Missing value for --vault-pass-file"
+      VAULT_PASS_FILE="$1"
+      ;;
+    --dry-run)
+      DRY_RUN=1
+      ;;
+    --force)
+      FORCE=1
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      die "Unknown argument: $1"
+      ;;
+  esac
+  shift
+done
+
+[ -n "$MODE" ] || die "Mode is required: push or pull"
+
+case "$MODE" in
+  push) push_bundle ;;
+  pull) pull_bundle ;;
+esac
