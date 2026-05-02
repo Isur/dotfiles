@@ -8,6 +8,7 @@ REPO_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 SSH_DIR="${HOME}/.ssh"
 SSH_BACKUP_ROOT="${HOME}/.ssh-backups"
 SSH_BACKUP_KEEP=10
+BUNDLE_BACKUP_DIR="${SSH_BACKUP_ROOT}/bundle"
 BUNDLE_DIR="${REPO_ROOT}/ansible/roles/general/files/ssh"
 BUNDLE_NAME="ssh_bundle.tar.gz.vault"
 BUNDLE_PATH="${BUNDLE_DIR}/${BUNDLE_NAME}"
@@ -171,7 +172,10 @@ push_bundle() {
   run_cmd ansible-vault encrypt --vault-password-file "$VAULT_PASS_FILE" "$encrypted_file"
 
   if [ -f "$BUNDLE_PATH" ]; then
-    local backup_path="${BUNDLE_PATH}.bak.$(timestamp)"
+    if [ "$DRY_RUN" -eq 0 ]; then
+      mkdir -p "$BUNDLE_BACKUP_DIR"
+    fi
+    local backup_path="${BUNDLE_BACKUP_DIR}/${BUNDLE_NAME}.bak.$(timestamp)"
     backup_file "$BUNDLE_PATH" "$backup_path"
   fi
 
