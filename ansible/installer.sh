@@ -167,6 +167,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
+	if ! command -v brew >/dev/null 2>&1; then
+		echo "Homebrew is required on macOS. Install it from https://brew.sh/ and rerun this script."
+		exit 1
+	fi
+
 	# UI/Desktop (casks)
 	brew install --cask \
 		raycast \
@@ -201,7 +206,9 @@ if [ "$SYSTEM" == "Darwin" ]; then
 
 	# Terminal/Development (packages)
 	brew install \
-		postgresql@17 \
+		ansible \
+		ansible-lint \
+		postgresql \
 		git \
 		gh \
 		openvpn \
@@ -217,6 +224,7 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		fd \
 		btop \
 		sshs \
+		gnu-tar \
 		gnu-sed \
 		yazi \
 		tmux \
@@ -225,7 +233,6 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		tree-sitter-cli \
 		luarocks \
 		opencode \
-		tree-sitter-cli \
 		direnv
 
 	# Applications/Utilities (packages)
@@ -238,4 +245,10 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		resvg \
 		imagemagick \
 		syncthing
+
+	ansible-galaxy collection install -r "$HOME/dotfiles/ansible/collections.yml"
+
+	ansible --version | head -n 1
+	ansible-galaxy --version | head -n 1
+	gtar --version | head -n 1
 fi
