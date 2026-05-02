@@ -1,4 +1,6 @@
 #!/bin/bash
+set -euo pipefail
+
 SYSTEM=""
 
 if [ "$(uname)" == "Darwin" ]; then
@@ -9,10 +11,15 @@ elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
 	fi
 fi
 
+if [ -z "$SYSTEM" ]; then
+	echo "System not supported. Script will work only on Arch based system or MacOS (Darwin)"
+	exit 1
+fi
+
 if [ "$SYSTEM" == "Arch" ]; then
-	driver_system=(
-		nvidia-dkms
-		nvidia-utils
+		driver_system=(
+			nvidia-dkms
+			nvidia-utils
 		lib32-nvidia-utils
 		nvidia-settings
 		pipewire
@@ -25,12 +32,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 		wl-clipboard
 		xdg-desktop-portal-hyprland
 		xdg-desktop-portal-gtk
-		sysstat
-		bluez
-		bluez-utils
-		nm-connection-editor
-		gvfs
-	)
+			sysstat
+			bluez
+			bluez-utils
+			gvfs
+		)
 	ui_desktop=(
 		hyprutils
 		hyprlang
@@ -145,6 +151,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 		cryptomator-cli
 	)
 
+	if ! command -v yay >/dev/null 2>&1; then
+		echo "yay is required on Arch. Run setup.sh first or install yay and rerun this script."
+		exit 1
+	fi
+
 	for package in "${driver_system[@]}"; do
 		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
 	done
@@ -164,6 +175,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 	for package in "${applications_utilities[@]}"; do
 		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
 	done
+
+	ansible-galaxy collection install -r "$HOME/dotfiles/ansible/collections.yml"
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
