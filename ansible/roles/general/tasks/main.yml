@@ -13,6 +13,7 @@
   when: ansible_facts['os_family'] == 'Darwin'
   loop:
     - dev.darwin.yml
+    - aerospace.darwin.yml
   loop_control:
     loop_var: task
 

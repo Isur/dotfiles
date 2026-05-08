@@ -1,0 +1,10 @@
+# vim:ft=yaml.ansible
+---
+- name: Darwin | Config aerospace
+  ansible.builtin.file:
+    src: "{{ role_path }}/files/{{ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: true
+  loop:
+    - { src: "aerospace", dest: "{{ ansible_facts['env']['HOME'] }}/.config/aerospace" }
