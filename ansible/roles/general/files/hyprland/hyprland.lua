@@ -7,6 +7,20 @@ hl.env("HYPRCURSOR_SIZE", "12")
 hl.env("LIBVA_DRIVER_NAME", "nvidia")
 hl.env("__GLX_VENDOR_LIBRARY_NAME", "nvidia")
 
+hl.monitor({
+	output = "DP-1",
+	mode = "2560x1440@120",
+	position = "0x0",
+	scale = 1,
+})
+
+hl.monitor({
+	output = "DP-2",
+	mode = "3440x1440@120",
+	position = "2560x0",
+	scale = 1,
+})
+
 hl.config({
 	input = {
 		kb_layout = "pl",
@@ -50,6 +64,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("nm-applet")
 	hl.exec_cmd("syncthing")
 	hl.exec_cmd("USE_LAYER_SHELL=0 vicinae server")
+	hl.exec_cmd("caddy run --config ~/Developer/Global/config/caddy/Caddyfile")
+	hl.exec_cmd("rancher-desktop")
 end)
 
 local function apply_reload_exec()

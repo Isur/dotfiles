@@ -149,6 +149,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		localsend
 		cryptomator
 		cryptomator-cli
+		caddy
+		rancher-desktop-bin
 	)
 
 	if ! command -v yay >/dev/null 2>&1; then

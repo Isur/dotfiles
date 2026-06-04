@@ -10,12 +10,12 @@
         "clock"
     ],
     "modules-right": [
-        "custom/media",
+        // "custom/media",
         "pulseaudio",
-        "cpu",
-        "memory",
+        // "cpu",
+        // "memory",
         "temperature",
-        "custom/notifications",
+        // "custom/notifications",
         "bluetooth",
         "tray",
         "custom/power"
@@ -188,6 +188,7 @@
         "menu-file": "$HOME/.config/waybar/power_menu.xml", // Menu file in resources folder
         "on-click-right": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater",
         "menu-actions": {
+            "logout": "hyprctl dispatch 'hl.dsp.exit()'",
             "shutdown": "shutdown -h now",
             "reboot": "reboot",
             "suspend": "systemctl suspend",
