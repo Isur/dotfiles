@@ -20,6 +20,7 @@
     - { src: "mako", dest: "{{ ansible_facts['env']['HOME'] }}/.config/mako" }
     - { src: "rofi", dest: "{{ ansible_facts['env']['HOME'] }}/.config/rofi" }
     - { src: "waybar", dest: "{{ ansible_facts['env']['HOME'] }}/.config/waybar" }
+    - { src: "vicinae-scripts", dest: "{{ ansible_facts['env']['HOME'] }}/.local/share/vicinae/scripts" }
 
 - name: Arch | Waybar theme.css
   ansible.builtin.copy:

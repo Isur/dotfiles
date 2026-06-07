@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+# @vicinae.schemaVersion 1
+# @vicinae.title Global Docker
+# @vicinae.mode fullOutput
+
+cd $HOME/Developer/Global/ && docker compose --profile=all up -d

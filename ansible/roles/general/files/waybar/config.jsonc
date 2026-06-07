@@ -4,7 +4,8 @@
     "spacing": 0,
     "reload_style_on_change": true,
     "modules-left": [
-        "hyprland/workspaces"
+        "hyprland/workspaces",
+        "hyprland/submap"
     ],
     "modules-center": [
         "clock"
@@ -22,7 +23,8 @@
     ],
     // Modules configuration
     "hyprland/submap": {
-        "format": "{}"
+        "format": "  {}",
+        "tooltip": false
     },
     "hyprland/workspaces": {
         "format": "{icon}",

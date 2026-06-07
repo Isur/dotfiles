@@ -1,6 +1,7 @@
 local terminal = "ghostty"
 local fileManager = "nautilus"
 local menu = "vicinae toggle"
+local mainMod = "SUPER+ALT+SHIFT+CTRL"
 
 hl.env("XCURSOR_SIZE", "12")
 hl.env("HYPRCURSOR_SIZE", "12")
@@ -76,8 +77,9 @@ end
 hl.on("hyprland.start", apply_reload_exec)
 hl.on("config.reloaded", apply_reload_exec)
 
-local mainMod = "SUPER"
+--- BINDS
 
+-- Normal
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
@@ -85,27 +87,6 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + SPACE", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + CTRL + SHIFT + P", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("killall -9 waybar && waybar &"))
-hl.bind(mainMod .. " + CTRL + L", hl.dsp.exec_cmd("hyprlock"))
-hl.bind(
-	mainMod .. " + O",
-	hl.dsp.exec_cmd(
-		[[bash -c 'FILE=~/Pictures/screenshot_$(date +%F_%H-%M-%S).png; grim -g "$(slurp -d)" "$FILE" && wl-copy < "$FILE" && notify-send "Screenshot taken"']]
-	)
-)
-hl.bind(
-	mainMod .. " + SHIFT + O",
-	hl.dsp.exec_cmd(
-		[[bash -c 'eval $(hyprctl activewindow -j | jq -r " \"x=\(.at[0]) y=\(.at[1]) w=\(.size[0]) h=\(.size[1])\" "); FILE=~/Pictures/window_$(date +%F_%H-%M-%S).png; grim -g "${x},${y} ${w}x${h}" "$FILE" && wl-copy < "$FILE" && notify-send "Window screenshot saved and copied!"']]
-	)
-)
-hl.bind(
-	mainMod .. " + CTRL + SHIFT + O",
-	hl.dsp.exec_cmd(
-		[[bash -c 'FILE=~/Pictures/monitor_$(date +%F_%H-%M-%S).png; grim -o "$(hyprctl activeworkspace -j | jq -r .monitor)" "$FILE" && wl-copy < "$FILE" && notify-send "Monitor screenshot saved and copied!"']]
-	)
-)
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("hyprctl dismissnotify"))
 
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
@@ -113,24 +94,69 @@ hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 
-hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
-
 for i = 1, 10 do
 	local key = i % 10
 	hl.bind(mainMod .. " + " .. key, hl.dsp.focus({ workspace = i }))
-	hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
+hl.bind(mainMod .. " + s", hl.dsp.workspace.toggle_special("magic"))
 
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+hl.bind(mainMod .. " + M", hl.dsp.submap("move"))
+hl.define_submap("move", function()
+	hl.bind("h", hl.dsp.window.move({ direction = "left" }))
+	hl.bind("l", hl.dsp.window.move({ direction = "right" }))
+	hl.bind("k", hl.dsp.window.move({ direction = "up" }))
+	hl.bind("j", hl.dsp.window.move({ direction = "down" }))
+
+	for i = 1, 10 do
+		local key = i % 10
+		hl.bind(key, hl.dsp.window.move({ workspace = i }))
+	end
+
+	hl.bind("s", hl.dsp.window.move({ workspace = "special:magic" }))
+
+	hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
+hl.define_submap("resize", function()
+	hl.bind("l", hl.dsp.window.resize({ x = 10, y = 0, relative = true }), { repeating = true })
+	hl.bind("h", hl.dsp.window.resize({ x = -10, y = 0, relative = true }), { repeating = true })
+	hl.bind("k", hl.dsp.window.resize({ x = 0, y = 10, relative = true }), { repeating = true })
+	hl.bind("j", hl.dsp.window.resize({ x = 0, y = -10, relative = true }), { repeating = true })
+	hl.bind("escape", hl.dsp.submap("reset"))
+end)
+
+hl.bind(mainMod .. " + T", hl.dsp.submap("tools"))
+hl.define_submap("tools", "reset", function()
+	hl.bind("l", hl.dsp.exec_cmd("hyprlock"))
+	hl.bind("R", hl.dsp.exec_cmd("killall -9 waybar && waybar &"))
+	hl.bind("p", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
+	hl.bind(
+		"o",
+		hl.dsp.exec_cmd(
+			[[bash -c 'FILE=~/Pictures/screenshot_$(date +%F_%H-%M-%S).png; grim -g "$(slurp -d)" "$FILE" && wl-copy < "$FILE" && notify-send "Screenshot taken"']]
+		)
+	)
+	hl.bind(
+		"SHIFT + O",
+		hl.dsp.exec_cmd(
+			[[bash -c 'eval $(hyprctl activewindow -j | jq -r " \"x=\(.at[0]) y=\(.at[1]) w=\(.size[0]) h=\(.size[1])\" "); FILE=~/Pictures/window_$(date +%F_%H-%M-%S).png; grim -g "${x},${y} ${w}x${h}" "$FILE" && wl-copy < "$FILE" && notify-send "Window screenshot saved and copied!"']]
+		)
+	)
+	hl.bind(
+		"CTRL + SHIFT + O",
+		hl.dsp.exec_cmd(
+			[[bash -c 'FILE=~/Pictures/monitor_$(date +%F_%H-%M-%S).png; grim -o "$(hyprctl activeworkspace -j | jq -r .monitor)" "$FILE" && wl-copy < "$FILE" && notify-send "Monitor screenshot saved and copied!"']]
+		)
+	)
+	hl.bind("escape", hl.dsp.submap("reset"))
+end)
 
 hl.bind(
 	"XF86AudioRaiseVolume",
@@ -159,6 +185,8 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
+
+--- BINDS
 
 hl.workspace_rule({ workspace = "1", monitor = "DP-2" })
 hl.workspace_rule({ workspace = "2", monitor = "DP-2" })
