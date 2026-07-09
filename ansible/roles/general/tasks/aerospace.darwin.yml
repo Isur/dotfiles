@@ -8,3 +8,4 @@
     force: true
   loop:
     - { src: "aerospace", dest: "{{ ansible_facts['env']['HOME'] }}/.config/aerospace" }
+    - { src: "sketchybar", dest: "{{ ansible_facts['env']['HOME'] }}/.config/sketchybar" }

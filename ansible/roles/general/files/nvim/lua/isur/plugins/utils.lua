@@ -22,10 +22,4 @@ return {
 			distance_stop_animating = 0.5,
 		},
 	},
-	{
-		"karb94/neoscroll.nvim",
-		opts = {
-			duration_multiplier = 0.3,
-		},
-	},
 }

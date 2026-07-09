@@ -95,5 +95,9 @@
     "workbench.activityBar.orientation": "vertical",
     "workbench.colorTheme": "Catppuccin Mocha",
     "screencastMode.fontSize": 20,
-    "gitlens.launchpad.indicator.enabled": false
+    "gitlens.launchpad.indicator.enabled": false,
+    "cursor.composer.conversationDensity": "detailed",
+    "cursor.general.reduceTransparency": true,
+    "cursor.composer.shouldChimeAfterChatFinishes": true,
+    "cursor.general.glassShowWarningNotifications": true
 }

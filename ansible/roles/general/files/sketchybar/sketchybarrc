@@ -1,0 +1,130 @@
+#!/bin/bash
+
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+##### Bar Appearance #####
+sketchybar --bar position=top height=30 blur_radius=30 color=0x40000000
+
+##### Changing Defaults #####
+default=(
+  padding_left=5
+  padding_right=5
+  icon.font="Hack Nerd Font:Bold:17.0"
+  label.font="Hack Nerd Font:Bold:14.0"
+  icon.color=0xffffffff
+  label.color=0xffffffff
+  icon.padding_left=4
+  icon.padding_right=4
+  label.padding_left=4
+  label.padding_right=4
+)
+sketchybar --default "${default[@]}"
+
+##### Workspace Dot Indicators (AeroSpace) #####
+sketchybar --add item workspace_update left \
+           --set workspace_update drawing=off \
+           script="$PLUGIN_DIR/space.sh" \
+           update_freq=5 \
+           --subscribe workspace_update front_app_switched aerospace_workspace_change
+
+for i in $(seq 1 10); do
+  sketchybar --add item space."$i" left \
+             --set space."$i" \
+               icon="$i" \
+               icon.padding_left=7 \
+               icon.padding_right=7 \
+               icon.color=0x40ffffff \
+               background.color=0x40ffffff \
+               background.corner_radius=5 \
+               background.height=25 \
+               background.drawing=off \
+               label.drawing=off \
+               click_script="aerospace workspace $i && sketchybar --trigger aerospace_workspace_change" \
+               right_click_script="aerospace move-node-to-workspace $i"
+done
+
+##### Submap Indicator #####
+sketchybar --add item submap left \
+           --set submap icon= \
+           icon.color=0x80ffffff \
+           script="$PLUGIN_DIR/submap.sh" \
+           update_freq=3 \
+           drawing=off
+
+##### Front App #####
+sketchybar --add item chevron left \
+           --set chevron icon= label.drawing=off \
+           --add item front_app left \
+           --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+           --subscribe front_app front_app_switched
+
+##### Clock (Right) #####
+sketchybar --add item clock right \
+           --set clock update_freq=1 icon= script="$PLUGIN_DIR/clock.sh"
+
+##### Volume (Right) #####
+sketchybar --add item volume right \
+           --set volume script="$PLUGIN_DIR/volume.sh" \
+           update_freq=10 \
+           popup.background.color=0xcc1e1e2e \
+           popup.background.corner_radius=8 \
+           popup.y_offset=5 \
+           --subscribe volume volume_change mouse.entered mouse.exited
+
+sketchybar --set volume popup.height=22
+
+sketchybar --add item volume.device popup.volume \
+           --set volume.device icon.drawing=off \
+           label="Device: -" \
+           label.font="Hack Nerd Font:Bold:12.0" \
+           label.padding_left=10 \
+           label.padding_right=10 \
+           width=300
+
+sketchybar --add item volume.level popup.volume \
+           --set volume.level icon.drawing=off \
+           label="Volume: 0% | Muted: -" \
+           label.font="Hack Nerd Font:Bold:12.0" \
+           label.padding_left=10 \
+           label.padding_right=10 \
+           width=300
+
+sketchybar --add item volume.mic popup.volume \
+           --set volume.mic icon.drawing=off \
+           label="Mic: -" \
+           label.font="Hack Nerd Font:Bold:12.0" \
+           label.padding_left=10 \
+           label.padding_right=10 \
+           width=300
+
+sketchybar --add item volume.batt.left popup.volume \
+           --set volume.batt.left icon.drawing=off \
+           label="" \
+           label.font="Hack Nerd Font:Bold:12.0" \
+           label.padding_left=10 \
+           label.padding_right=10 \
+           width=300
+
+sketchybar --add item volume.batt.right popup.volume \
+           --set volume.batt.right icon.drawing=off \
+           label="" \
+           label.font="Hack Nerd Font:Bold:12.0" \
+           label.padding_left=10 \
+           label.padding_right=10 \
+           width=300
+
+sketchybar --add item volume.batt.case popup.volume \
+           --set volume.batt.case icon.drawing=off \
+           label="" \
+           label.font="Hack Nerd Font:Bold:12.0" \
+           label.padding_left=10 \
+           label.padding_right=10 \
+           width=300
+
+##### Battery (Right) #####
+sketchybar --add item battery right \
+           --set battery update_freq=120 script="$PLUGIN_DIR/battery.sh" \
+           --subscribe battery system_woke power_source_change
+
+##### Force initial run #####
+sketchybar --update
