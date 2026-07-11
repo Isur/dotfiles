@@ -61,7 +61,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 		ttf-jetbrains-mono-nerd
 		maplemono-nf-unhinted
 		ttf-hack-nerd
-		apple-fonts
 		nerd-fonts-apple
 		vicinae-bin
 	)
@@ -150,7 +149,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 		cryptomator
 		cryptomator-cli
 		caddy
-		rancher-desktop-bin
 	)
 
 	if ! command -v yay >/dev/null 2>&1; then

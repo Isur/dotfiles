@@ -67,7 +67,3 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export EDITOR="nvim"
 export BROWSER="brave"
 
-
-### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-export PATH="/home/isur/.rd/bin:$PATH"
-### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)

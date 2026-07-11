@@ -191,8 +191,8 @@
         "on-click-right": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater",
         "menu-actions": {
             "logout": "hyprctl dispatch 'hl.dsp.exit()'",
-            "shutdown": "shutdown -h now",
-            "reboot": "reboot",
+            "shutdown": "tmux kill-server && shutdown -h now",
+            "reboot": "tmux kill-server && reboot",
             "suspend": "systemctl suspend",
             "hibernate": "systemctl hibernate",
             "update": "ghostty --wait-after-command -e ~/dotfiles/scripts/updater",

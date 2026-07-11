@@ -1,7 +1,7 @@
 local terminal = "ghostty"
 local fileManager = "nautilus"
 local menu = "vicinae toggle"
-local mainMod = "SUPER+ALT+SHIFT+CTRL"
+local mainMod = "SUPER+ALT+CTRL"
 
 hl.env("XCURSOR_SIZE", "12")
 hl.env("HYPRCURSOR_SIZE", "12")
@@ -55,6 +55,7 @@ hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 6.0, bezier = "calm"
 hl.on("hyprland.start", function()
 	hl.exec_cmd("/usr/lib/pam_kwallet_init")
 	hl.exec_cmd("[workspace 1] ghostty")
+	hl.exec_cmd("[workspace 4] obsidian")
 	hl.exec_cmd("hyprpaper")
 	hl.exec_cmd("hypridle")
 	hl.exec_cmd("mako")
@@ -66,7 +67,6 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("syncthing")
 	hl.exec_cmd("USE_LAYER_SHELL=0 vicinae server")
 	hl.exec_cmd("caddy run --config ~/Developer/Global/config/caddy/Caddyfile")
-	hl.exec_cmd("rancher-desktop")
 end)
 
 local function apply_reload_exec()
@@ -93,6 +93,12 @@ hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+hl.bind(
+	mainMod .. " + o",
+	hl.dsp.exec_cmd(
+		[[bash -c 'FILE=~/Pictures/screenshot_$(date +%F_%H-%M-%S).png; grim -g "$(slurp -d)" "$FILE" && wl-copy < "$FILE" && notify-send "Screenshot taken"']]
+	)
+)
 
 for i = 1, 10 do
 	local key = i % 10
@@ -106,22 +112,16 @@ hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-hl.bind(mainMod .. " + M", hl.dsp.submap("move"))
-hl.define_submap("move", function()
-	hl.bind("h", hl.dsp.window.move({ direction = "left" }))
-	hl.bind("l", hl.dsp.window.move({ direction = "right" }))
-	hl.bind("k", hl.dsp.window.move({ direction = "up" }))
-	hl.bind("j", hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. "+SHIFT+h", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. "+SHIFT+l", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. "+SHIFT+k", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. "+SHIFT+j", hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. "+SHIFT+s", hl.dsp.window.move({ workspace = "special:magic" }))
 
-	for i = 1, 10 do
-		local key = i % 10
-		hl.bind(key, hl.dsp.window.move({ workspace = i }))
-	end
-
-	hl.bind("s", hl.dsp.window.move({ workspace = "special:magic" }))
-
-	hl.bind("escape", hl.dsp.submap("reset"))
-end)
+for i = 1, 10 do
+	local key = i % 10
+	hl.bind(mainMod .. "+SHIFT+" .. key, hl.dsp.window.move({ workspace = i }))
+end
 
 hl.bind(mainMod .. " + R", hl.dsp.submap("resize"))
 hl.define_submap("resize", function()
@@ -132,23 +132,17 @@ hl.define_submap("resize", function()
 	hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
+hl.bind(
+	mainMod .. "+SHIFT + O",
+	hl.dsp.exec_cmd(
+		[[bash -c 'eval $(hyprctl activewindow -j | jq -r " \"x=\(.at[0]) y=\(.at[1]) w=\(.size[0]) h=\(.size[1])\" "); FILE=~/Pictures/window_$(date +%F_%H-%M-%S).png; grim -g "${x},${y} ${w}x${h}" "$FILE" && wl-copy < "$FILE" && notify-send "Window screenshot saved and copied!"']]
+	)
+)
 hl.bind(mainMod .. " + T", hl.dsp.submap("tools"))
 hl.define_submap("tools", "reset", function()
 	hl.bind("l", hl.dsp.exec_cmd("hyprlock"))
 	hl.bind("R", hl.dsp.exec_cmd("killall -9 waybar && waybar &"))
 	hl.bind("p", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
-	hl.bind(
-		"o",
-		hl.dsp.exec_cmd(
-			[[bash -c 'FILE=~/Pictures/screenshot_$(date +%F_%H-%M-%S).png; grim -g "$(slurp -d)" "$FILE" && wl-copy < "$FILE" && notify-send "Screenshot taken"']]
-		)
-	)
-	hl.bind(
-		"SHIFT + O",
-		hl.dsp.exec_cmd(
-			[[bash -c 'eval $(hyprctl activewindow -j | jq -r " \"x=\(.at[0]) y=\(.at[1]) w=\(.size[0]) h=\(.size[1])\" "); FILE=~/Pictures/window_$(date +%F_%H-%M-%S).png; grim -g "${x},${y} ${w}x${h}" "$FILE" && wl-copy < "$FILE" && notify-send "Window screenshot saved and copied!"']]
-		)
-	)
 	hl.bind(
 		"CTRL + SHIFT + O",
 		hl.dsp.exec_cmd(
