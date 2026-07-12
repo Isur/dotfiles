@@ -57,14 +57,23 @@ return {
 		name = "ayu",
 	},
 	{
+		"RRethy/base16-nvim",
+		priority = 1000,
+	},
+	{
 		-- This is just for applying the selected colorscheme as default one.
 		name = "apply-colorscheme",
 		dir = vim.fn.stdpath("config"),
 		lazy = false,
 		priority = 900,
 		init = function()
-			local theme = "ayu"
-			vim.cmd.colorscheme(theme)
+			local ok, _ = pcall(function()
+				require("matugen").setup()
+			end)
+			if not ok then
+				vim.cmd.colorscheme("ayu")
+			end
+			vim.api.nvim_exec_autocmds("ColorScheme", {})
 		end,
 	},
 }
