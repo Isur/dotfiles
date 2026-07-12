@@ -41,19 +41,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 		hyprutils
 		hyprlang
 		hyprland
-		hyprpaper
-		hyprlock
-		hypridle
 		hyprpicker
 		hyprpolkitagent
 		hyprsysteminfo
-		# hyprnotify
-		mako # notification
-		waybar
-		rofi
 		grim
 		slurp
-		gtk-layer-shell
 		gtk3
 		nwg-look
 		adw-gtk-theme
@@ -62,7 +54,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		maplemono-nf-unhinted
 		ttf-hack-nerd
 		nerd-fonts-apple
-		vicinae-bin
+		noctalia-git
 	)
 
 	terminal_dev=(

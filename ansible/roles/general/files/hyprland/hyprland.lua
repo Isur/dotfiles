@@ -1,6 +1,5 @@
 local terminal = "ghostty"
 local fileManager = "nautilus"
-local menu = "vicinae toggle"
 local mainMod = "SUPER+ALT+CTRL"
 
 hl.env("XCURSOR_SIZE", "12")
@@ -56,16 +55,12 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("/usr/lib/pam_kwallet_init")
 	hl.exec_cmd("[workspace 1] ghostty")
 	hl.exec_cmd("[workspace 4] obsidian")
-	hl.exec_cmd("hyprpaper")
-	hl.exec_cmd("hypridle")
-	hl.exec_cmd("mako")
-	hl.exec_cmd("waybar")
+	hl.exec_cmd("noctalia")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
 	hl.exec_cmd("xwaylandvideobridge")
 	hl.exec_cmd("nm-applet")
 	hl.exec_cmd("syncthing")
-	hl.exec_cmd("USE_LAYER_SHELL=0 vicinae server")
 	hl.exec_cmd("caddy run --config ~/Developer/Global/config/caddy/Caddyfile")
 end)
 
@@ -85,7 +80,8 @@ hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + SPACE", hl.dsp.window.float({ action = "toggle" }))
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. "+ D", hl.dsp.exec_cmd("noctalia msg panel-toggle launcher"))
+hl.bind(mainMod .. "+ C", hl.dsp.exec_cmd("noctalia msg panel-toggle control-center"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("hyprctl dismissnotify"))
 
@@ -95,9 +91,10 @@ hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 hl.bind(
 	mainMod .. " + o",
-	hl.dsp.exec_cmd(
-		[[bash -c 'FILE=~/Pictures/screenshot_$(date +%F_%H-%M-%S).png; grim -g "$(slurp -d)" "$FILE" && wl-copy < "$FILE" && notify-send "Screenshot taken"']]
-	)
+	hl.dsp.exec_cmd("noctalia msg screenshot-region")
+	-- 	hl.dsp.exec_cmd(
+	-- 		[[bash -c 'FILE=~/Pictures/screenshot_$(date +%F_%H-%M-%S).png; grim -g "$(slurp -d)" "$FILE" && wl-copy < "$FILE" && notify-send "Screenshot taken"']]
+	-- 	)
 )
 
 for i = 1, 10 do
@@ -132,23 +129,11 @@ hl.define_submap("resize", function()
 	hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
-hl.bind(
-	mainMod .. "+SHIFT + O",
-	hl.dsp.exec_cmd(
-		[[bash -c 'eval $(hyprctl activewindow -j | jq -r " \"x=\(.at[0]) y=\(.at[1]) w=\(.size[0]) h=\(.size[1])\" "); FILE=~/Pictures/window_$(date +%F_%H-%M-%S).png; grim -g "${x},${y} ${w}x${h}" "$FILE" && wl-copy < "$FILE" && notify-send "Window screenshot saved and copied!"']]
-	)
-)
+hl.bind(mainMod .. "+SHIFT + O", hl.dsp.exec_cmd("noctalia msg screenshot-fullscreen"))
 hl.bind(mainMod .. " + T", hl.dsp.submap("tools"))
 hl.define_submap("tools", "reset", function()
-	hl.bind("l", hl.dsp.exec_cmd("hyprlock"))
-	hl.bind("R", hl.dsp.exec_cmd("killall -9 waybar && waybar &"))
+	hl.bind("l", hl.dsp.exec_cmd("noctalia msg session lock"))
 	hl.bind("p", hl.dsp.exec_cmd("hyprpicker | wl-copy"))
-	hl.bind(
-		"CTRL + SHIFT + O",
-		hl.dsp.exec_cmd(
-			[[bash -c 'FILE=~/Pictures/monitor_$(date +%F_%H-%M-%S).png; grim -o "$(hyprctl activeworkspace -j | jq -r .monitor)" "$FILE" && wl-copy < "$FILE" && notify-send "Monitor screenshot saved and copied!"']]
-		)
-	)
 	hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
@@ -258,3 +243,6 @@ hl.window_rule({
 	size = "1024 768",
 	float = true,
 })
+
+-- For Noctalia Color templates
+require("noctalia").apply_theme()

@@ -1,0 +1,28 @@
+[location]
+address         = "Tarnowskie Góry, Poland"
+refresh_minutes = 30
+
+[shell]
+screen_time_enabled = true
+
+[idle.behavior.lock]
+timeout = 600
+action = "lock"
+enabled = true
+
+[lockscreen]
+blur_intensity = 0.5
+blurred_desktop = true
+tint_intensity = 0.7
+
+[widget.battery]
+enabled = false
+
+[widget.brightness]
+enabled = false
+
+[widget.network]
+enabled = false
+
+[widget.wallpaper]
+enabled = false
