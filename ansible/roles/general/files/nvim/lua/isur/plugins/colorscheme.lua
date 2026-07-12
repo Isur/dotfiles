@@ -73,7 +73,6 @@ return {
 			if not ok then
 				vim.cmd.colorscheme("ayu")
 			end
-			vim.api.nvim_exec_autocmds("ColorScheme", {})
 		end,
 	},
 }

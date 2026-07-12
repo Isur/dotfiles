@@ -1,5 +1,4 @@
 require("isur.core.options")
-require("isur.config.theme_sync")
 require("isur.core.lazy")
 require("isur.core.lsp")
 require("isur.config.mappings")
