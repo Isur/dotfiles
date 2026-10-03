@@ -39,6 +39,9 @@ hl.config({
 		},
 		layout = "master",
 	},
+	render = {
+		direct_scanout = 0,
+	},
 })
 
 hl.curve("calm", { type = "bezier", points = { { 0.2, 0.9 }, { 0.3, 1.0 } } })
@@ -54,7 +57,9 @@ hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 6.0, bezier = "calm"
 hl.on("hyprland.start", function()
 	hl.exec_cmd("/usr/lib/pam_kwallet_init")
 	hl.exec_cmd("[workspace 1] ghostty")
+	hl.exec_cmd("[workspace 2] brave")
 	hl.exec_cmd("[workspace 4] obsidian")
+	hl.exec_cmd("[workspace 5] steam")
 	hl.exec_cmd("noctalia")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent")
 	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
