@@ -15,6 +15,7 @@ return {
 				ensure_installed = {
 					-- LSPs
 					-- "typescript-language-server",
+					"astro-language-server",
 					"vtsls",
 					"tailwindcss-language-server",
 					"dockerfile-language-server",

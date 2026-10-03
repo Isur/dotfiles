@@ -3,6 +3,7 @@ local map = require("isur.core.keymap").map
 vim.lsp.enable({
 	"gopls",
 	"lua_ls",
+	"astro",
 	"arduino_language_server",
 	"angularls",
 	"tailwindcss",

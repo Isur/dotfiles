@@ -61,6 +61,7 @@ return {
 					},
 				},
 				formatters_by_ft = {
+					astro = { "prettierd" },
 					javascript = { "prettierd" },
 					typescript = { "prettierd" },
 					javascriptreact = { "prettierd" },

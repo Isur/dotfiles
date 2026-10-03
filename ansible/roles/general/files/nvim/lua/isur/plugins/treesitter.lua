@@ -13,6 +13,7 @@ return {
 			local context = require("treesitter-context")
 			local install_dir = vim.fn.stdpath("data") .. "/site"
 			local languages = {
+				"astro",
 				"lua",
 				"python",
 				"tsx",
