@@ -95,6 +95,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		luarocks
 		tldr
 		direnv
+		mise
 	)
 
 	gaming=(
@@ -238,7 +239,8 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		tree-sitter-cli \
 		luarocks \
 		opencode \
-		direnv
+		direnv \
+		mise
 
 	# Applications/Utilities (packages)
 	brew install \

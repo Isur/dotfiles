@@ -67,3 +67,4 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 export EDITOR="nvim"
 export BROWSER="brave"
 
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"

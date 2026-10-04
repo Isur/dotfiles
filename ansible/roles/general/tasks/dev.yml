@@ -16,6 +16,7 @@
     - .config/lazygit
     - .config/ghostty
     - .config/yazi
+    - .config/mise
 
 - name: Check if global docker-compose is already here
   ansible.builtin.stat:
@@ -291,3 +292,15 @@
     - { src: "yazi/keymap.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/keymap.toml"}
     - { src: "yazi/package.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/package.toml"}
     - { src: "yazi/theme.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/theme.toml"}
+    - { src: "mise/config.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/mise/config.toml"}
+
+- name: Install global mise tools
+  ansible.builtin.command: mise install --yes
+  register: mise_install
+  changed_when: mise_install.stderr | length > 0
+  when: not ansible_check_mode
+
+- name: Check mode | mise tools preview
+  ansible.builtin.debug:
+    msg: "Would run 'mise install' for tools declared in ~/.config/mise/config.toml."
+  when: ansible_check_mode
