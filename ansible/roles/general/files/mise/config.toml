@@ -1,2 +1,26 @@
 [tools]
+# runtimes
+node = "lts"
+pnpm = "latest"
+bun = "latest"
+uv = "latest"
+dotnet = "8"
+"npm:neovim" = "latest"
+
+# kubernetes
+kubectl = "latest"
+minikube = "latest"
+
+# cli tools
 jq = "latest"
+just = "latest"
+gh = "latest"
+lazygit = "latest"
+delta = "latest"
+yazi = "latest"
+zoxide = "latest"
+fzf = "latest"
+ripgrep = "latest"
+fd = "latest"
+tree-sitter = "latest"
+go = "latest"

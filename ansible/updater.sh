@@ -17,6 +17,10 @@ if [ "$SYSTEM" == "Darwin" ]; then
 	brew update && brew upgrade
 fi
 
+if command -v mise >/dev/null 2>&1; then
+	mise upgrade --yes
+fi
+
 if [ "$ZSH" == "" ]; then
 	ZSH="$HOME/.oh-my-zsh"
 fi

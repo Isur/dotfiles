@@ -64,34 +64,22 @@ if [ "$SYSTEM" == "Arch" ]; then
 		neovim
 		python-neovim
 		git
-		git-delta
-		lazygit
 		docker
 		docker-compose
 		docker-buildx
 		lazydocker
-		kubectl
-		minikube
 		virtualbox
 		openvpn
 		dbeaver
 		postman-bin
 		bruno-bin
-		fzf
-		ripgrep
-		fd
 		tree
 		btop
 		sshs
-		zoxide
 		bluetui
-		uv
 		pandoc-cli
 		texlive-core
 		texlive
-		just
-		github-cli
-		tree-sitter-cli
 		luarocks
 		tldr
 		direnv
@@ -113,7 +101,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 
 	applications_utilities=(
 		nautilus
-		yazi
 		obsidian
 		libreoffice-still
 		thunderbird
@@ -124,7 +111,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 		spotify-launcher
 		ffmpeg
 		7zip
-		jq
 		poppler
 		imagemagick
 		bazecor
@@ -196,8 +182,6 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		ghostty \
 		virtualbox \
 		openvpn-connect \
-		dotnet-sdk \
-		dotnet-sdk@8 \
 		cursor
 
 	# Applications/Utilities (casks)
@@ -218,25 +202,14 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		git \
 		gh \
 		openvpn \
-		lazygit \
-		git-delta \
-		kubernetes-cli \
-		minikube \
 		neovim \
-		uv \
 		zsh \
-		fzf \
-		ripgrep \
-		fd \
 		btop \
 		sshs \
 		gnu-tar \
 		gnu-sed \
-		yazi \
 		tmux \
 		font-symbols-only-nerd-font \
-		just \
-		tree-sitter-cli \
 		luarocks \
 		opencode \
 		direnv \
@@ -246,9 +219,7 @@ if [ "$SYSTEM" == "Darwin" ]; then
 	brew install \
 		ffmpeg \
 		sevenzip \
-		jq \
 		poppler \
-		zoxide \
 		resvg \
 		imagemagick \
 		syncthing

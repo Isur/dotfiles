@@ -7,7 +7,17 @@ export LANG="en_US.UTF-8"
 ZSH_THEME="bira"
 
 # PLUGINS
-plugins=(ansible bun direnv docker fzf gh git golang kubectl nestjs ng node npm nvm poetry redis-cli rsync ssh ssh-agent systemd tmux uv z zsh-autosuggestions zsh-fzf-history-search zsh-syntax-highlighting)
+plugins=(ansible bun direnv docker fzf gh git golang kubectl nestjs ng node npm poetry redis-cli rsync ssh ssh-agent systemd tmux uv z zsh-autosuggestions zsh-fzf-history-search zsh-syntax-highlighting)
+
+# PATHS
+export PATH="$HOME/dotfiles/scripts:$PATH"
+export PATH="$HOME/apps:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/go/bin:$PATH"
+export PATH="$PATH:$HOME/.dotnet/tools"
+
+# MISE (before oh-my-zsh, so plugins find fzf, gh, kubectl, uv, bun, ...)
+command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
 
 # OH MY ZSH
 source $ZSH/oh-my-zsh.sh
@@ -51,20 +61,6 @@ function yy() {
   rm -f -- "$tmp"
 }
 
-# PATHS
-export BUN_INSTALL="$HOME/.bun"
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-
-export PATH="$HOME/dotfiles/scripts:$PATH"
-export PATH="$HOME/apps:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/go/bin:$PATH"
-export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
 # DEFAULT APPS
 export EDITOR="nvim"
 export BROWSER="brave"
-
-command -v mise >/dev/null 2>&1 && eval "$(mise activate zsh)"
