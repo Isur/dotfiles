@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Pick a tmux server (socket) with fzf, or create a new one by typing its name.
+#   Enter   - open the highlighted server, or create one named after the query if nothing matches
+#   Ctrl-n  - always create a server named after the query
+#   Ctrl-x  - kill the highlighted server (also removes stale sockets)
+# Works inside tmux (switches the client) and outside of it (attaches directly).
+
+socket_dir="${TMUX_TMPDIR:-/tmp}/tmux-$(id -u)"
+
+current=""
+if [[ -n "$TMUX" ]]; then
+    current=$(basename "${TMUX%%,*}")
+fi
+
+list_servers() {
+    find "$socket_dir" -maxdepth 1 -type s -printf '%f\n' 2>/dev/null | grep -vxF "$current" | sort
+}
+
+if [[ "$1" == "--list" ]]; then
+    list_servers
+    exit 0
+fi
+
+self=$(realpath "${BASH_SOURCE[0]}")
+export socket_dir current
+
+mapfile -t result < <(
+    list_servers | fzf --print-query --expect=ctrl-n \
+        --prompt="server> " \
+        --header="enter: open / create  |  ctrl-n: create from query  |  ctrl-x: kill server" \
+        --bind "ctrl-x:execute-silent(tmux -L {} kill-server 2>/dev/null; rm -f \"\$socket_dir\"/{})+reload($self --list)"
+)
+
+query="${result[0]}"
+key="${result[1]}"
+selected="${result[2]}"
+
+if [[ "$key" == "ctrl-n" || -z "$selected" ]]; then
+    name="$query"
+else
+    name="$selected"
+fi
+
+[[ -z "$name" ]] && exit 0
+
+printf -v cmd 'tmux -L %q attach || tmux -L %q new-session -s %q' "$name" "$name" "$name"
+
+if [[ -n "$TMUX" ]]; then
+    [[ "$name" == "$current" ]] && exit 0
+    tmux detach-client -E "env -u TMUX bash -c $(printf '%q' "$cmd")"
+else
+    exec bash -c "$cmd"
+fi
