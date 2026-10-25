@@ -4,7 +4,7 @@ node = "lts"
 pnpm = "latest"
 bun = "latest"
 uv = "latest"
-dotnet = "8"
+dotnet = ["latest", "10", "8"]
 "npm:neovim" = "latest"
 
 # kubernetes

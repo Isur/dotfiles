@@ -17,6 +17,7 @@
     - .config/ghostty
     - .config/yazi
     - .config/mise
+    - .config/herdr
 
 - name: Check if global docker-compose is already here
   ansible.builtin.stat:
@@ -244,6 +245,7 @@
     - { src: "yazi/package.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/package.toml"}
     - { src: "yazi/theme.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/theme.toml"}
     - { src: "mise/config.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/mise/config.toml"}
+    - { src: "herdr/config.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/herdr/config.toml"}
 
 - name: Install global mise tools
   ansible.builtin.command: mise install --yes

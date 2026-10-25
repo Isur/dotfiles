@@ -1,0 +1,6 @@
+# Configuration reference: https://herdr.dev/docs/configuration/
+onboarding = false
+
+[keys]
+navigate_workspace_down = "j"
+navigate_workspace_up = "k"
