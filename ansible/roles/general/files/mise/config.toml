@@ -6,6 +6,7 @@ bun = "latest"
 uv = "latest"
 dotnet = ["latest", "10", "8"]
 "npm:neovim" = "latest"
+"npm:@playwright/cli" = "latest"
 
 # kubernetes
 kubectl = "latest"

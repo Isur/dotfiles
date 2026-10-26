@@ -71,7 +71,7 @@ return {
 				require("matugen").setup()
 			end)
 			if not ok then
-				vim.cmd.colorscheme("ayu")
+				vim.cmd.colorscheme("kanagawa")
 			end
 		end,
 	},

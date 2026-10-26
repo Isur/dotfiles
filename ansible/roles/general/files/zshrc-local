@@ -64,3 +64,4 @@ function yy() {
 # DEFAULT APPS
 export EDITOR="nvim"
 export BROWSER="brave"
+export PLANNOTATOR_BROWSER="Brave Browser"

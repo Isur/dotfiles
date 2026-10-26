@@ -165,64 +165,110 @@ if [ "$SYSTEM" == "Darwin" ]; then
 	fi
 
 	# UI/Desktop (casks)
-	brew install --cask \
-		raycast \
-		font-jetbrains-mono-nerd-font \
-		font-maple-mono-nf \
-		font-hack-nerd-font \
-		font-sf-pro \
+	macos_ui_casks=(
+		raycast
+		font-jetbrains-mono-nerd-font
+		font-maple-mono-nf
+		font-hack-nerd-font
+		font-sf-pro
 		shottr
+		nikitabobko/tap/aerospace # Tiling window manager used by the macOS configuration
+		font-symbols-only-nerd-font # Symbols used by terminal and status bar themes
+	)
+	brew install --cask "${macos_ui_casks[@]}"
 
 	# Terminal/Development (casks)
-	brew install --cask \
-		dbeaver-community \
-		postman \
-		bruno \
-		docker \
-		ghostty \
-		virtualbox \
-		openvpn-connect \
+	macos_dev_casks=(
+		dbeaver-community
+		postman
+		bruno
+		docker
+		ghostty
+		virtualbox
+		openvpn-connect
 		cursor
+		visual-studio-code # Code editor
+		claude-code # Claude coding assistant CLI
+		gcloud-cli # Google Cloud CLI
+		basictex # LaTeX tools for document and PDF generation
+	)
+	brew install --cask "${macos_dev_casks[@]}"
 
 	# Applications/Utilities (casks)
-	brew install --cask \
-		brave-browser \
-		libreoffice \
-		discord \
-		spotify \
-		bazecor \
-		obsidian \
+	macos_app_casks=(
+		brave-browser
+		libreoffice
+		discord
+		spotify
+		bazecor
+		obsidian
 		rustdesk
+		bitwarden # Password manager
+		cryptomator # Encrypted vaults for cloud files
+		localsend # Local network file transfer
+		obs # Screen recording and streaming
+		vlc # Media player
+		slack # Team messaging
+		zoom # Video meetings
+		chatgpt # ChatGPT desktop app
+		balenaetcher # Write operating system images to USB drives
+	)
+	brew install --cask "${macos_app_casks[@]}"
 
 	# Terminal/Development (packages)
-	brew install \
-		ansible \
-		ansible-lint \
-		postgresql \
-		git \
-		gh \
-		openvpn \
-		neovim \
-		zsh \
-		btop \
-		sshs \
-		gnu-tar \
-		gnu-sed \
-		tmux \
-		font-symbols-only-nerd-font \
-		luarocks \
-		opencode \
-		direnv \
-		mise
+	macos_dev_packages=(
+		ansible
+		ansible-lint
+		postgresql
+		git
+		openvpn
+		neovim
+		zsh
+		btop
+		sshs
+		gnu-tar
+		gnu-sed
+		tmux
+		mise # Tools and runtimes declared in mise/config.toml
+		luarocks
+		opencode
+		direnv
+		awscli # AWS CLI
+		argocd # Argo CD deployment CLI
+		k9s # Terminal Kubernetes dashboard
+		docker-compose # Docker Compose CLI
+		lazydocker # Terminal Docker dashboard
+		k6 # Load testing CLI
+		pyenv # Python version manager
+		poetry # Python project and dependency manager
+		redis # Local Redis server
+		mysql-client # MySQL client tools
+		libpq # PostgreSQL client tools
+		sqlcmd # SQL Server CLI
+		bat # File viewer with syntax highlighting
+		tree # Directory tree viewer
+		wget # Command-line file downloader
+		nmap # Network discovery and port scanning
+		zsh-completions # Additional Zsh completions
+	)
+	brew install "${macos_dev_packages[@]}"
 
 	# Applications/Utilities (packages)
-	brew install \
-		ffmpeg \
-		sevenzip \
-		poppler \
-		resvg \
-		imagemagick \
+	macos_utility_packages=(
+		ffmpeg
+		sevenzip
+		poppler
+		resvg
+		imagemagick
 		syncthing
+		felixkratz/formulae/sketchybar # Status bar used by the macOS configuration
+		switchaudio-osx # Audio device control used by SketchyBar
+		terminal-notifier # Send macOS notifications from scripts
+		pandoc # Document format converter
+		ncdu # Interactive disk usage viewer
+		unzip # Extract ZIP archives
+	)
+	brew install "${macos_utility_packages[@]}"
 
 	ansible-galaxy collection install -r "$HOME/dotfiles/ansible/collections.yml"
 
