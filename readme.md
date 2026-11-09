@@ -44,7 +44,6 @@ Scripts live in `scripts/`, which is added to `PATH` by `.zshrc`:
 - `tmux-sessionizer` - create tmux session in selected directory;
 - `tmux-fzf` - search in tmux window (used in tmux floating window);
 - `tmux-servers` - pick, create or kill tmux servers (sockets) with fzf;
-- `prompter` - script to run custom prompts with opencode (opencode is not installed by the installer);
 
 ### Secrets
 
