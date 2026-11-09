@@ -30,16 +30,21 @@ Ansible roles are prepared to be used with Archlinux and Darwin systems.
 
 ### Scripts
 
-Those scripts will be installed:
+Scripts live in `scripts/`, which is added to `PATH` by `.zshrc`:
 
 - `backup` - backup script that will be used to backup my data to external drive;
-- `backuper` - backup script that will be used to backup from `source` to `target`
+- `backuper` - backup script that will be used to backup from `source` to `target`;
+- `backup-restic` - backup `data_vault` with restic to external drive;
+- `gh_backup.sh` / `gh_update.sh` - clone / pull all GitHub repos of a user or org into a target directory;
 - `keker` - automatically create directory for new project - template might be used for this;
-- `updater` - update dotfiles repo, packages and `Oh My ZSH`;
+- `updater` - update system packages, `mise` tools and `Oh My ZSH`;
+- `ssh-sync` - push `~/.ssh` into the vaulted bundle or pull it back;
+- `mount-secret` - unlock and mount the Cryptomator secret vault;
+- `launcher-fzf` - fzf based command launcher;
 - `tmux-sessionizer` - create tmux session in selected directory;
 - `tmux-fzf` - search in tmux window (used in tmux floating window);
-- `wallchange` - change to random wallpaper in hyprland;
-- `prompter` - script to run custom prompts with opencode;
+- `tmux-servers` - pick, create or kill tmux servers (sockets) with fzf;
+- `prompter` - script to run custom prompts with opencode (opencode is not installed by the installer);
 
 ### Secrets
 
