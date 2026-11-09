@@ -280,6 +280,13 @@
       theme = {{ 'noctalia' if ansible_facts['distribution'] == 'Archlinux' else 'Kanagawabones' }}
       config-file = {{ role_path }}/files/ghostty
 
+# Needs ~/.tmux.conf linked first. Works without a running tmux server.
+- name: TMUX | Install plugins
+  ansible.builtin.command: "{{ ansible_facts['env']['HOME'] }}/.tmux/plugins/tpm/bin/install_plugins"
+  register: tpm_install
+  changed_when: "'download success' in tpm_install.stdout"
+  when: not ansible_check_mode
+
 - name: Claude | Find skills
   ansible.builtin.find:
     paths: "{{ role_path }}/files/claude/skills"
