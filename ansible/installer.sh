@@ -149,15 +149,9 @@ if [ "$SYSTEM" == "Arch" ]; then
 	echo "==> Upgrading system before installing packages"
 	yay -Syu --noconfirm
 
-	# NVIDIA (open kernel modules, Turing+). Kernel modules are added per kernel below.
 	driver_system=(
-		nvidia-utils
-		lib32-nvidia-utils
-		nvidia-settings
 		pipewire
 		wireplumber
-		gwe
-		cuda
 		sddm
 		nm-connection-editor
 		wl-clipboard
@@ -170,24 +164,48 @@ if [ "$SYSTEM" == "Arch" ]; then
 	)
 
 	# Headers for every installed kernel (needed by DKMS modules, e.g. virtualbox-host-dkms).
-	# NVIDIA: prebuilt modules exist for linux / linux-lts; any other kernel needs
-	# nvidia-open-dkms, which conflicts with the prebuilt ones, so use it for all.
-	nvidia_modules=()
-	nvidia_needs_dkms=false
 	for kernel in linux linux-lts linux-zen linux-hardened; do
 		if pacman -Q "$kernel" >/dev/null 2>&1; then
 			driver_system+=("$kernel-headers")
-			case "$kernel" in
-				linux) nvidia_modules+=(nvidia-open) ;;
-				linux-lts) nvidia_modules+=(nvidia-open-lts) ;;
-				*) nvidia_needs_dkms=true ;;
-			esac
 		fi
 	done
-	if [ "$nvidia_needs_dkms" == true ]; then
-		driver_system+=(nvidia-open-dkms)
-	else
-		driver_system+=("${nvidia_modules[@]}")
+
+	# NVIDIA: auto-detected from PCI; override with DOTFILES_NVIDIA=yes|no.
+	nvidia="${DOTFILES_NVIDIA:-auto}"
+	if [ "$nvidia" == "auto" ]; then
+		nvidia=no
+		for dev in /sys/bus/pci/devices/*; do
+			# vendor 0x10de = NVIDIA, class 0x03xxxx = display controller
+			if [ "$(cat "$dev/vendor" 2>/dev/null)" == "0x10de" ]; then
+				case "$(cat "$dev/class" 2>/dev/null)" in
+					0x03*) nvidia=yes ;;
+				esac
+			fi
+		done
+	fi
+	echo "==> NVIDIA GPU support: $nvidia"
+
+	if [ "$nvidia" == "yes" ]; then
+		# Open kernel modules (Turing+). Prebuilt modules exist for linux /
+		# linux-lts; any other kernel needs nvidia-open-dkms, which conflicts
+		# with the prebuilt ones, so then use it for all kernels.
+		driver_system+=(nvidia-utils lib32-nvidia-utils nvidia-settings gwe cuda)
+		nvidia_modules=()
+		nvidia_needs_dkms=false
+		for kernel in linux linux-lts linux-zen linux-hardened; do
+			if pacman -Q "$kernel" >/dev/null 2>&1; then
+				case "$kernel" in
+					linux) nvidia_modules+=(nvidia-open) ;;
+					linux-lts) nvidia_modules+=(nvidia-open-lts) ;;
+					*) nvidia_needs_dkms=true ;;
+				esac
+			fi
+		done
+		if [ "$nvidia_needs_dkms" == true ]; then
+			driver_system+=(nvidia-open-dkms)
+		elif [ "${#nvidia_modules[@]}" -gt 0 ]; then
+			driver_system+=("${nvidia_modules[@]}")
+		fi
 	fi
 
 	ui_desktop=(
