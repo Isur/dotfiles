@@ -88,7 +88,8 @@ is_excluded_name() {
     authorized_keys|authorized_keys2) return 0 ;;
     .DS_Store) return 0 ;;
     *.sock|*.tmp|*.swp|*.swo|*~) return 0 ;;
-    control*|ctl*|agent.*|environment|environment.*) return 0 ;;
+    # environment-<host> is ssh-agent state written by the Oh My Zsh ssh-agent plugin
+    control*|ctl*|agent.*|environment|environment.*|environment-*) return 0 ;;
     *) return 1 ;;
   esac
 }
