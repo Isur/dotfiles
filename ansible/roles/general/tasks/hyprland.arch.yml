@@ -1,14 +1,5 @@
 # vim:ft=yaml.ansible
 ---
-- name: Arch | Prep modfile
-  become: true
-  ansible.builtin.lineinfile:
-    dest: /etc/modprobe.d/nvidia.conf
-    regexp: '^options\s+nvidia_drm\s+modeset='
-    line: 'options nvidia_drm modeset=1'
-    create: true
-    mode: '0644'
-
 - name: Arch | Config hyprland
   ansible.builtin.file:
     src: "{{ role_path }}/files/{{ item.src }}"

@@ -73,8 +73,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		exit 1
 	fi
 
+	# NVIDIA (open kernel modules, Turing+). Kernel modules are added per kernel below.
 	driver_system=(
-		nvidia-dkms
 		nvidia-utils
 		lib32-nvidia-utils
 		nvidia-settings
@@ -84,7 +84,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 		cuda
 		sddm
 		nm-connection-editor
-		egl-wayland
 		wl-clipboard
 		xdg-desktop-portal-hyprland
 		xdg-desktop-portal-gtk
@@ -94,12 +93,26 @@ if [ "$SYSTEM" == "Arch" ]; then
 		gvfs
 	)
 
-	# nvidia-dkms builds against the headers of every installed kernel.
+	# Headers for every installed kernel (needed by DKMS modules, e.g. virtualbox-host-dkms).
+	# NVIDIA: prebuilt modules exist for linux / linux-lts; any other kernel needs
+	# nvidia-open-dkms, which conflicts with the prebuilt ones, so use it for all.
+	nvidia_modules=()
+	nvidia_needs_dkms=false
 	for kernel in linux linux-lts linux-zen linux-hardened; do
 		if pacman -Q "$kernel" >/dev/null 2>&1; then
 			driver_system+=("$kernel-headers")
+			case "$kernel" in
+				linux) nvidia_modules+=(nvidia-open) ;;
+				linux-lts) nvidia_modules+=(nvidia-open-lts) ;;
+				*) nvidia_needs_dkms=true ;;
+			esac
 		fi
 	done
+	if [ "$nvidia_needs_dkms" == true ]; then
+		driver_system+=(nvidia-open-dkms)
+	else
+		driver_system+=("${nvidia_modules[@]}")
+	fi
 
 	ui_desktop=(
 		hyprutils
@@ -133,6 +146,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		docker-buildx
 		lazydocker
 		virtualbox
+		virtualbox-host-dkms
 		openvpn
 		dbeaver
 		postman-bin
