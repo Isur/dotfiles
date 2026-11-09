@@ -152,7 +152,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 	driver_system=(
 		pipewire
 		wireplumber
-		sddm
 		nm-connection-editor
 		wl-clipboard
 		xdg-desktop-portal-hyprland
@@ -206,6 +205,18 @@ if [ "$SYSTEM" == "Arch" ]; then
 		elif [ "${#nvidia_modules[@]}" -gt 0 ]; then
 			driver_system+=("${nvidia_modules[@]}")
 		fi
+	fi
+
+	# SDDM only when no other display manager is configured (the playbook
+	# applies the same rule when enabling it).
+	current_dm=""
+	if [ -L /etc/systemd/system/display-manager.service ]; then
+		current_dm="$(basename "$(readlink /etc/systemd/system/display-manager.service)" .service)"
+	fi
+	if [ -z "$current_dm" ] || [ "$current_dm" == "sddm" ]; then
+		driver_system+=(sddm)
+	else
+		echo "==> Display manager already set to $current_dm, skipping SDDM"
 	fi
 
 	ui_desktop=(

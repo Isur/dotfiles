@@ -13,11 +13,33 @@
     path: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty/noctalia.conf"
     state: absent
 
+# Only take over the display manager when none is configured (or it is SDDM).
+- name: Arch | Check current display manager
+  ansible.builtin.stat:
+    path: /etc/systemd/system/display-manager.service
+    follow: false
+  register: display_manager
+
+- name: Arch | Decide whether to manage SDDM
+  ansible.builtin.set_fact:
+    manage_sddm: >-
+      {{ not display_manager.stat.exists
+         or (display_manager.stat.lnk_target | default('') | basename) == 'sddm.service' }}
+
 - name: Arch | Enable SDDM
   become: true
   ansible.builtin.systemd:
-    name: "{{ item }}"
+    name: sddm
     enabled: true
-  loop:
-    - "sddm"
-    - "bluetooth"
+  when: manage_sddm | bool
+
+- name: Arch | Keep existing display manager
+  ansible.builtin.debug:
+    msg: "Display manager already set to {{ display_manager.stat.lnk_target | default('?') | basename }}; not enabling SDDM."
+  when: not (manage_sddm | bool)
+
+- name: Arch | Enable bluetooth
+  become: true
+  ansible.builtin.systemd:
+    name: bluetooth
+    enabled: true
