@@ -1,5 +1,4 @@
 lazy-lock.json
 .vault_pass
-ansible/roles/general/files/waybar/theme.css
 ansible/roles/general/files/hyprland/noctalia.lua
 .ansible/
