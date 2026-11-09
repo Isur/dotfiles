@@ -30,16 +30,13 @@
     state: started
 
 - name: Arch | Git Config
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-    force: true
-  loop:
-    - { src: "git-configs/gitconfig", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig" }
-    - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig-gravyty" }
-    - { src: "git-configs/lazygit.yml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/lazygit/config.yml" }
-    - { src: "yazi/theme.arch.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/theme.toml" }
+  ansible.builtin.include_tasks: link.yml
+  vars:
+    links:
+      - { src: "git-configs/gitconfig", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig" }
+      - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig-gravyty" }
+      - { src: "git-configs/lazygit.yml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/lazygit/config.yml" }
+      - { src: "yazi/theme.arch.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/theme.toml" }
 
 - name: Arch | ZSH default shell
   become: true

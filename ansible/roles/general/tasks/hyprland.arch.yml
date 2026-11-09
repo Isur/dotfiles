@@ -1,14 +1,11 @@
 # vim:ft=yaml.ansible
 ---
 - name: Arch | Config hyprland
-  ansible.builtin.file:
-    src: "{{ role_path }}/files/{{ item.src }}"
-    dest: "{{ item.dest }}"
-    state: link
-    force: true
-  loop:
-    - { src: "hyprland", dest: "{{ ansible_facts['env']['HOME'] }}/.config/hypr" }
-    - { src: "noctalia", dest: "{{ ansible_facts['env']['HOME'] }}/.config/noctalia"}
+  ansible.builtin.include_tasks: link.yml
+  vars:
+    links:
+      - { src: "hyprland", dest: "{{ ansible_facts['env']['HOME'] }}/.config/hypr" }
+      - { src: "noctalia", dest: "{{ ansible_facts['env']['HOME'] }}/.config/noctalia"}
 
 # Superseded by the generated ~/.config/ghostty/config entry point (dev.yml).
 - name: Arch | Remove old Ghostty noctalia override

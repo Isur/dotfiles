@@ -1,0 +1,40 @@
+# vim:ft=yaml.ansible
+---
+# Link repo files into place without losing what was there before.
+#
+# Expects `links`: a list of { src, dest }. `src` is relative to the role's
+# files/ dir (or absolute). A real file/dir already at `dest` (i.e. not a
+# symlink) is moved to `<dest>.pre-dotfiles-<timestamp>` before linking;
+# existing symlinks are simply repointed.
+- name: Link | Check existing targets
+  ansible.builtin.stat:
+    path: "{{ item.dest }}"
+    follow: false
+  loop: "{{ links }}"
+  loop_control:
+    label: "{{ item.dest }}"
+  register: link_targets
+
+- name: Link | Back up real files before replacing them
+  ansible.builtin.command:
+    argv:
+      - mv
+      - "{{ item.item.dest }}"
+      - "{{ item.item.dest }}.pre-dotfiles-{{ ansible_facts['date_time']['iso8601_basic_short'] }}"
+  loop: "{{ link_targets.results }}"
+  loop_control:
+    label: "{{ item.item.dest }}"
+  when:
+    - item.stat.exists
+    - not item.stat.islnk
+  changed_when: true
+
+- name: Link | Create symlinks
+  ansible.builtin.file:
+    src: "{{ item.src if item.src.startswith('/') else role_path ~ '/files/' ~ item.src }}"
+    dest: "{{ item.dest }}"
+    state: link
+    force: true
+  loop: "{{ links }}"
+  loop_control:
+    label: "{{ item.dest }}"
