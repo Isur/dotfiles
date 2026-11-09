@@ -10,6 +10,7 @@
     - { src: "git-configs/gitconfig", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig" }
     - { src: "git-configs/gitconfig-gravyty", dest: "{{ ansible_facts['env']['HOME'] }}/.gitconfig-gravyty" }
     - { src: "git-configs/lazygit.yml", dest: "{{ ansible_facts['env']['HOME'] }}/Library/Application Support/lazygit/config.yml" }
+    - { src: "yazi/theme.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/theme.toml" }
 
 - name: Darwin | ZSH default shell
   become: true

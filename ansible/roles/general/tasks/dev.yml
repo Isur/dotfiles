@@ -243,7 +243,6 @@
     - { src: "tmux.conf", dest: "{{ ansible_facts['env']['HOME'] }}/.tmux.conf" }
     - { src: "yazi/keymap.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/keymap.toml"}
     - { src: "yazi/package.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/package.toml"}
-    - { src: "yazi/theme.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/theme.toml"}
     - { src: "mise/config.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/mise/config.toml"}
     - { src: "herdr/config.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/herdr/config.toml"}
 
