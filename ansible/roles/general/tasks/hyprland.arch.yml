@@ -19,7 +19,7 @@
 - name: Arch | Enable SDDM
   become: true
   ansible.builtin.systemd:
-    name: "{{ item}}"
+    name: "{{ item }}"
     enabled: true
   loop:
     - "sddm"

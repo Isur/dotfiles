@@ -6,7 +6,7 @@
     state: directory
     mode: '755'
 
-- name: Clone repos
+- name: Clone repos  # noqa: latest[git] - clone default branch, never updated afterwards
   ansible.builtin.git:
     repo: "git@github.com:{{ item.src }}"
     dest: "{{ ansible_facts['env']['HOME'] }}/Developer/Personal/{{ item.name }}"

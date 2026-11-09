@@ -1,0 +1,4 @@
+---
+# Single-user dotfiles roles: role-prefixed variable names add noise, not safety.
+skip_list:
+  - var-naming[no-role-prefix]

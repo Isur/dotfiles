@@ -56,14 +56,14 @@
 
 - name: Download OhMyZSH plugins
   ansible.builtin.git:
-    repo: "{{ item.repo }}"
-    dest: "{{ item.dest }}"
+    repo: "https://github.com/{{ item }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins/{{ item | basename }}"
     version: master
     update: true
   loop:
-    - { repo: "https://github.com/joshskidmore/zsh-fzf-history-search", dest: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins/zsh-fzf-history-search" }
-    - { repo: "https://github.com/zsh-users/zsh-autosuggestions", dest: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
-    - { repo: "https://github.com/zsh-users/zsh-syntax-highlighting", dest: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"}
+    - joshskidmore/zsh-fzf-history-search
+    - zsh-users/zsh-autosuggestions
+    - zsh-users/zsh-syntax-highlighting
   when: not ansible_check_mode
 
 - name: Check mode | OhMyZSH plugins sync preview
@@ -133,10 +133,11 @@
         argv:
           - tar
           - -czf
-          - "{{ ansible_facts['env']['HOME'] }}/.ssh-backups/ssh-{{ ansible_facts['date_time']['year'] }}{{ ansible_facts['date_time']['month'] }}{{ ansible_facts['date_time']['day'] }}-{{ ansible_facts['date_time']['hour'] }}{{ ansible_facts['date_time']['minute'] }}{{ ansible_facts['date_time']['second'] }}.tar.gz"
+          - "{{ ansible_facts['env']['HOME'] }}/.ssh-backups/ssh-{{ ansible_facts['date_time']['iso8601_basic_short'] }}.tar.gz"
           - -C
           - "{{ ansible_facts['env']['HOME'] }}"
           - .ssh
+      changed_when: true
       when:
         - ssh_bundle_differs
         - ssh_existing_files.matched | int > 0
@@ -187,7 +188,9 @@
     path: "{{ item.path }}"
     mode: '600'
   loop: "{{ ssh_files.files }}"
-  when: item.path | basename != 'known_hosts' and item.path | basename != 'known_hosts.old' and item.path | basename != 'authorized_keys' and (item.path | basename) is not match('.*\\.pub$')
+  when:
+    - item.path | basename not in ['known_hosts', 'known_hosts.old', 'authorized_keys']
+    - (item.path | basename) is not match('.*\\.pub$')
 
 - name: SSH key permissions for public keys
   ansible.builtin.file:
@@ -197,7 +200,7 @@
   when: (item.path | basename) is match('.*\\.pub$')
 
 - name: Verify the origin is set correctly
-  ansible.builtin.command: git remote get-url origin
+  ansible.builtin.command: git remote get-url origin  # noqa: command-instead-of-module
   args:
     chdir: "{{ ansible_facts['env']['HOME'] }}/dotfiles"
   register: current_origin
@@ -205,7 +208,7 @@
   changed_when: false
 
 - name: Check configured git remotes
-  ansible.builtin.command: git remote
+  ansible.builtin.command: git remote  # noqa: command-instead-of-module
   args:
     chdir: "{{ ansible_facts['env']['HOME'] }}/dotfiles"
   register: dotfiles_remotes
@@ -221,6 +224,7 @@
       - git@github.com:Isur/dotfiles
   args:
     chdir: "{{ ansible_facts['env']['HOME'] }}/dotfiles"
+  changed_when: true
   when:
     - "'origin' in dotfiles_remotes.stdout_lines"
     - current_origin.stdout != "git@github.com:Isur/dotfiles"
@@ -235,12 +239,14 @@
       - git@github.com:Isur/dotfiles
   args:
     chdir: "{{ ansible_facts['env']['HOME'] }}/dotfiles"
+  changed_when: true
   when: "'origin' not in dotfiles_remotes.stdout_lines"
 
 - name: TMUX plugin manager
   ansible.builtin.git:
     repo: "https://github.com/tmux-plugins/tpm"
     dest: "{{ ansible_facts['env']['HOME'] }}/.tmux/plugins/tpm"
+    version: master
     clone: true
 
 - name: Link configs
@@ -322,6 +328,7 @@
   ansible.builtin.command: mise install --yes
   args:
     chdir: "{{ ansible_facts['env']['HOME'] }}"
+  changed_when: true
   when:
     - not ansible_check_mode
     - mise_missing.stdout | trim | length > 0
@@ -337,13 +344,17 @@
 # always redeploys, so "changed" is reported only when a package dir appears.
 - name: Yazi | Install packages from package.toml
   ansible.builtin.shell: |
-    set -eu
+    set -euo pipefail
+    shopt -s nullglob
     cd "$HOME/.config/yazi"
-    count() { ls -d flavors/*.yazi plugins/*.yazi 2>/dev/null | wc -l; }
+    # count via positional args: bash array-length syntax would open a Jinja comment
+    count() { set -- flavors/*.yazi plugins/*.yazi; echo "$#"; }
     before=$(count)
     mise exec -- ya pkg install
     after=$(count)
     [ "$before" = "$after" ] || echo YAZI_CHANGED
+  args:
+    executable: /bin/bash
   register: yazi_pkg
   changed_when: "'YAZI_CHANGED' in yazi_pkg.stdout"
   when: not ansible_check_mode
