@@ -19,6 +19,12 @@
     - { src: "hyprland", dest: "{{ ansible_facts['env']['HOME'] }}/.config/hypr" }
     - { src: "noctalia", dest: "{{ ansible_facts['env']['HOME'] }}/.config/noctalia"}
 
+- name: Arch | Ghostty noctalia theme override
+  ansible.builtin.copy:
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty/noctalia.conf"
+    content: "theme = noctalia\n"
+    mode: "0644"
+
 - name: Arch | Enable SDDM
   become: true
   ansible.builtin.systemd:

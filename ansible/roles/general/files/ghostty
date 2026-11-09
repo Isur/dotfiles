@@ -14,3 +14,6 @@ link-url = true
 background-opacity = 1.0
 
 keybind = shift+enter=text:\x1b\r
+
+# Optional local override (generated on Arch by ansible, absent on macOS)
+config-file = ?~/.config/ghostty/noctalia.conf
