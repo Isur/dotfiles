@@ -115,8 +115,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 	fi
 
 	ui_desktop=(
-		hyprutils
-		hyprlang
 		hyprland
 		hyprpicker
 		hyprpolkitagent
@@ -126,11 +124,12 @@ if [ "$SYSTEM" == "Arch" ]; then
 		gtk3
 		nwg-look
 		adw-gtk-theme
-		font-awesome-5
+		qt5-wayland
+		qt6-wayland
+		noto-fonts
 		ttf-jetbrains-mono-nerd
 		maplemono-nf-unhinted
 		ttf-hack-nerd
-		nerd-fonts-apple
 		noctalia-git
 	)
 
@@ -139,7 +138,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		tmux
 		zsh
 		neovim
-		python-neovim
+		python-pynvim
 		git
 		docker
 		docker-compose
@@ -156,7 +155,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 		sshs
 		bluetui
 		pandoc-cli
-		texlive-core
 		texlive
 		luarocks
 		tldr
@@ -183,7 +181,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		obsidian
 		libreoffice-still
 		thunderbird
-		thunderbird-i18n
+		thunderbird-i18n-pl
 		discord
 		zen-browser-bin
 		brave-bin
