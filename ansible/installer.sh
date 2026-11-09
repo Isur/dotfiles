@@ -241,8 +241,7 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		gcloud-cli \
 		basictex \
 		virtualbox \
-		openvpn-connect \
-		cursor
+		openvpn-connect
 
 	brew_install cask "applications/utilities" \
 		brave-browser \
