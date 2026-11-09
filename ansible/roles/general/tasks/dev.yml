@@ -58,9 +58,7 @@
     path: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins"
     state: directory
     mode: '755'
-  when:
-    - not ansible_check_mode
-    - zsh_status.stat.exists
+  when: not ansible_check_mode
 
 - name: Download OhMyZSH plugins
   ansible.builtin.git:
@@ -72,16 +70,12 @@
     - { repo: "https://github.com/joshskidmore/zsh-fzf-history-search", dest: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins/zsh-fzf-history-search" }
     - { repo: "https://github.com/zsh-users/zsh-autosuggestions", dest: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions" }
     - { repo: "https://github.com/zsh-users/zsh-syntax-highlighting", dest: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting"}
-  when:
-    - not ansible_check_mode
-    - zsh_status.stat.exists
+  when: not ansible_check_mode
 
 - name: Check mode | OhMyZSH plugins sync preview
   ansible.builtin.debug:
     msg: "Would sync Oh My Zsh plugins to latest master."
-  when:
-    - ansible_check_mode
-    - zsh_status.stat.exists
+  when: ansible_check_mode
 
 - name: Ensure that ssh directory exists
   ansible.builtin.file:
