@@ -45,8 +45,10 @@ load_brew_installed() {
 	BREW_FORMULAE="$(brew list --formula -1 2>/dev/null || true)"
 }
 
+# Here-string instead of a pipe: with pipefail, `grep -q` exiting early could
+# make the pipeline fail even on a match.
 in_list() {
-	printf '%s\n' "$2" | grep -qxF -- "$1"
+	grep -qxF -- "$1" <<<"$2"
 }
 
 # Succeeds when every App/Font artifact of the cask already exists on disk,
