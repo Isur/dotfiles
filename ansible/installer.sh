@@ -145,6 +145,10 @@ if [ "$SYSTEM" == "Arch" ]; then
 		exit 1
 	fi
 
+	# Arch does not support partial upgrades: sync and upgrade before installing.
+	echo "==> Upgrading system before installing packages"
+	yay -Syu --noconfirm
+
 	# NVIDIA (open kernel modules, Turing+). Kernel modules are added per kernel below.
 	driver_system=(
 		nvidia-utils

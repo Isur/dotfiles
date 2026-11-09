@@ -34,7 +34,7 @@ load_brew() {
 
 if [ "$SYSTEM" == "Arch" ]; then
 	if ! command -v yay >/dev/null 2>&1; then
-		sudo pacman -S --needed git base-devel --noconfirm
+		sudo pacman -Syu --needed --noconfirm git base-devel
 		rm -rf yay
 		git clone https://aur.archlinux.org/yay.git
 		cd yay
@@ -43,7 +43,8 @@ if [ "$SYSTEM" == "Arch" ]; then
 		rm -rf yay
 	fi
 
-	yay -S --needed --noconfirm ansible python-psycopg2
+	# -Syu: Arch does not support partial upgrades
+	yay -Syu --needed --noconfirm ansible python-psycopg2
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
