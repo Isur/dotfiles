@@ -9,17 +9,28 @@ SYSTEM=""
 
 if [ "$(uname)" == "Darwin" ]; then
 	SYSTEM="Darwin"
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [ "$(uname -s)" == "Linux" ]; then
 	if [ -f /etc/arch-release ]; then
 		SYSTEM="Arch"
 	fi
 fi
 
 if [ -z "$SYSTEM" ]; then
-    echo "System not supported. Script will work only on Arch based system or MacOS (Darwin)"
+	echo "System not supported. Script will work only on Arch based system or MacOS (Darwin)"
 	exit 1
 fi
 
+# Put Homebrew on PATH for this shell (fresh installs are not on PATH yet).
+load_brew() {
+	local brew_bin
+	for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+		if [ -x "$brew_bin" ]; then
+			eval "$("$brew_bin" shellenv)"
+			return 0
+		fi
+	done
+	return 1
+}
 
 if [ "$SYSTEM" == "Arch" ]; then
 	if ! command -v yay >/dev/null 2>&1; then
@@ -27,7 +38,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		rm -rf yay
 		git clone https://aur.archlinux.org/yay.git
 		cd yay
-		makepkg -si
+		makepkg -si --noconfirm
 		cd ..
 		rm -rf yay
 	fi
@@ -36,9 +47,11 @@ if [ "$SYSTEM" == "Arch" ]; then
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
-	which -s brew
-	if [[ $? != 0 ]] ; then
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	command -v brew >/dev/null 2>&1 || load_brew || true
+
+	if ! command -v brew >/dev/null 2>&1; then
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+		load_brew || { echo "Homebrew installed but brew binary not found."; exit 1; }
 	else
 		brew update
 	fi
