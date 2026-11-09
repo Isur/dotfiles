@@ -148,6 +148,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		tldr
 		direnv
 		mise
+		ansible-lint
 	)
 
 	gaming=(
@@ -294,7 +295,8 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		tmux \
 		luarocks \
 		direnv \
-		mise
+		mise \
+		lazydocker
 
 	brew_install formula "applications/utilities" \
 		ffmpeg \
