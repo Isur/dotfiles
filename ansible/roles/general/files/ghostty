@@ -1,10 +1,13 @@
+# Shared Ghostty config. Not loaded directly: ansible generates a local
+# ~/.config/ghostty/config (untracked) that sets the per-OS theme and includes
+# this file via `config-file`. Do not set `theme` here - Noctalia rewrites the
+# theme line of ~/.config/ghostty/config, which must not touch the repo.
 font-family = Maple Mono NF
 font-style = Regular
 font-style-italic = Italic
 font-style-bold = Bold
 font-style-bold-italic = BoldItalic
 
-theme = Kanagawabones
 font-size = 16
 window-decoration = true
 macos-titlebar-style = hidden
@@ -14,6 +17,3 @@ link-url = true
 background-opacity = 1.0
 
 keybind = shift+enter=text:\x1b\r
-
-# Optional local override (generated on Arch by ansible, absent on macOS)
-config-file = ?~/.config/ghostty/noctalia.conf

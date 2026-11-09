@@ -19,11 +19,11 @@
     - { src: "hyprland", dest: "{{ ansible_facts['env']['HOME'] }}/.config/hypr" }
     - { src: "noctalia", dest: "{{ ansible_facts['env']['HOME'] }}/.config/noctalia"}
 
-- name: Arch | Ghostty noctalia theme override
-  ansible.builtin.copy:
-    dest: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty/noctalia.conf"
-    content: "theme = noctalia\n"
-    mode: "0644"
+# Superseded by the generated ~/.config/ghostty/config entry point (dev.yml).
+- name: Arch | Remove old Ghostty noctalia override
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/ghostty/noctalia.conf"
+    state: absent
 
 - name: Arch | Enable SDDM
   become: true
