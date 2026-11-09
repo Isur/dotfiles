@@ -201,7 +201,6 @@ if [ "$SYSTEM" == "Arch" ]; then
 	yay_install "gaming" "${gaming[@]}"
 	yay_install "applications/utilities" "${applications_utilities[@]}"
 
-	ansible-galaxy collection install -r "$HOME/dotfiles/ansible/collections.yml"
 	report_failures
 fi
 
@@ -312,10 +311,7 @@ if [ "$SYSTEM" == "Darwin" ]; then
 
 	brew services start sketchybar || FAILED+=("sketchybar (service start)")
 
-	ansible-galaxy collection install -r "$HOME/dotfiles/ansible/collections.yml"
-
 	ansible --version | head -n 1
-	ansible-galaxy --version | head -n 1
 	gtar --version | head -n 1
 	report_failures
 fi
