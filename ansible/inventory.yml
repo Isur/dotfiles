@@ -2,5 +2,5 @@ home:
   hosts:
     pc:
       ansible_host: localhost
-      ansible_user: isur
+      ansible_user: "{{ lookup('env', 'USER') }}"
       ansible_connection: local
