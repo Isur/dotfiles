@@ -1,11 +1,13 @@
 #!/bin/bash
+# Keep this script compatible with macOS' bash 3.2.
 set -euo pipefail
 
 SYSTEM=""
+FAILED=()
 
 if [ "$(uname)" == "Darwin" ]; then
 	SYSTEM="Darwin"
-elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+elif [ "$(uname -s)" == "Linux" ]; then
 	if [ -f /etc/arch-release ]; then
 		SYSTEM="Arch"
 	fi
@@ -16,10 +18,64 @@ if [ -z "$SYSTEM" ]; then
 	exit 1
 fi
 
+# Install a whole group in one go; if that fails, retry package by package
+# so one broken/renamed package does not block the rest. Failures are
+# collected and reported at the end.
+yay_install() {
+	local group="$1"
+	shift
+	echo "==> [$group] installing $# packages"
+	if yay -S --needed --noconfirm "$@"; then
+		return 0
+	fi
+	echo "==> [$group] batch install failed, retrying one by one"
+	local package
+	for package in "$@"; do
+		yay -S --needed --noconfirm "$package" || FAILED+=("$package")
+	done
+}
+
+brew_install() {
+	local kind="$1" group="$2"
+	shift 2
+	local flags=()
+	if [ "$kind" == "cask" ]; then
+		flags=(--cask)
+	fi
+	echo "==> [$group] installing $# packages"
+	if brew install ${flags[@]+"${flags[@]}"} "$@"; then
+		return 0
+	fi
+	echo "==> [$group] batch install failed, retrying one by one"
+	local package
+	for package in "$@"; do
+		brew install ${flags[@]+"${flags[@]}"} "$package" || FAILED+=("$package")
+	done
+}
+
+report_failures() {
+	if [ "${#FAILED[@]}" -eq 0 ]; then
+		echo "==> All packages installed"
+		return 0
+	fi
+	echo
+	echo "==> WARNING: ${#FAILED[@]} package(s) failed to install:"
+	local package
+	for package in "${FAILED[@]}"; do
+		echo "    - $package"
+	done
+	echo
+}
+
 if [ "$SYSTEM" == "Arch" ]; then
-		driver_system=(
-			nvidia-dkms
-			nvidia-utils
+	if ! command -v yay >/dev/null 2>&1; then
+		echo "yay is required on Arch. Run setup.sh first or install yay and rerun this script."
+		exit 1
+	fi
+
+	driver_system=(
+		nvidia-dkms
+		nvidia-utils
 		lib32-nvidia-utils
 		nvidia-settings
 		pipewire
@@ -32,11 +88,19 @@ if [ "$SYSTEM" == "Arch" ]; then
 		wl-clipboard
 		xdg-desktop-portal-hyprland
 		xdg-desktop-portal-gtk
-			sysstat
-			bluez
-			bluez-utils
-			gvfs
-		)
+		sysstat
+		bluez
+		bluez-utils
+		gvfs
+	)
+
+	# nvidia-dkms builds against the headers of every installed kernel.
+	for kernel in linux linux-lts linux-zen linux-hardened; do
+		if pacman -Q "$kernel" >/dev/null 2>&1; then
+			driver_system+=("$kernel-headers")
+		fi
+	done
+
 	ui_desktop=(
 		hyprutils
 		hyprlang
@@ -107,6 +171,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		thunderbird-i18n
 		discord
 		zen-browser-bin
+		brave-bin
 		mpv
 		spotify-launcher
 		ffmpeg
@@ -130,149 +195,128 @@ if [ "$SYSTEM" == "Arch" ]; then
 		caddy
 	)
 
-	if ! command -v yay >/dev/null 2>&1; then
-		echo "yay is required on Arch. Run setup.sh first or install yay and rerun this script."
-		exit 1
-	fi
-
-	for package in "${driver_system[@]}"; do
-		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
-	done
-
-	for package in "${ui_desktop[@]}"; do
-		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
-	done
-
-	for package in "${terminal_dev[@]}"; do
-		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
-	done
-
-	for package in "${gaming[@]}"; do
-		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
-	done
-
-	for package in "${applications_utilities[@]}"; do
-		yay -S --needed --noconfirm "$package" || echo "$package failed to install"
-	done
+	yay_install "drivers/system" "${driver_system[@]}"
+	yay_install "ui/desktop" "${ui_desktop[@]}"
+	yay_install "terminal/dev" "${terminal_dev[@]}"
+	yay_install "gaming" "${gaming[@]}"
+	yay_install "applications/utilities" "${applications_utilities[@]}"
 
 	ansible-galaxy collection install -r "$HOME/dotfiles/ansible/collections.yml"
+	report_failures
 fi
 
 if [ "$SYSTEM" == "Darwin" ]; then
+	if ! command -v brew >/dev/null 2>&1; then
+		for brew_bin in /opt/homebrew/bin/brew /usr/local/bin/brew; do
+			if [ -x "$brew_bin" ]; then
+				eval "$("$brew_bin" shellenv)"
+				break
+			fi
+		done
+	fi
+
 	if ! command -v brew >/dev/null 2>&1; then
 		echo "Homebrew is required on macOS. Install it from https://brew.sh/ and rerun this script."
 		exit 1
 	fi
 
-	# UI/Desktop (casks)
-	macos_ui_casks=(
-		raycast
-		font-jetbrains-mono-nerd-font
-		font-maple-mono-nf
-		font-hack-nerd-font
-		font-sf-pro
-		shottr
-		nikitabobko/tap/aerospace # Tiling window manager used by the macOS configuration
-		font-symbols-only-nerd-font # Symbols used by terminal and status bar themes
-	)
-	brew install --cask "${macos_ui_casks[@]}"
+	brew_install cask "ui/desktop" \
+		raycast \
+		font-jetbrains-mono-nerd-font \
+		font-maple-mono-nf \
+		font-hack-nerd-font \
+		font-sf-pro \
+		font-symbols-only-nerd-font \
+		shottr \
+		nikitabobko/tap/aerospace
 
-	# Terminal/Development (casks)
-	macos_dev_casks=(
-		dbeaver-community
-		postman
-		bruno
-		docker
-		ghostty
-		virtualbox
-		openvpn-connect
+	brew_install cask "terminal/dev" \
+		dbeaver-community \
+		postman \
+		bruno \
+		docker \
+		ghostty \
+		visual-studio-code \
+		claude-code \
+		gcloud-cli \
+		basictex \
+		virtualbox \
+		openvpn-connect \
 		cursor
-		visual-studio-code # Code editor
-		claude-code # Claude coding assistant CLI
-		gcloud-cli # Google Cloud CLI
-		basictex # LaTeX tools for document and PDF generation
-	)
-	brew install --cask "${macos_dev_casks[@]}"
 
-	# Applications/Utilities (casks)
-	macos_app_casks=(
-		brave-browser
-		libreoffice
-		discord
-		spotify
-		bazecor
-		obsidian
+	brew_install cask "applications/utilities" \
+		brave-browser \
+		libreoffice \
+		discord \
+		spotify \
+		bazecor \
+		obsidian \
+		bitwarden \
+		cryptomator \
+		localsend \
+		obs \
+		vlc \
+		slack \
+		zoom \
+		chatgpt \
+		balenaetcher \
 		rustdesk
-		bitwarden # Password manager
-		cryptomator # Encrypted vaults for cloud files
-		localsend # Local network file transfer
-		obs # Screen recording and streaming
-		vlc # Media player
-		slack # Team messaging
-		zoom # Video meetings
-		chatgpt # ChatGPT desktop app
-		balenaetcher # Write operating system images to USB drives
-	)
-	brew install --cask "${macos_app_casks[@]}"
 
-	# Terminal/Development (packages)
-	macos_dev_packages=(
-		ansible
-		ansible-lint
-		postgresql
-		git
-		openvpn
-		neovim
-		zsh
-		btop
-		sshs
-		gnu-tar
-		gnu-sed
-		tmux
-		mise # Tools and runtimes declared in mise/config.toml
-		luarocks
-		opencode
-		direnv
-		awscli # AWS CLI
-		argocd # Argo CD deployment CLI
-		k9s # Terminal Kubernetes dashboard
-		docker-compose # Docker Compose CLI
-		lazydocker # Terminal Docker dashboard
-		k6 # Load testing CLI
-		pyenv # Python version manager
-		poetry # Python project and dependency manager
-		redis # Local Redis server
-		mysql-client # MySQL client tools
-		libpq # PostgreSQL client tools
-		sqlcmd # SQL Server CLI
-		bat # File viewer with syntax highlighting
-		tree # Directory tree viewer
-		wget # Command-line file downloader
-		nmap # Network discovery and port scanning
-		zsh-completions # Additional Zsh completions
-	)
-	brew install "${macos_dev_packages[@]}"
+	brew_install formula "ui/desktop" \
+		FelixKratz/formulae/sketchybar
 
-	# Applications/Utilities (packages)
-	macos_utility_packages=(
-		ffmpeg
-		sevenzip
-		poppler
-		resvg
-		imagemagick
+	brew_install formula "terminal/dev" \
+		ansible \
+		ansible-lint \
+		postgresql \
+		git \
+		openvpn \
+		neovim \
+		awscli \
+		argocd \
+		k9s \
+		docker-compose \
+		k6 \
+		pyenv \
+		poetry \
+		redis \
+		mysql-client \
+		libpq \
+		sqlcmd \
+		bat \
+		tree \
+		wget \
+		nmap \
+		zsh-completions \
+		zsh \
+		btop \
+		sshs \
+		gnu-tar \
+		gnu-sed \
+		tmux \
+		luarocks \
+		direnv \
+		mise
+
+	brew_install formula "applications/utilities" \
+		ffmpeg \
+		sevenzip \
+		poppler \
+		switchaudio-osx \
+		terminal-notifier \
+		pandoc \
+		ncdu \
+		unzip \
+		resvg \
+		imagemagick \
 		syncthing
-		felixkratz/formulae/sketchybar # Status bar used by the macOS configuration
-		switchaudio-osx # Audio device control used by SketchyBar
-		terminal-notifier # Send macOS notifications from scripts
-		pandoc # Document format converter
-		ncdu # Interactive disk usage viewer
-		unzip # Extract ZIP archives
-	)
-	brew install "${macos_utility_packages[@]}"
+
+	brew services start sketchybar || FAILED+=("sketchybar (service start)")
 
 	ansible-galaxy collection install -r "$HOME/dotfiles/ansible/collections.yml"
 
 	ansible --version | head -n 1
 	ansible-galaxy --version | head -n 1
 	gtar --version | head -n 1
+	report_failures
 fi
