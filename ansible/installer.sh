@@ -246,7 +246,7 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		dbeaver-community \
 		postman \
 		bruno \
-		docker \
+		docker-desktop \
 		ghostty \
 		visual-studio-code \
 		claude-code \
@@ -279,7 +279,7 @@ if [ "$SYSTEM" == "Darwin" ]; then
 	brew_install formula "terminal/dev" \
 		ansible \
 		ansible-lint \
-		postgresql \
+		postgresql@17 \
 		git \
 		openvpn \
 		neovim \
