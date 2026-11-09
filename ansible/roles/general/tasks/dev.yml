@@ -89,62 +89,93 @@
     state: directory
     mode: '700'
 
-- name: Find existing SSH files
-  ansible.builtin.find:
-    paths: "{{ ansible_facts['env']['HOME'] }}/.ssh"
-    file_type: file
-  register: ssh_existing_files
-
-- name: Backup SSH directory before replacing
-  ansible.builtin.command:
-    argv:
-      - tar
-      - -czf
-      - "{{ ansible_facts['env']['HOME'] }}/.ssh-backups/ssh-{{ ansible_facts['date_time']['year'] }}{{ ansible_facts['date_time']['month'] }}{{ ansible_facts['date_time']['day'] }}-{{ ansible_facts['date_time']['hour'] }}{{ ansible_facts['date_time']['minute'] }}{{ ansible_facts['date_time']['second'] }}.tar.gz"
-      - -C
-      - "{{ ansible_facts['env']['HOME'] }}"
-      - .ssh
-  when:
-    - not ansible_check_mode
-    - ssh_existing_files.matched | int > 0
-
-- name: Find existing SSH backups
-  ansible.builtin.find:
-    paths: "{{ ansible_facts['env']['HOME'] }}/.ssh-backups"
-    patterns: "ssh-*.tar.gz"
-    file_type: file
-  register: ssh_backup_files
+- name: Restore SSH bundle into ~/.ssh
   when: not ansible_check_mode
+  block:
+    - name: Create temporary SSH bundle file path
+      ansible.builtin.tempfile:
+        state: file
+        suffix: .tar.gz
+      register: ssh_bundle_temp
 
-- name: Remove old SSH backups (keep last 10)
-  ansible.builtin.file:
-    path: "{{ item.path }}"
-    state: absent
-  loop: "{{ (ssh_backup_files.files | sort(attribute='path', reverse=true))[10:] }}"
-  when: not ansible_check_mode
+    - name: Copy and decrypt SSH bundle
+      ansible.builtin.copy:
+        src: "{{ role_path }}/files/ssh/ssh_bundle.tar.gz.vault"
+        dest: "{{ ssh_bundle_temp.path }}"
+        decrypt: true
+        mode: '600'
 
-- name: Create temporary SSH bundle file path
-  ansible.builtin.tempfile:
-    state: file
-    suffix: .tar.gz
-  register: ssh_bundle_temp
-  when: not ansible_check_mode
+    # GNU tar is required (gtar from brew on macOS). Mode/mtime differences are
+    # ignored on purpose - permissions are normalised by the tasks below.
+    - name: Compare SSH bundle with ~/.ssh
+      ansible.builtin.command:
+        argv:
+          - "{{ 'gtar' if ansible_facts['os_family'] == 'Darwin' else 'tar' }}"
+          - --compare
+          - --exclude=environment-*
+          - -zf
+          - "{{ ssh_bundle_temp.path }}"
+          - -C
+          - "{{ ansible_facts['env']['HOME'] }}/.ssh"
+      register: ssh_bundle_compare
+      changed_when: false
+      failed_when: ssh_bundle_compare.rc > 1
 
-- name: Copy and decrypt SSH bundle
-  ansible.builtin.copy:
-    src: "{{ role_path }}/files/ssh/ssh_bundle.tar.gz.vault"
-    dest: "{{ ssh_bundle_temp.path }}"
-    decrypt: true
-    mode: '600'
-  when: not ansible_check_mode
+    - name: Decide whether SSH bundle needs restoring
+      ansible.builtin.set_fact:
+        ssh_bundle_differs: >-
+          {{ (ssh_bundle_compare.stdout ~ ssh_bundle_compare.stderr)
+             is search('Contents differ|Size differs|No such file|File type differs|Symlink differs|Not a regular file') }}
 
-- name: Unarchive SSH bundle into ~/.ssh
-  ansible.builtin.unarchive:
-    src: "{{ ssh_bundle_temp.path }}"
-    dest: "{{ ansible_facts['env']['HOME'] }}/.ssh"
-    remote_src: true
-    list_files: true
-  when: not ansible_check_mode
+    - name: Find existing SSH files
+      ansible.builtin.find:
+        paths: "{{ ansible_facts['env']['HOME'] }}/.ssh"
+        file_type: file
+      register: ssh_existing_files
+      when: ssh_bundle_differs
+
+    - name: Backup SSH directory before replacing
+      ansible.builtin.command:
+        argv:
+          - tar
+          - -czf
+          - "{{ ansible_facts['env']['HOME'] }}/.ssh-backups/ssh-{{ ansible_facts['date_time']['year'] }}{{ ansible_facts['date_time']['month'] }}{{ ansible_facts['date_time']['day'] }}-{{ ansible_facts['date_time']['hour'] }}{{ ansible_facts['date_time']['minute'] }}{{ ansible_facts['date_time']['second'] }}.tar.gz"
+          - -C
+          - "{{ ansible_facts['env']['HOME'] }}"
+          - .ssh
+      when:
+        - ssh_bundle_differs
+        - ssh_existing_files.matched | int > 0
+
+    - name: Unarchive SSH bundle into ~/.ssh
+      ansible.builtin.unarchive:
+        src: "{{ ssh_bundle_temp.path }}"
+        dest: "{{ ansible_facts['env']['HOME'] }}/.ssh"
+        remote_src: true
+        # ssh-agent runtime state from the OMZ ssh-agent plugin; never restore a stale copy
+        exclude:
+          - environment-*
+      when: ssh_bundle_differs
+
+    - name: Find existing SSH backups
+      ansible.builtin.find:
+        paths: "{{ ansible_facts['env']['HOME'] }}/.ssh-backups"
+        patterns: "ssh-*.tar.gz"
+        file_type: file
+      register: ssh_backup_files
+
+    - name: Remove old SSH backups (keep last 10)
+      ansible.builtin.file:
+        path: "{{ item.path }}"
+        state: absent
+      loop: "{{ (ssh_backup_files.files | sort(attribute='path', reverse=true))[10:] }}"
+
+  always:
+    - name: Remove temporary SSH bundle file
+      ansible.builtin.file:
+        path: "{{ ssh_bundle_temp.path }}"
+        state: absent
+      when: ssh_bundle_temp.path is defined
 
 - name: Check mode | SSH bundle restore preview
   ansible.builtin.debug:
@@ -170,12 +201,6 @@
     mode: '644'
   loop: "{{ ssh_files.files }}"
   when: (item.path | basename) is match('.*\\.pub$')
-
-- name: Remove temporary SSH bundle file
-  ansible.builtin.file:
-    path: "{{ ssh_bundle_temp.path }}"
-    state: absent
-  when: not ansible_check_mode
 
 - name: Verify the origin is set correctly
   ansible.builtin.command: git remote get-url origin
