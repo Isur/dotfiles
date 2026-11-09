@@ -247,6 +247,29 @@
     - { src: "mise/config.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/mise/config.toml"}
     - { src: "herdr/config.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/herdr/config.toml"}
 
+- name: Claude | Find skills
+  ansible.builtin.find:
+    paths: "{{ role_path }}/files/claude/skills"
+    file_type: directory
+    recurse: false
+  register: claude_skills
+
+- name: Claude | Ensure skills dir exists
+  ansible.builtin.file:
+    path: "{{ ansible_facts['env']['HOME'] }}/.claude/skills"
+    state: directory
+    mode: "0755"
+
+- name: Claude | Link skills
+  ansible.builtin.file:
+    src: "{{ item.path }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.claude/skills/{{ item.path | basename }}"
+    state: link
+    force: true
+  loop: "{{ claude_skills.files }}"
+  loop_control:
+    label: "{{ item.path | basename }}"
+
 - name: Install global mise tools
   ansible.builtin.command: mise install --yes
   register: mise_install
