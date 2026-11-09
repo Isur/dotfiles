@@ -332,3 +332,18 @@
   when:
     - ansible_check_mode
     - mise_missing.stdout | trim | length > 0
+
+# yazi (and ya) come from mise, so run through `mise exec`. `ya pkg install`
+# always redeploys, so "changed" is reported only when a package dir appears.
+- name: Yazi | Install packages from package.toml
+  ansible.builtin.shell: |
+    set -eu
+    cd "$HOME/.config/yazi"
+    count() { ls -d flavors/*.yazi plugins/*.yazi 2>/dev/null | wc -l; }
+    before=$(count)
+    mise exec -- ya pkg install
+    after=$(count)
+    [ "$before" = "$after" ] || echo YAZI_CHANGED
+  register: yazi_pkg
+  changed_when: "'YAZI_CHANGED' in yazi_pkg.stdout"
+  when: not ansible_check_mode
