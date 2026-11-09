@@ -322,7 +322,6 @@ if [ "$SYSTEM" == "Darwin" ]; then
 		bruno \
 		docker-desktop \
 		ghostty \
-		visual-studio-code \
 		claude-code \
 		gcloud-cli \
 		basictex \
