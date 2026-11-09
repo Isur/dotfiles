@@ -16,14 +16,28 @@
       - { src: "git-configs/lazygit.yml", dest: "{{ ansible_facts['env']['HOME'] }}/Library/Application Support/lazygit/config.yml" }
       - { src: "yazi/theme.toml", dest: "{{ ansible_facts['env']['HOME'] }}/.config/yazi/theme.toml" }
 
+# /opt/homebrew on Apple Silicon, /usr/local on Intel.
+- name: Darwin | Find Homebrew prefix
+  ansible.builtin.command: brew --prefix
+  register: brew_prefix
+  changed_when: false
+  check_mode: false
+
+- name: Darwin | Check Homebrew zsh
+  ansible.builtin.stat:
+    path: "{{ brew_prefix.stdout }}/bin/zsh"
+  register: brew_zsh
+
 - name: Darwin | Register Homebrew zsh as a login shell
   become: true
   ansible.builtin.lineinfile:
     path: /etc/shells
-    line: /opt/homebrew/bin/zsh
+    line: "{{ brew_zsh.stat.path }}"
+  when: brew_zsh.stat.exists
 
 - name: Darwin | ZSH default shell
   become: true
   ansible.builtin.user:
     user: "{{ ansible_facts['user_id'] }}"
-    shell: /opt/homebrew/bin/zsh
+    shell: "{{ brew_zsh.stat.path }}"
+  when: brew_zsh.stat.exists
