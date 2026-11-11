@@ -190,6 +190,12 @@ hl.window_rule({ name = "steam-workspace", match = { class = "^(steam)$" }, work
 hl.window_rule({ name = "discord-workspace", match = { class = "^(discord)$" }, workspace = "6" })
 hl.window_rule({ name = "thunderbird-workspace", match = { class = "^(org.mozilla.Thunderbird)$" }, workspace = "7" })
 hl.window_rule({ name = "spotify-workspace", match = { class = "^(spotify)$" }, workspace = "8" })
+hl.window_rule({
+	name = "wow",
+	match = { class = "^(steam_app_default)$", title = "^(World of Warcraft)$" },
+	workspace = "5",
+	fullscreen = true,
+})
 
 hl.window_rule({
 	name = "jetbrains-splash-tag",
