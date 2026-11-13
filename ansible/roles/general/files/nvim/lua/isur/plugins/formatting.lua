@@ -1,94 +1,74 @@
 return {
 	{
-		"mfussenegger/nvim-lint",
-		event = { "BufReadPre", "BufNewFile" },
-		config = function()
-			vim.env.ESLINT_D_PPID = vim.fn.getpid()
-			local lint = require("lint")
-			lint.linters_by_ft = {
-				python = { "ruff" },
-			}
-
-			if vim.env.NVIM_LINT ~= "off" then
-				vim.api.nvim_create_autocmd({ "BufWritePost" }, {
-					group = vim.api.nvim_create_augroup("lint", { clear = true }),
-					callback = function()
-						lint.try_lint()
-					end,
-				})
-			end
-
-			vim.api.nvim_create_user_command("Lint", function()
-				lint.try_lint()
-			end, { desc = "Lint: [l]int current file" })
-		end,
-	},
-	{
 		"stevearc/conform.nvim",
 		event = { "BufReadPre", "BufNewFile" },
+		cmd = { "Format" },
 		config = function()
 			local map = require("isur.core.keymap").map
 			local conform = require("conform")
-
-			if vim.env.NVIM_FORMAT == "off" then
-				return
-			end
+			local web_formatters = { "oxfmt", "prettierd", stop_after_first = true, lsp_format = "never" }
 
 			conform.setup({
+				default_format_opts = { lsp_format = "fallback" },
 				formatters = {
+					oxfmt_force = { inherit = "oxfmt", require_cwd = false },
+					oxfmt = {
+						-- A Mason installation alone must not select Oxfmt for every project.
+						require_cwd = true,
+					},
 					prettierd = {
+						require_cwd = true,
 						env = {
 							PRETTIERD_LOCAL_PRETTIER_ONLY = "true",
 						},
 					},
-					["markdown-toc"] = {
-						condition = function(_, ctx)
-							for _, line in ipairs(vim.api.nvim_buf_get_lines(ctx.buf, 0, -1, false)) do
-								if line:find("<!%-%- toc %-%->") then
-									return true
-								end
-							end
-							return false
-						end,
-					},
-					["markdownlint-cli2"] = {
-						condition = function(_, ctx)
-							local diag = vim.tbl_filter(function(d)
-								return d.source == "markdownlint"
-							end, vim.diagnostic.get(ctx.buf))
-							return #diag > 0
-						end,
-					},
 				},
 				formatters_by_ft = {
-					astro = { "prettierd" },
-					javascript = { "prettierd" },
-					typescript = { "prettierd" },
-					javascriptreact = { "prettierd" },
-					typescriptreact = { "prettierd" },
-					css = { "prettierd" },
-					html = { "prettierd" },
-					json = { "jq" },
-					yaml = { "prettierd" },
-					graphql = { "prettierd" },
+					astro = { "prettierd", lsp_format = "never" },
+					javascript = web_formatters,
+					typescript = web_formatters,
+					javascriptreact = web_formatters,
+					typescriptreact = web_formatters,
+					css = web_formatters,
+					html = web_formatters,
+					json = web_formatters,
+					jsonc = web_formatters,
+					yaml = web_formatters,
+					graphql = web_formatters,
 					lua = { "stylua" },
 					python = { "ruff_format" },
 					cpp = { "clang_format" },
 					ino = { "clang_format" },
 					go = { "gofmt" },
-					["markdown"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
-					["markdown.mdx"] = { "prettierd", "markdownlint-cli2", "markdown-toc" },
+					["markdown"] = web_formatters,
+					["markdown.mdx"] = web_formatters,
 				},
-				format_on_save = {
-					lsp_format = "fallback",
+				format_on_save = vim.env.NVIM_FORMAT ~= "off" and {
 					async = false,
 					timeout_ms = 500,
-				},
+				} or nil,
 			})
+
+			vim.api.nvim_create_user_command("Format", function(opts)
+				if not opts.bang and vim.env.NVIM_FORMAT == "off" then
+					return
+				end
+				local formatters = conform.formatters_by_ft[vim.bo.filetype]
+				local force_oxfmt = opts.bang
+					and formatters == web_formatters
+					and #conform.list_formatters_to_run(0) == 0
+				conform.format({
+					formatters = force_oxfmt and { "oxfmt_force" } or nil,
+					timeout_ms = 1000,
+				})
+			end, { bang = true, desc = "Format buffer; ! ignores NVIM_FORMAT and allows Oxfmt fallback" })
+
+			if vim.env.NVIM_FORMAT == "off" then
+				return
+			end
 
 			map({ "n", "v" }, "<leader>cf", function()
 				conform.format({
-					lsp_format = "fallback",
 					async = false,
 					timeout_ms = 1000,
 				})

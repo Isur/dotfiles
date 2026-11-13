@@ -12,7 +12,6 @@ vim.lsp.enable({
 	"docker_compose_language_service",
 	"bashls",
 	"html",
-	"ruff",
 	"clangd",
 	"emmet_language_server",
 	"ansiblels",
@@ -23,7 +22,20 @@ vim.lsp.enable({
 })
 
 if vim.env.NVIM_LINT ~= "off" then
-	vim.lsp.enable("eslint")
+	local eslint_root = vim.lsp.config.eslint.root_dir
+	vim.lsp.config("eslint", {
+		root_dir = function(bufnr, on_dir)
+			local oxlint_root
+			vim.lsp.config.oxlint.root_dir(bufnr, function(root)
+				oxlint_root = root
+			end)
+			if not oxlint_root then
+				eslint_root(bufnr, on_dir)
+			end
+		end,
+		settings = { format = false },
+	})
+	vim.lsp.enable({ "eslint", "oxlint", "ruff" })
 end
 
 local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
@@ -91,8 +103,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, "[l]sp [w]orkspace [l]ist")
 
-		vim.api.nvim_buf_create_user_command(event.buf, "Format", function(_)
-			vim.lsp.buf.format()
-		end, { desc = "Format current buffer with LSP" })
 	end,
 })

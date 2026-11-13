@@ -34,12 +34,14 @@ return {
 					"pyright",
 					"json-lsp",
 					"eslint-lsp",
+					"oxlint",
 					-- Linters
 					"ruff",
 					"ansible-lint",
 					"markdownlint-cli2",
 					-- Formatters
 					"prettierd",
+					"oxfmt",
 					"stylua",
 					"clang-format",
 					"jq",
