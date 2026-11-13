@@ -8,7 +8,7 @@ return {
 			"nvim-lua/plenary.nvim",
 			"antoinemadec/FixCursorHold.nvim",
 			"nvim-treesitter/nvim-treesitter",
-			{ "fredrikaverpil/neotest-golang", version = "v1.15.1" },
+			{ "fredrikaverpil/neotest-golang", version = "^2" },
 			"GustavEikaas/easy-dotnet.nvim",
 			"nvim-neotest/neotest-python",
 			"nvim-neotest/neotest-jest",
