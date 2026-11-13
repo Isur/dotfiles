@@ -36,8 +36,17 @@ return {
 				require("neotest").run.run({ suite = false })
 			end, { desc = "Test: [t]est run [t]est" }),
 			keymap.lazy("<leader>tS", function()
-				require("neotest").run.run({ suite = true })
-			end, { desc = "Test: [t]est [S]uite" }),
+				-- easy-dotnet resolves a directory run only when it is a .csproj folder; any other
+				-- directory (e.g. the cwd suite root) never reports completion and blocks its run queue.
+				local csproj = vim.fs.find(function(name)
+					return name:match("%.csproj$") ~= nil
+				end, { path = vim.fn.expand("%:p:h"), upward = true })[1]
+				if csproj then
+					require("neotest").run.run(vim.fs.dirname(csproj))
+				else
+					require("neotest").run.run({ suite = true })
+				end
+			end, { desc = "Test: [t]est [S]uite (.NET: current project)" }),
 			keymap.lazy("<leader>tl", function()
 				require("neotest").run.run_last()
 			end, { desc = "Test: [t]est [l]ast" }),
