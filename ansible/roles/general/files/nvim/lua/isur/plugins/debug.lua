@@ -1,11 +1,12 @@
 return {
 	{
 		"mfussenegger/nvim-dap",
-		dependencies = { "leoluz/nvim-dap-go" },
+		dependencies = { "leoluz/nvim-dap-go", "mfussenegger/nvim-dap-python" },
 		config = function()
 			local dap = require("dap")
 			local dapgo = require("dap-go")
 			dapgo.setup()
+			require("dap-python").setup(vim.fn.stdpath("data") .. "/mason/packages/debugpy/venv/bin/python")
 
 			dap.adapters["pwa-node"] = {
 				type = "server",
@@ -19,29 +20,14 @@ return {
 				},
 			}
 
-			dap.adapters["netcoredbg"] = {
-				type = "executable",
-				command = "netcoredbg",
-				args = { "--interpreter=vscode" },
-			}
-
-			dap.adapters.delve = {
-				type = "server",
-				port = "2345",
-				executable = {
-					command = "dlv",
-					args = { "dap", "-l", "127.0.0.1:2345" },
-				},
-			}
-			dap.configurations.go = {
-				{
-					type = "delve",
-					name = "Attach to running process",
-					request = "attach",
-					mode = "remote",
-					port = "2345",
-				},
-			}
+			-- Attach to an existing `dlv dap --listen=127.0.0.1:2345` server.
+			dap.adapters["go-remote"] = { type = "server", host = "127.0.0.1", port = 2345 }
+			table.insert(dap.configurations.go, {
+				type = "go-remote",
+				name = "Attach to remote Delve",
+				request = "attach",
+				mode = "remote",
+			})
 
 			for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
 				dap.configurations[language] = {

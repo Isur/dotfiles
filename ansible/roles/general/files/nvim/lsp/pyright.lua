@@ -3,10 +3,5 @@ return {
 		pyright = {
 			disableOrganizeImports = true,
 		},
-		python = {
-			analysis = {
-				ignore = { "*" },
-			},
-		},
 	},
 }

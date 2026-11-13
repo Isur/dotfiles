@@ -6,6 +6,7 @@ return {
 		config = function()
 			local map = require("isur.core.keymap").map
 			local conform = require("conform")
+			local util = require("conform.util")
 			local web_formatters = { "oxfmt", "prettierd", stop_after_first = true, lsp_format = "never" }
 
 			conform.setup({
@@ -15,9 +16,14 @@ return {
 					oxfmt = {
 						-- A Mason installation alone must not select Oxfmt for every project.
 						require_cwd = true,
+						cwd = util.root_file({ ".oxfmtrc.json", ".oxfmtrc.jsonc", "oxfmt.config.ts" }),
 					},
 					prettierd = {
-						require_cwd = true,
+						-- Projects may use Prettier defaults without a config file.
+						require_cwd = false,
+						condition = function(self, ctx)
+							return util.find_executable({ "node_modules/.bin/prettier" }, "")(self, ctx) ~= ""
+						end,
 						env = {
 							PRETTIERD_LOCAL_PRETTIER_ONLY = "true",
 						},

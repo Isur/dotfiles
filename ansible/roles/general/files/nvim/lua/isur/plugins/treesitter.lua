@@ -16,6 +16,7 @@ return {
 				"astro",
 				"lua",
 				"python",
+				"c_sharp",
 				"tsx",
 				"typescript",
 				"vimdoc",
@@ -28,6 +29,7 @@ return {
 				"html",
 				"json",
 				"markdown",
+				"markdown_inline",
 				"prisma",
 				"sql",
 				"javascript",
@@ -53,6 +55,17 @@ return {
 				install_dir = install_dir,
 			})
 			context.setup({ enable = false })
+			local aliases = {
+				tsx = { "typescriptreact" },
+				javascript = { "javascriptreact" },
+				c_sharp = { "cs" },
+				bash = { "sh" },
+				latex = { "tex", "plaintex" },
+				vimdoc = { "help" },
+			}
+			for language, filetypes in pairs(aliases) do
+				vim.treesitter.language.register(language, filetypes)
+			end
 
 			map("n", "[c", function()
 				context.go_to_context(vim.v.count1)
@@ -63,9 +76,16 @@ return {
 			end, { silent = true, desc = "Context: [c]ontext toggle" })
 
 			vim.api.nvim_create_autocmd("FileType", {
-				pattern = languages,
+				pattern = "*",
 				callback = function(args)
-					vim.treesitter.start(args.buf)
+					local language = vim.treesitter.language.get_lang(vim.bo[args.buf].filetype)
+					if not vim.tbl_contains(languages, language) then
+						return
+					end
+					-- Missing parsers must not abort FileType hooks on a fresh install.
+					if not pcall(vim.treesitter.start, args.buf) then
+						return
+					end
 					vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", { win = 0 })
 					vim.api.nvim_set_option_value("foldmethod", "expr", { win = 0 })
 					if vim.bo[args.buf].filetype ~= "python" then

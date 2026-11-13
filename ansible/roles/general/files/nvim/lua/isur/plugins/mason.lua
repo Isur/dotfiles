@@ -48,6 +48,7 @@ return {
 					"markdown-toc",
 					-- DAP
 					"delve",
+					"debugpy",
 					"js-debug-adapter",
 				},
 			})

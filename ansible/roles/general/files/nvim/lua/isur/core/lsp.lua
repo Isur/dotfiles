@@ -22,17 +22,7 @@ vim.lsp.enable({
 })
 
 if vim.env.NVIM_LINT ~= "off" then
-	local eslint_root = vim.lsp.config.eslint.root_dir
 	vim.lsp.config("eslint", {
-		root_dir = function(bufnr, on_dir)
-			local oxlint_root
-			vim.lsp.config.oxlint.root_dir(bufnr, function(root)
-				oxlint_root = root
-			end)
-			if not oxlint_root then
-				eslint_root(bufnr, on_dir)
-			end
-		end,
 		settings = { format = false },
 	})
 	vim.lsp.enable({ "eslint", "oxlint", "ruff" })
@@ -102,6 +92,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		nmap("<leader>lwl", function()
 			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
 		end, "[l]sp [w]orkspace [l]ist")
-
 	end,
 })
