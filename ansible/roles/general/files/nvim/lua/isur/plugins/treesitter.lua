@@ -86,8 +86,6 @@ return {
 					if not pcall(vim.treesitter.start, args.buf) then
 						return
 					end
-					vim.api.nvim_set_option_value("foldexpr", "v:lua.vim.treesitter.foldexpr()", { win = 0 })
-					vim.api.nvim_set_option_value("foldmethod", "expr", { win = 0 })
 					if vim.bo[args.buf].filetype ~= "python" then
 						vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
 					end
