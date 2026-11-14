@@ -45,7 +45,7 @@ return {
 					end
 
 					return MiniStatusline.combine_groups({
-						{ hl = mode_hl, strings = { recording } },
+						-- { hl = mode_hl, strings = { recording } },
 						{ hl = "MiniStatuslineDevinfo", strings = { serachCount } },
 						{ hl = mode_hl, strings = { mode } },
 						{ hl = "MiniIconsYellow", strings = { modified } },
