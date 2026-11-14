@@ -60,4 +60,10 @@ vim.o.spell = false
 vim.o.spelllang = "en,pl"
 
 vim.opt.fileformat = "unix"
+
+-- Built-in message/cmdline UI (experimental in 0.12), the native stand-in for noice.
+-- Long messages collapse into a "[+x]" indicator instead of a hit-enter prompt; see them with g<.
+pcall(function()
+	require("vim._core.ui2").enable({})
+end)
 vim.opt.fileformats = { "unix", "dos", "mac" }

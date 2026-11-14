@@ -45,6 +45,23 @@ vim.diagnostic.config({
 	},
 })
 
+-- LSP progress through the snacks notifier, which replaces noice's progress view.
+local progress_spinner = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+vim.api.nvim_create_autocmd("LspProgress", {
+	group = vim.api.nvim_create_augroup("lsp-progress", { clear = true }),
+	callback = function(ev)
+		local value = ev.data.params.value
+		vim.notify(vim.lsp.status(), vim.log.levels.INFO, {
+			id = "lsp_progress",
+			title = "LSP Progress",
+			opts = function(notif)
+				notif.icon = value.kind == "end" and " "
+					or progress_spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #progress_spinner + 1]
+			end,
+		})
+	end,
+})
+
 -- Attach to LSP
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("lsp-attach", { clear = true }),
