@@ -106,6 +106,8 @@ return {
 		lazy = false,
 		---@type snacks.Config
 		opts = {
+			bigfile = { enabled = true },
+			quickfile = { enabled = true },
 			picker = {
 				enabled = true,
 			},

@@ -46,8 +46,7 @@ vim.o.completeopt = "menuone,noselect"
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
--- Set cursor column
-vim.wo.cursorcolumn = true
+-- Highlight the cursor line (cursorcolumn removed: it forces extra redraws on every move)
 vim.wo.cursorline = true
 
 vim.o.background = "dark" -- or "light" for light mode
@@ -60,10 +59,10 @@ vim.o.spell = false
 vim.o.spelllang = "en,pl"
 
 vim.opt.fileformat = "unix"
+vim.opt.fileformats = { "unix", "dos", "mac" }
 
 -- Built-in message/cmdline UI (experimental in 0.12), the native stand-in for noice.
 -- Long messages collapse into a "[+x]" indicator instead of a hit-enter prompt; see them with g<.
 pcall(function()
 	require("vim._core.ui2").enable({})
 end)
-vim.opt.fileformats = { "unix", "dos", "mac" }
