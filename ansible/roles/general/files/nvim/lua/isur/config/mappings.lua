@@ -21,8 +21,6 @@ map("n", "<leader>bd", ":bd<CR>", { desc = "Buffer: [b]uffer [d]elete" })
 map("n", "<leader>bD", ":bd!<CR>", { desc = "Buffer: [b]uffer force [D]elete" })
 map("n", "<leader>ba", ":%bd|e#|bd#<CR>", { desc = "Buffer: [b]uffer delete [a]ll but current" })
 
-map("v", "p", '"_dP', { desc = "Editor: [p]aste without yank" })
-
 -- Select all
 map("n", "<C-a>", "ggVG", { desc = "Editor: select [a]ll" })
 
