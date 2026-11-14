@@ -11,7 +11,7 @@ map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true, desc = 
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true, desc = "Editor: wrapped line [j] down" })
 
 -- Remove highlights
-map("n", "<leader>sn", ":nohl<CR>", { desc = "Search: [s]earch [n]o highlights" })
+map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Search: clear highlights" })
 
 -- Buffers
 map("n", "<leader>bn", ":bnext<CR>", { desc = "Buffer: [b]uffer [n]ext" })
