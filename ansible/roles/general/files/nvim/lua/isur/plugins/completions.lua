@@ -24,11 +24,13 @@ return {
 			completion = { documentation = { auto_show = false } },
 
 			sources = {
-				default = { "lsp", "easy-dotnet", "path", "buffer" },
+				default = { "lsp", "path", "buffer" },
 				per_filetype = {
 					-- sql = { "dadbod" },
 					-- optionally inherit from the `default` sources
 					lua = { inherit_defaults = true, "lazydev" },
+					cs = { inherit_defaults = true, "easy-dotnet" },
+					fsharp = { inherit_defaults = true, "easy-dotnet" },
 				},
 				providers = {
 					lazydev = {

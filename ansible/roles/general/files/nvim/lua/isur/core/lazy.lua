@@ -24,4 +24,10 @@ require("lazy").setup({
 	ui = {
 		border = "single",
 	},
+	performance = {
+		rtp = {
+			-- oil replaces netrw; the rest are rarely used runtime plugins.
+			disabled_plugins = { "gzip", "tarPlugin", "zipPlugin", "tohtml", "tutor", "netrwPlugin" },
+		},
+	},
 })

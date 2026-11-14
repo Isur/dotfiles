@@ -2,63 +2,62 @@ return {
 	{
 		"catppuccin/nvim",
 		name = "catppuccin",
-		priority = 1000,
+		lazy = true,
 		opts = {},
 	},
 	{
 		"rebelot/kanagawa.nvim",
 		opts = {},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"rose-pine/neovim",
 		name = "rose-pine",
 		opts = {},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"navarasu/onedark.nvim",
 		opts = {
 			style = "darker",
 		},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"folke/tokyonight.nvim",
 		opts = {},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"AlexvZyl/nordic.nvim",
 		opts = {},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"tiagovla/tokyodark.nvim",
 		opts = {},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"nuvic/flexoki-nvim",
 		name = "flexoki",
 		opts = {},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"ficcdaf/ashen.nvim",
 		name = "ashen",
 		opts = {},
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		"Shatur/neovim-ayu",
-		lazy = false,
-		priority = 1000,
 		name = "ayu",
+		lazy = true,
 	},
 	{
 		"RRethy/base16-nvim",
-		priority = 1000,
+		lazy = true,
 	},
 	{
 		-- This is just for applying the selected colorscheme as default one.

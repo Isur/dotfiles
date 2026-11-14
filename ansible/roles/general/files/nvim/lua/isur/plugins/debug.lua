@@ -1,7 +1,37 @@
+local keymap = require("isur.core.keymap")
+
+---@param method string
+local function dap_call(method)
+	return function()
+		require("dap")[method]()
+	end
+end
+
 return {
 	{
 		"mfussenegger/nvim-dap",
-		dependencies = { "leoluz/nvim-dap-go", "mfussenegger/nvim-dap-python" },
+		dependencies = {
+			"leoluz/nvim-dap-go",
+			"mfussenegger/nvim-dap-python",
+			{ "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" } },
+		},
+		keys = {
+			keymap.lazy("<leader>dc", dap_call("continue"), { desc = "Debug: [d]ebug [c]ontinue" }),
+			keymap.lazy("<leader>db", dap_call("toggle_breakpoint"), { desc = "Debug: [d]ebug [b]reakpoint toggle" }),
+			keymap.lazy("<leader>dr", function()
+				require("dap").repl.open()
+			end, { desc = "Debug: [d]ebug [r]epl" }),
+			keymap.lazy("<leader>do", dap_call("step_over"), { desc = "Debug: [d]ebug step [o]ver" }),
+			keymap.lazy("<leader>di", dap_call("step_into"), { desc = "Debug: [d]ebug step [i]nto" }),
+			keymap.lazy("<leader>du", dap_call("step_out"), { desc = "Debug: [d]ebug step o[u]t" }),
+			keymap.lazy("<leader>dC", dap_call("clear_breakpoints"), { desc = "Debug: [d]ebug [C]lear breakpoints" }),
+			keymap.lazy("<leader>dw", function()
+				require("dapui").open()
+			end, { desc = "Debug: [d]ebug ui open [w]" }),
+			keymap.lazy("<leader>dW", function()
+				require("dapui").close()
+			end, { desc = "Debug: [d]ebug ui close [W]" }),
+		},
 		config = function()
 			local dap = require("dap")
 			local dapgo = require("dap-go")
@@ -58,14 +88,8 @@ return {
 					},
 				}
 			end
-		end,
-	},
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
-		config = function()
-			local map = require("isur.core.keymap").map
-			local dap, dapui = require("dap"), require("dapui")
+
+			local dapui = require("dapui")
 			dapui.setup()
 			dap.listeners.before.attach.dapui_config = function()
 				dapui.open()
@@ -81,34 +105,6 @@ return {
 			end
 
 			vim.fn.sign_define("DapBreakpoint", { text = "B", texthl = "error" })
-
-			map("n", "<leader>dc", function()
-				dap.continue()
-			end, { desc = "Debug: [d]ebug [c]ontinue" })
-			map("n", "<leader>db", function()
-				dap.toggle_breakpoint()
-			end, { desc = "Debug: [d]ebug [b]reakpoint toggle" })
-			map("n", "<leader>dr", function()
-				dap.repl.open()
-			end, { desc = "Debug: [d]ebug [r]epl" })
-			map("n", "<leader>do", function()
-				dap.step_over()
-			end, { desc = "Debug: [d]ebug step [o]ver" })
-			map("n", "<leader>di", function()
-				dap.step_into()
-			end, { desc = "Debug: [d]ebug step [i]nto" })
-			map("n", "<leader>du", function()
-				dap.step_out()
-			end, { desc = "Debug: [d]ebug step o[u]t" })
-			map("n", "<leader>dC", function()
-				dap.clear_breakpoints()
-			end, { desc = "Debug: [d]ebug [C]lear breakpoints" })
-			map("n", "<leader>dw", function()
-				dapui.open()
-			end, { desc = "Debug: [d]ebug ui open [w]" })
-			map("n", "<leader>dW", function()
-				dapui.close()
-			end, { desc = "Debug: [d]ebug ui close [W]" })
 		end,
 	},
 }
