@@ -99,6 +99,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		nmap("<leader>lR", vim.lsp.buf.rename, "[l]sp [R]ename")
 
 		nmap("<leader>lh", vim.lsp.buf.hover, "[l]sp [h]over")
+		nmap("<leader>ui", function()
+			Snacks.toggle.inlay_hints():toggle()
+		end, "[u]i [i]nlay hints toggle")
 
 		nmap("<leader>lq", function()
 			Snacks.picker.lsp_declarations()
