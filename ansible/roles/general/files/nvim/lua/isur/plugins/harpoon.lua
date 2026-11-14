@@ -1,48 +1,67 @@
+local keymap = require("isur.core.keymap")
+
+---@param fn fun(harpoon: table)
+local function with_harpoon(fn)
+	return function()
+		fn(require("harpoon"))
+	end
+end
+
+local keys = {
+	keymap.lazy(
+		"<leader>hh",
+		with_harpoon(function(harpoon)
+			harpoon:list():add()
+			vim.notify(vim.fn.expand("%:t") .. " - added to harpoon!")
+		end),
+		{ desc = "Harpoon: [h]arpoon [h]old file" }
+	),
+	keymap.lazy(
+		"<leader>hm",
+		with_harpoon(function(harpoon)
+			harpoon.ui:toggle_quick_menu(harpoon:list())
+		end),
+		{ desc = "Harpoon: [h]arpoon [m]enu" }
+	),
+	keymap.lazy(
+		"<leader>hp",
+		with_harpoon(function(harpoon)
+			harpoon:list():prev({ ui_nav_wrap = true })
+		end),
+		{ desc = "Harpoon: [h]arpoon [p]revious" }
+	),
+	keymap.lazy(
+		"<leader>hn",
+		with_harpoon(function(harpoon)
+			harpoon:list():next({ ui_nav_wrap = true })
+		end),
+		{ desc = "Harpoon: [h]arpoon [n]ext" }
+	),
+}
+
+for i = 1, 5 do
+	table.insert(
+		keys,
+		keymap.lazy(
+			"<leader>h" .. i,
+			with_harpoon(function(harpoon)
+				harpoon:list():select(i)
+			end),
+			{ desc = "Harpoon: [h]arpoon file [" .. i .. "]" }
+		)
+	)
+end
+
 return {
 	"ThePrimeagen/harpoon",
 	branch = "harpoon2",
 	dependencies = { "nvim-lua/plenary.nvim" },
-
+	keys = keys,
 	config = function()
-		local map = require("isur.core.keymap").map
-		local harpoon = require("harpoon")
-
-		harpoon:setup({
+		require("harpoon"):setup({
 			settings = {
 				save_on_toggle = true,
 			},
 		})
-
-		map("n", "<leader>hh", function()
-			local filename = vim.fn.expand("%:t")
-			print(filename .. " - added to harpoon!")
-			harpoon:list():add()
-		end, { desc = "Harpoon: [h]arpoon [h]old file" })
-		map("n", "<leader>h", function()
-			harpoon.ui:toggle_quick_menu(harpoon:list())
-		end, { desc = "Harpoon: [h]arpoon menu" })
-
-		map("n", "<leader>h1", function()
-			harpoon:list():select(1)
-		end, { desc = "Harpoon: [h]arpoon file [1]" })
-		map("n", "<leader>h2", function()
-			harpoon:list():select(2)
-		end, { desc = "Harpoon: [h]arpoon file [2]" })
-		map("n", "<leader>h3", function()
-			harpoon:list():select(3)
-		end, { desc = "Harpoon: [h]arpoon file [3]" })
-		map("n", "<leader>h4", function()
-			harpoon:list():select(4)
-		end, { desc = "Harpoon: [h]arpoon file [4]" })
-		map("n", "<leader>h5", function()
-			harpoon:list():select(5)
-		end, { desc = "Harpoon: [h]arpoon file [5]" })
-
-		map("n", "<leader>hp", function()
-			harpoon:list():prev({ ui_nav_wrap = true })
-		end, { desc = "Harpoon: [h]arpoon [p]revious" })
-		map("n", "<leader>hn", function()
-			harpoon:list():next({ ui_nav_wrap = true })
-		end, { desc = "Harpoon: [h]arpoon [n]ext" })
 	end,
 }
