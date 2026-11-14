@@ -2,7 +2,7 @@
 # ~/.config/ghostty/config (untracked) that sets the per-OS theme and includes
 # this file via `config-file`. Do not set `theme` here - Noctalia rewrites the
 # theme line of ~/.config/ghostty/config, which must not touch the repo.
-font-family = Maple Mono NF
+font-family = 0xProto Nerd Font 
 font-style = Regular
 font-style-italic = Italic
 font-style-bold = Bold
