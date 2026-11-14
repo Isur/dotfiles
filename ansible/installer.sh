@@ -234,6 +234,7 @@ if [ "$SYSTEM" == "Arch" ]; then
 		qt5-wayland
 		qt6-wayland
 		noto-fonts
+		ttf-0xproto-nerd
 		ttf-jetbrains-mono-nerd
 		maplemono-nf-unhinted
 		ttf-hack-nerd
@@ -343,6 +344,7 @@ if [ "$SYSTEM" == "Darwin" ]; then
 
 	brew_install cask "ui/desktop" \
 		raycast \
+		font-0xproto-nerd-font \
 		font-jetbrains-mono-nerd-font \
 		font-maple-mono-nf \
 		font-hack-nerd-font \
