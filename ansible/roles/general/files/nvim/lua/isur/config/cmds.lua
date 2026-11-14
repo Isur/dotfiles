@@ -22,14 +22,14 @@ vim.api.nvim_create_user_command("DiagnosticVirtualText", function()
 	print("Virtual Text is now " .. (virtual_text_enabled and "enabled" or "disabled"))
 end, {})
 
--- Virtual lines toggle
-local virtual_lines_enabled = false
+-- Virtual lines toggle: current line only (default) <-> every line
+local virtual_lines_all = false
 vim.api.nvim_create_user_command("DiagnosticVirtualLines", function()
-	virtual_lines_enabled = not virtual_lines_enabled
+	virtual_lines_all = not virtual_lines_all
 	vim.diagnostic.config({
-		virtual_lines = virtual_lines_enabled,
+		virtual_lines = virtual_lines_all or { current_line = true },
 	})
-	print("Virtual Lines is now " .. (virtual_lines_enabled and "enabled" or "disabled"))
+	print("Virtual Lines now shown on " .. (virtual_lines_all and "every line" or "the current line only"))
 end, {})
 
 _G.lazygit_open_file = function(filename, line)
